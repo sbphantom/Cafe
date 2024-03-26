@@ -38,6 +38,8 @@ public class CafeMain extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CafeMain.class.getResource("cafe-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        CafeViewController cafeController = fxmlLoader.getController();
+        cafeController.setPrimaryStage(stage, scene);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
