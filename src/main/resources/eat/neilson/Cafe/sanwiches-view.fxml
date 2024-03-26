@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="eat.neilson.Cafe.SanwichesView"
+            fx:controller="eat.neilson.Cafe.SandwichViewController"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
