@@ -37,6 +37,26 @@ public class Donut extends MenuItem {
         return Objects.hash(type, flavor);
     }
 
+
+    @Override
+    public String toString(){
+        return flavor + " " + type + " Donut";
+    }
+
+    @Override
+    public int compareTo(MenuItem item){
+            if(item instanceof Donut donut){
+                if (this.type.compareTo(donut.type) !=0) {
+                    return this.type.compareTo(donut.type);
+                }
+                else{
+                    return(this.flavor.compareTo(donut.flavor));
+                }
+            }
+            else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
+    }
+
+
     public static void main(String[] args) {
         Donut a = new Donut();
         a.type = DonutType.CAKE;

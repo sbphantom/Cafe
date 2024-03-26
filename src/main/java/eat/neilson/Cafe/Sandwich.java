@@ -31,6 +31,24 @@ public class Sandwich extends MenuItem {
         return 0;
     }
 
+    @Override
+    public int compareTo(MenuItem item){
+        if(item instanceof Sandwich sandwich){
+            if (this.bread.compareTo(sandwich.bread) !=0) {
+                return this.bread.compareTo(sandwich.bread);
+            }
+            else if(this.protein.compareTo(sandwich.protein) != 0){
+                return this.protein.compareTo(sandwich.protein);
+            }
+            else{
+                // return(this.addOns.compareTo(sandwich.addOns));
+                return 0;
+            }
+        }
+        else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
+    }
+
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -44,6 +62,11 @@ public class Sandwich extends MenuItem {
     public int hashCode() {
         Collections.sort(addOns);
         return Objects.hash(getClass(), bread, protein, addOns);
+    }
+
+    @Override
+    public String toString(){
+        return protein + " " + bread +" sandwich with ("+addOns +")";
     }
 
     public static void main(String[] args){

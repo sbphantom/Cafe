@@ -40,6 +40,21 @@ public class Coffee extends MenuItem {
     }
 
     @Override
+    public int compareTo(MenuItem item){
+        if(item instanceof Coffee coffee){
+            if (this.size.compareTo(coffee.size) !=0) {
+                return this.size.compareTo(coffee.size);
+            }
+            else{
+                // return(this.addOns.compareTo(coffee.addOns));
+                return 0;
+            }
+        }
+        else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
+    }
+
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -52,6 +67,11 @@ public class Coffee extends MenuItem {
     public int hashCode() {
         Collections.sort(addOns);
         return Objects.hash(getClass(), size, addOns);
+    }
+
+    @Override
+    public String toString(){
+        return size + " Coffee with ("+addOns +")";
     }
 
     public static void main(String[] args){
