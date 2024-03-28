@@ -5,14 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+//import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class CafeViewController {
 
+    public CafeMain main = new CafeMain();
     private Stage primaryStage;
     private Scene primaryScene;
 
@@ -21,37 +24,38 @@ public class CafeViewController {
     private Label welcomeText;
 
 
-
-
     @FXML
     public void initialize() {
 
-
-
     }
 
-    public void setPrimaryStage(Stage stage, Scene scene) {
+
+    public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
-        primaryScene = scene;
     }
+//    public void setPrimaryStage(Stage stage, Scene scene) {
+//        primaryStage = stage;
+//        primaryScene = scene;
+//    }
 
     @FXML
     protected void onCoffeeButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-        Stage coffee = new Stage();
-        AnchorPane root;
-        
         try {
+            Stage coffeeStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("coffee-view.fxml"));
-            root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root);
 
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
+            coffeeStage.setScene(new Scene(loader.load()));
+            coffeeStage.setResizable(false);
+            coffeeStage.setTitle("Coffee Menu");
+            coffeeStage.initModality(Modality.APPLICATION_MODAL);
+            coffeeStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
             CoffeeViewController coffeeController = loader.getController();
+            coffeeController.setMainController(this);
 
-            coffeeController.setMainController(this, coffee, primaryStage, primaryScene);
-
+            coffeeStage.show();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -59,8 +63,13 @@ public class CafeViewController {
             alert.setContentText("Couldn't load coffee-view.fxml.");
             alert.showAndWait();
         }
-
     }
+
+    public boolean addItemToOrder(MenuItem item, int quantity){
+        return main.addItem(item, quantity);
+    }
+
+
     @FXML
     protected void onDonutButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -77,10 +86,4 @@ public class CafeViewController {
     protected void onOrderHistoryClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
-
-
-
-
-
-
 }
