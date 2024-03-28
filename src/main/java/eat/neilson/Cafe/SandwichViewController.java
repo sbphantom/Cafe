@@ -9,6 +9,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
 public class SandwichViewController {
 
     private Sandwich sandwich = new Sandwich();
@@ -190,11 +194,25 @@ public class SandwichViewController {
      * @param actionEvent
      */
     public void onAddOrderButtonClick(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Add to Order");
+        alert.setContentText("Add sandwich to order?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            app.addItemToOrder(coffee, coffeeQuantitySpinner.getValue());
+
+            coffee = null;
+
+            coffeeQuantitySpinner.getValueFactory().setValue(1);
+            coffeeSizeToggleGroup.selectToggle(coffeeSizeToggleGroup.getToggles().getFirst());
+            for (CheckBox box : coffeeAddOnOptions){
+                box.setSelected(false);
+            }
+
+            coffee = new Coffee((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
+            updateSubtotal();
     }
-    /**
-     * Resets the entire order
-     * @param actionEvent
-     */
-    public void onCancelOrderButtonClick(ActionEvent actionEvent) {
-    }
+
 }
