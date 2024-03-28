@@ -128,4 +128,5 @@ public class CoffeeViewController {
 
     public void onCancelOrderButtonClick(ActionEvent actionEvent) {
     }
+
 }

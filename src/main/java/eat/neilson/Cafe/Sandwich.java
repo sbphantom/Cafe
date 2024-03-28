@@ -58,6 +58,29 @@ public class Sandwich extends MenuItem {
                 Objects.equals(addOns, sandwich.addOns);
     }
 
+    public void addAddOn(SandwichAddOn addOn){
+        addOns.add(addOn);
+    }
+
+
+    public void setProtein(SandwichProtein protein){
+        this.protein = protein;
+    }
+    public void setBread(SandwichBread bread){
+        this.bread = bread;
+    }
+
+    public void removeAddOn(SandwichAddOn addOn){
+        addOns.remove(addOn);
+    }
+
+    public void setSandwichAddOn(ArrayList<SandwichAddOn> addOns){
+        this.addOns = addOns;
+    }
+
+    public int addOnCount(){
+        return addOns.size();
+    }
     @Override
     public int hashCode() {
         Collections.sort(addOns);
