@@ -46,6 +46,9 @@ public class SandwichViewController {
 
     ToggleGroup proteinToggleGroup = new ToggleGroup();
 
+    public ArrayList<CheckBox> sandwichAddOnOptions = new ArrayList<>();
+
+
 
     @FXML
     public void initialize() {
@@ -149,7 +152,7 @@ public class SandwichViewController {
                 }
                 updateSubtotal();
             } );
-
+            sandwichAddOnOptions.add(checkBox);
             sandwichGridPane.add(checkBox, 2, row);
             if (sandwichGridPane.getRowConstraints().size() <= row){
                 RowConstraints rowConstraints = new RowConstraints();
