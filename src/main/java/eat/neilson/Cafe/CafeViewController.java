@@ -28,7 +28,6 @@ public class CafeViewController {
 
 
 
-
     }
 
     public void setPrimaryStage(Stage stage, Scene scene) {
@@ -42,40 +41,16 @@ public class CafeViewController {
         Stage coffee = new Stage();
         AnchorPane root;
         
-        try { //it is possible to have an IOException because of the errors in the fxml file
-
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("coffee-view.fxml"));
+            root = (AnchorPane) loader.load();
+            Scene scene = new Scene(root);
 
-            System.out.println("1");
-
-            root = (AnchorPane) loader.load(); //type-cast to the data type of the root node
-
-
-            System.out.println("2");
-
-
-            Scene scene = new Scene(root, 500, 400);
-//            System.out.println(scene);
-
-            System.out.println("a");
-            
-            //view1.setScene(scene); //if you want to use the new window to display the new scene
-            //view1.setTitle("view1");
-            //view1.show();
-
-//            Stage primaryStage;
-            primaryStage.setScene(scene); //use the primary stage to display the new scene graph
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             CoffeeViewController coffeeController = loader.getController();
 
-            System.out.println("b");
-
-            /*
-              The statement below is to pass the reference of the MainController object
-              to the View1Controller object so the View1Controller can call the
-              public methods in the MainController.
-             */
             coffeeController.setMainController(this, coffee, primaryStage, primaryScene);
-            System.out.println("c");
 
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
