@@ -25,9 +25,16 @@ public class Coffee extends MenuItem {
     }
 
     public void addAddOn(CoffeeAddOn addOn){
-        if (addOns.size() <= 5){
+//        if (addOns.size() <= 5){
             addOns.add(addOn);
-        }
+//        }
+    }
+    public void removeAddOn(CoffeeAddOn addOn){
+        addOns.remove(addOn);
+    }
+
+    public void setCoffeeAddOn(ArrayList<CoffeeAddOn> addOns){
+        this.addOns = addOns;
     }
 
     public int addOnCount(){
@@ -36,7 +43,11 @@ public class Coffee extends MenuItem {
 
     @Override
     public double price() {
-        return 0;
+        double price = size.price;
+        for (CoffeeAddOn addOn : addOns){
+            price += addOn.price;
+        }
+        return price;
     }
 
     @Override
