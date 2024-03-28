@@ -41,6 +41,18 @@ public class Coffee extends MenuItem {
         return addOns.size();
     }
 
+
+    @Override
+    public String name(){
+        return size + " Coffee";
+    }
+
+    @Override
+    public String addOnString(){
+        return addOns.toString().substring(1, addOns.toString().length()-1);
+    }
+
+
     @Override
     public double price() {
         double price = size.price;

@@ -3,7 +3,9 @@ package eat.neilson.Cafe;
 public abstract class MenuItem {
 
 
+    public abstract String name();
 
+    public abstract String addOnString();
 
 
     public abstract double price();

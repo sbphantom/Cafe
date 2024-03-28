@@ -27,6 +27,16 @@ public class Sandwich extends MenuItem {
 
 
     @Override
+    public String name(){
+        return protein + " " + bread +" Sandwich";
+    }
+
+    @Override
+    public String addOnString(){
+        return addOns.toString().strip();
+    }
+
+    @Override
     public double price() {
         return 0;
     }
