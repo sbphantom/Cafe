@@ -203,10 +203,9 @@ public class SandwichViewController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             app.addItemToOrder(sandwich, 1);
 
-            coffee = null;
+            sandwich = null;
 
-            coffeeQuantitySpinner.getValueFactory().setValue(1);
-            coffeeSizeToggleGroup.selectToggle(coffeeSizeToggleGroup.getToggles().getFirst());
+            proteinToggleGroup.selectToggle(proteinToggleGroup.getToggles().getFirst());
             for (CheckBox box : coffeeAddOnOptions){
                 box.setSelected(false);
             }

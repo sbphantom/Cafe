@@ -15,6 +15,15 @@ public class Order {
     public static double STATE_TAX = 6.625 / 100;
 
 
+
+    public HashMap<MenuItem, Integer> getCart(){
+        return cart;
+    }
+
+    public int cartSize(){
+        return cart.size();
+    }
+
     public int itemCount(MenuItem item){
         return cart.getOrDefault(item, -1);
     }
@@ -62,7 +71,6 @@ public class Order {
         System.out.println(order.cart.containsKey(a));
         System.out.println(order.cart.containsKey(b));
 
-
         order.addItem(a, 3);
         order.addItem(b, 5);
         order.removeItem(b, 2);
@@ -73,3 +81,4 @@ public class Order {
 
 
 }
+
