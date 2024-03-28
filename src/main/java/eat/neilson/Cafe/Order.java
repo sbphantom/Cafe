@@ -2,12 +2,13 @@ package eat.neilson.Cafe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
     private int orderNumber;
-    private double subtotal;
+    private double subtotal = 0.0;
 
-    private double total;
+    private double total = 0.0;
 
     private ArrayList<MenuItem> items = new ArrayList<>();
     private HashMap<MenuItem, Integer> cart = new HashMap<>();
@@ -51,6 +52,22 @@ public class Order {
         else{
             return false;
         }
+    }
+
+    public double getSubtotal(){
+        subtotal = 0;
+        for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()){
+            subtotal += (entry.getKey().price() * entry.getValue());
+        }
+        return subtotal;
+    }
+
+    public double tax(){
+        return subtotal * STATE_TAX;
+    }
+
+    public double getTotal(){
+        return subtotal + tax();
     }
 
     public static void main(String[] args) {
