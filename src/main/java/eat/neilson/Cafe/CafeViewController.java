@@ -13,14 +13,13 @@ import java.io.IOException;
 
 public class CafeViewController {
 
+    public CafeMain main = new CafeMain();
     private Stage primaryStage;
     private Scene primaryScene;
 
 
     @FXML
     private Label welcomeText;
-
-
 
 
     @FXML
