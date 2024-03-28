@@ -65,23 +65,52 @@ public class CafeViewController {
         }
     }
 
-    public boolean addItemToOrder(MenuItem item, int quantity){
+    public boolean addItemToOrder(MenuItem item, int quantity) {
         return main.addItem(item, quantity);
     }
 
+    public Order getOrder() {
+        return main.currentOrder;
+    }
 
     @FXML
     protected void onDonutButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
     @FXML
     protected void onSandwichButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
     @FXML
     protected void onCurrentOrderButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        try {
+            Stage cartStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("cart-view.fxml"));
+
+            cartStage.setScene(new Scene(loader.load()));
+            cartStage.setResizable(false);
+            cartStage.setTitle("Current Order");
+            cartStage.initModality(Modality.APPLICATION_MODAL);
+            cartStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+            CartViewController cartController = loader.getController();
+            cartController.setMainController(this, main.currentOrder);
+            cartController.initializeTable();
+
+            cartStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading cart-view.fxml.");
+            alert.setContentText("Couldn't load cart-view.fxml.");
+            alert.showAndWait();
+        }
     }
+
     @FXML
     protected void onOrderHistoryClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
