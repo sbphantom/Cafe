@@ -7,7 +7,7 @@ public enum CoffeeSize {
     GRANDE(2.99),
     VENTI(3.49);
 
-    private double price;
+    public double price;
 
     CoffeeSize(double price){
         this.price = price;
