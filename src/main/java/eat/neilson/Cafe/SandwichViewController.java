@@ -209,11 +209,11 @@ public class SandwichViewController {
             sandwich = null;
 
             proteinToggleGroup.selectToggle(proteinToggleGroup.getToggles().getFirst());
-            for (CheckBox box : coffeeAddOnOptions){
+            for (CheckBox box : sandwichAddOnOptions){
                 box.setSelected(false);
             }
 
-            coffee = new Coffee((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
+            sandwich = new Sandwich((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
             updateSubtotal();
     }
 
