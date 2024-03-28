@@ -1,18 +1,23 @@
 package eat.neilson.Cafe;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 
 public class CoffeeViewController {
+
+    @FXML
+    public ImageView coffeeImage;
+    @FXML
+    public Spinner<Integer> coffeeQuanitySpinner;
+    public TextField coffeeSubtotalTextField;
+    public Button addOrderButton;
+    public Button cancelOrderButton;
     @FXML
     private GridPane coffeeGridPane;
     @FXML
@@ -21,50 +26,92 @@ public class CoffeeViewController {
     @FXML
 
     public ColumnConstraints coffeeAddOnColumn;
+    ToggleGroup coffeeSizeToggleGroup = new ToggleGroup();
+
     private CafeViewController app;
     private Stage stage;
     private Scene primaryScene;
     private Stage primaryStage;
 
+    private Coffee coffee = new Coffee();
+
     public void initialize() {
         addRadioButtonsToCoffeeSizeColumn();
         addCheckboxesToCoffeeAddOnColumn();
+        coffeeQuanitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5));
+        coffeeQuanitySpinner.getValueFactory().setValue(1);
+        coffeeQuanitySpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            updateSubtotal();
+        });
+
+        coffee.setCoffeeSize((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData());
+        updateSubtotal();
     }
 
+
+    private void updateSubtotal(){
+        double subtotal = coffee.price() * coffeeQuanitySpinner.getValue();
+        String formattedSubtotal = String.format("%.2f", subtotal);
+        coffeeSubtotalTextField.setText("$" + formattedSubtotal);
+    }
     private void addRadioButtonsToCoffeeSizeColumn() {
-        ToggleGroup coffeeSizeToggleGroup = new ToggleGroup();
         int row = 1;
         for (CoffeeSize size : CoffeeSize.values()) {
             RadioButton radioButton = new RadioButton(size.toString());
             radioButton.setToggleGroup(coffeeSizeToggleGroup);
+            radioButton.setUserData(size);
+
             coffeeGridPane.add(radioButton, 0, row);
 
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setMinHeight(50); // Set minimum height
-            rowConstraints.setPrefHeight(50); // Set preferred height
-            rowConstraints.setVgrow(Priority.SOMETIMES); // Allow the row to grow
-            coffeeGridPane.getRowConstraints().add(rowConstraints); // Add the constraints to the GridPane
+            if (coffeeGridPane.getRowConstraints().size() < row) {
+                RowConstraints rowConstraints = new RowConstraints();
+                rowConstraints.setMinHeight(35);
+                rowConstraints.setPrefHeight(35);
+                rowConstraints.setVgrow(Priority.SOMETIMES);
+                coffeeGridPane.getRowConstraints().add(rowConstraints);
+            }
+
+            if (row == 1) {
+                radioButton.setSelected(true);
+            }
 
             row++;
         }
+
+        coffeeSizeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                coffee.setCoffeeSize((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData());
+                updateSubtotal();
+            }
+        });
     }
 
     private void addCheckboxesToCoffeeAddOnColumn() {
         int row = 1;
         for (CoffeeAddOn addOn : CoffeeAddOn.values()) {
             CheckBox checkBox = new CheckBox(addOn.toString());
+            checkBox.setUserData(addOn);
+            checkBox.setOnAction(event -> {
+                if (checkBox.isSelected()) {
+                    coffee.addAddOn((CoffeeAddOn) checkBox.getUserData());
+                } else {
+                    coffee.removeAddOn((CoffeeAddOn) checkBox.getUserData());
+                }
+                updateSubtotal();
+            });
+
             coffeeGridPane.add(checkBox, 1, row);
 
-            RowConstraints rowConstraints = new RowConstraints();
-            rowConstraints.setMinHeight(50); // Set minimum height
-            rowConstraints.setPrefHeight(50); // Set preferred height
-            rowConstraints.setVgrow(Priority.SOMETIMES); // Allow the row to grow
-            coffeeGridPane.getRowConstraints().add(rowConstraints); // Add the constraints to the GridPane
-
+            if (coffeeGridPane.getRowConstraints().size() <= row) {
+                RowConstraints rowConstraints = new RowConstraints();
+                rowConstraints.setMinHeight(35);
+                rowConstraints.setPrefHeight(35);
+                rowConstraints.setVgrow(Priority.SOMETIMES);
+                coffeeGridPane.getRowConstraints().add(rowConstraints);
+            }
             row++;
         }
     }
-
 
     public void setMainController(CafeViewController controller,
                                   Stage stage,
@@ -76,4 +123,9 @@ public class CoffeeViewController {
         this.primaryScene = primaryScene;
     }
 
+    public void onAddOrderButtonClick(ActionEvent actionEvent) {
+    }
+
+    public void onCancelOrderButtonClick(ActionEvent actionEvent) {
+    }
 }
