@@ -1,12 +1,12 @@
 package eat.neilson.Cafe;
 
 public enum DonutFlavor {
-    YEAST_FLAVOR_A(DonutType.YEAST),
-    YEAST_FLAVOR_B(DonutType.YEAST),
-    YEAST_FLAVOR_C(DonutType.YEAST),
-    YEAST_FLAVOR_D(DonutType.YEAST),
-    YEAST_FLAVOR_E(DonutType.YEAST),
-    YEAST_FLAVOR_F(DonutType.YEAST),
+    MAPLE(DonutType.YEAST),
+    SUGAR(DonutType.YEAST),
+    BLUEBERRY(DonutType.YEAST),
+    JELLY(DonutType.YEAST),
+    CRULLER(DonutType.YEAST),
+    COFFEE(DonutType.YEAST),
 
 
     VANILLA(DonutType.CAKE),
@@ -16,8 +16,6 @@ public enum DonutFlavor {
     PLAIN(DonutType.HOLE),
     POWDER(DonutType.HOLE),
     GLAZED(DonutType.HOLE);
-
-
 
 
     private DonutType type;
