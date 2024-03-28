@@ -6,7 +6,7 @@ public enum SandwichProtein {
     CHICKEN(8.99),
     FISH(10.99);
 
-    private double price;
+    public double price;
 
     SandwichProtein(double price){
         this.price = price;

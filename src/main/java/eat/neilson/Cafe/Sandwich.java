@@ -25,10 +25,20 @@ public class Sandwich extends MenuItem {
         this.addOns = addOns;
     }
 
-
+    /**
+     * Calculates total price of a sandwich object
+     * by adding its protein & add-ons.
+     * @return price of a sandwich object
+     */
     @Override
     public double price() {
-        return 0;
+
+        double price = protein.price;
+
+        for(SandwichAddOn addOn: addOns){
+           price+=addOn.price;
+        }
+        return price;
     }
 
     @Override

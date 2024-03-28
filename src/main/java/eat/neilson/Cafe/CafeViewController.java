@@ -73,7 +73,7 @@ public class CafeViewController {
         AnchorPane root;
 
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sanwiches-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
             root = (AnchorPane) loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);

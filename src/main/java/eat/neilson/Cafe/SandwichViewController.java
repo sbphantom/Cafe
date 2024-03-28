@@ -20,6 +20,7 @@ public class SandwichViewController {
 
     public Button CancelOrderButton;
 
+    @FXML
     private GridPane sandwichGridPane;
 
     public ColumnConstraints sandwichBreadColumn;
@@ -44,12 +45,14 @@ public class SandwichViewController {
 
     @FXML
     public void initialize() {
-        addRadioButtonsToBreadColumn();
-        addRadioButtonsToProteinColumn();
 
-        sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
-        sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
-        updateSubtotal();
+       addRadioButtonsToBreadColumn();
+       addRadioButtonsToProteinColumn();
+       addCheckboxesToAddOnColumn();
+
+       sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
+       sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
+       updateSubtotal();
 
     }
 
@@ -72,20 +75,20 @@ public class SandwichViewController {
                 rowConstraints.setVgrow(Priority.SOMETIMES);
                 sandwichGridPane.getRowConstraints().add(rowConstraints);
             }
-
             if(row ==1){
                 radioButton.setSelected(true);
             }
 
             row++;
 
-            breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
-                if(newValue !=null ){
-                    sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
-                    updateSubtotal();
-                }
-            });
         }
+
+        breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue !=null ){
+                sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
+                updateSubtotal();
+            }
+        });
     }
 
     /**
@@ -98,7 +101,7 @@ public class SandwichViewController {
             radioButton.setToggleGroup(proteinToggleGroup);
             radioButton.setUserData(protein);
 
-            sandwichGridPane.add(radioButton, 0, row);
+            sandwichGridPane.add(radioButton, 1, row);
 
             if(sandwichGridPane.getRowConstraints().size() < row){
                 RowConstraints rowConstraints = new RowConstraints();
@@ -115,13 +118,14 @@ public class SandwichViewController {
 
             row++;
 
+        }
+
         proteinToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue !=null){
                 sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();
             }
         });
-        }
     }
 
     /**
