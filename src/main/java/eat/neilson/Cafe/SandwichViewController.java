@@ -1,6 +1,7 @@
 package eat.neilson.Cafe;
 /**
- *
+ *This class serves as the main controller for the sandwich ordering window.
+ * Orders from this window are sent back to the main cart.
  * @author Adeola Asimolowo, Danny Onurah
  */
 
@@ -217,7 +218,7 @@ public class SandwichViewController {
                 box.setSelected(false);
             }
 
-            sandwich = new Sandwich((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
+            sandwich = new Sandwich((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData() , (SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
             updateSubtotal();
     }
 
