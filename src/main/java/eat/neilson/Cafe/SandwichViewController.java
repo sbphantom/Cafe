@@ -201,7 +201,7 @@ public class SandwichViewController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            app.addItemToOrder(coffee, coffeeQuantitySpinner.getValue());
+            app.addItemToOrder(sandwich, 1);
 
             coffee = null;
 

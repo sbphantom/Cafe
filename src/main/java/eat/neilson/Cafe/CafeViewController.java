@@ -35,6 +35,10 @@ public class CafeViewController {
         primaryScene = scene;
     }
 
+    public boolean addItemToOrder(MenuItem item, int quantity){
+        return main.addItem(item, quantity);
+    }
+
     @FXML
     protected void onCoffeeButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
