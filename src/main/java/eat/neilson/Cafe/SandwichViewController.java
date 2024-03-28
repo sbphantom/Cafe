@@ -1,4 +1,8 @@
 package eat.neilson.Cafe;
+/**
+ *
+ * @author Adeola Asimolowo, Danny Onurah
+ */
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -136,7 +140,7 @@ public class SandwichViewController {
     }
 
     /**
-     * adds checkboxes of sandwich add-ons to gridpane column.
+     * Adds checkboxes of sandwich add-ons to gridpane column.
      */
     private void  addCheckboxesToAddOnColumn(){
         int row = 1;
@@ -166,7 +170,7 @@ public class SandwichViewController {
     }
 
     /**
-     *
+     *Sets SandwichViewController as the main controller
      * @param controller
      * @param stage
      * @param primaryStage
