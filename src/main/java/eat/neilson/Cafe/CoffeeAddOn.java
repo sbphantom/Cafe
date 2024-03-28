@@ -6,9 +6,15 @@ public enum CoffeeAddOn {
     FRENCH_VANILLA,
     IRISH_CREAM,
     CARAMEL,
+
+//    SUGAR_CANE,
+//    BLUEBERRY,
+//    HAZELNUT,
+//    PEPPERMINT,
+
     MOCHA;
 
-    private double price;
+    public double price;
 
     CoffeeAddOn(){
         this.price = 0.30;
