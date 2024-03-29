@@ -1,12 +1,11 @@
 package eat.neilson.Cafe;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -33,34 +32,22 @@ public class DonutViewController {
     private Scene primaryScene;
 
     private Stage primaryStage;
+    @FXML
+    private ComboBox donutTypeComboBox;
 
+    private ObservableList<String> donutTypeList = FXCollections.observableArrayList();
     ToggleGroup typeToggleGroup = new ToggleGroup(); 
     @FXML
-    public void initialize() {}
+    public void initialize() {
+        addRadioToDonutTypeColumn();
+    }
 
     private void addRadioToDonutTypeColumn(){
-        int row = 1; 
-        for(DonutType donut: DonutType.values()){
-            RadioButton radioButton = new RadioButton(donut.toString);
-            radioButton.setToggleGroup(null);
-            radioButton.setUserData(donut);
-            
-            donutGridPane.add(radioButton, 0, row);
-            
-            if(donutGridPane.getRowConstraints().size() < row){
-                RowConstraints rowConstraints = new RowConstraints();
-                rowConstraints.setMinHeight(35);
-                rowConstraints.setPrefHeight(35);
-                rowConstraints.setVgrow(Priority.SOMETIMES);
-                donutGridPane.getRowConstraints().add(rowConstraints);
-            }
 
-            if (row ==1){
-                radioButton.setSelected(true); 
-            }
-
-            row++; 
+        for(DonutType donut: DonutType.values()) {
+            donutTypeList.add(donut.toString());
         }
+        donutTypeComboBox.setItems(donutTypeList);
     }
 
 
