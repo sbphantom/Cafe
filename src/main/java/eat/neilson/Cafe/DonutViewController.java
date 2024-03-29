@@ -36,18 +36,34 @@ public class DonutViewController {
     private ComboBox donutTypeComboBox;
 
     private ObservableList<String> donutTypeList = FXCollections.observableArrayList();
-    ToggleGroup typeToggleGroup = new ToggleGroup(); 
+   public  ToggleGroup typeToggleGroup = new ToggleGroup();
     @FXML
     public void initialize() {
-        addRadioToDonutTypeColumn();
+
     }
 
     private void addRadioToDonutTypeColumn(){
 
-        for(DonutType donut: DonutType.values()) {
-            donutTypeList.add(donut.toString());
-        }
-        donutTypeComboBox.setItems(donutTypeList);
+        int row = 1;
+        for (DonutType bread: DonutType.values()){
+            RadioButton radioButton = new RadioButton(bread.toString());
+            radioButton.setToggleGroup(typeToggleGroup);
+            radioButton.setUserData(bread);
+
+            donutGridPane.add(radioButton, 0, row);
+
+            if(donutGridPane.getRowConstraints().size() < row){
+                RowConstraints rowConstraints = new RowConstraints();
+                rowConstraints.setMinHeight(35);
+                rowConstraints.setPrefHeight(35);
+                rowConstraints.setVgrow(Priority.SOMETIMES);
+                donutGridPane.getRowConstraints().add(rowConstraints);
+            }
+            if(row ==1){
+                radioButton.setSelected(true);
+            }
+
+            row++;
     }
 
 
