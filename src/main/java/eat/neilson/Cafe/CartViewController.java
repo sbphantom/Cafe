@@ -27,87 +27,31 @@ public class CartViewController {
 
     public Order order;
 
-    private void initializeTable(TableView<MenuItem> table) {
-//        TableColumn<MenuItem, String> firstNameColumn = new TableColumn<>("Item");
-//        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
-//        table.getColumns().add(firstNameColumn);
-//
-//        TableColumn<MenuItem, Integer> lastNameColumn = new TableColumn<>("Last Name");
-//        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProfile().getLname()));
-//        table.getColumns().add(lastNameColumn);
-//
-//        TableColumn<MenuItem, Date> dobColumn = new TableColumn<>("Birthdate");
-//        dobColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getProfile().getDob()));
-//        table.getColumns().add(dobColumn);
 
-    }
 
     public void initialize() {
-
 
 
     }
 
     public void initializeTable(){
+        TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = getItemColumn();
+        TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = getAddOnColumn();
+        TableColumn<Map.Entry<MenuItem, Integer>, Void> quantityColumn = getQuantityColumn();
+        TableColumn<Map.Entry<MenuItem, Integer>, Double> priceColumn = getPriceColumn();
+
+
+
+        menuItemTable.getColumns().addAll(itemColumn, addOnColumn, quantityColumn, priceColumn);
+
         ObservableMap<MenuItem, Integer> observableMap = FXCollections.observableMap(order.getCart());
+        menuItemTable.setItems(FXCollections.observableArrayList(observableMap.entrySet()));
+        updateTotal();
+    }
 
-        TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = new TableColumn<>("Item");
-
-        itemColumn.setCellValueFactory(data -> {
-            MenuItem menuItem = data.getValue().getKey();
-            return new SimpleStringProperty(menuItem.name());
-        });
-
-        itemColumn.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setAlignment(Pos.CENTER_LEFT);
-                }
-            }
-        });
-
-        menuItemTable.getColumns().add(itemColumn);
-
-
-
-        TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = new TableColumn<>("Add Ons");
-        addOnColumn.setCellValueFactory(data -> {
-            MenuItem menuItem = data.getValue().getKey();
-            return new SimpleStringProperty(menuItem.addOnString());
-        });
-
-        addOnColumn.setCellFactory(tc -> {
-            TableCell<Map.Entry<MenuItem, Integer>, String> cell = new TableCell<>();
-            cell.textProperty().bind(cell.itemProperty().asString());
-            cell.setAlignment(Pos.CENTER_LEFT);  // Set the alignment here
-            return cell;
-        });
-
-        addOnColumn.setCellFactory(tc -> {
-            TableCell<Map.Entry<MenuItem, Integer>, String> cell = new TableCell<>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty || item == null) {
-                        setText(null);
-                    } else {
-                        setText(item.toString());
-                        setAlignment(Pos.CENTER_LEFT);
-                    }
-                }
-            };
-            return cell;
-        });
-
-        menuItemTable.getColumns().add(addOnColumn);
-
-        TableColumn<Map.Entry<MenuItem, Integer>, Void> incrementDecrementColumn = new TableColumn<>("Change Quantity");
-        incrementDecrementColumn.setCellFactory(param -> new TableCell<>() {
+    private TableColumn<Map.Entry<MenuItem, Integer>, Void> getQuantityColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, Void> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setCellFactory(param -> new TableCell<>() {
             private final Button incrementButton = new Button("+");
             private final Button decrementButton = new Button("-");
             private final Label quantityLabel = new Label();
@@ -131,10 +75,8 @@ public class CartViewController {
                     }
                 });
 
-                // Style the buttons
-                incrementButton.setStyle("-fx-background-radius: 50%; ");
-                decrementButton.setStyle("-fx-background-radius: 50%; ");
-
+                incrementButton.setStyle("-fx-background-radius: 50%;");
+                decrementButton.setStyle("-fx-background-radius: 50%;");
             }
 
             @Override
@@ -152,9 +94,11 @@ public class CartViewController {
                 }
             }
         });
-        menuItemTable.getColumns().add(incrementDecrementColumn);
 
+        return quantityColumn;
+    }
 
+    private TableColumn<Map.Entry<MenuItem, Integer>, Double> getPriceColumn() {
         TableColumn<Map.Entry<MenuItem, Integer>, Double> priceColumn = new TableColumn<>("Price");
 
         priceColumn.setCellValueFactory(data -> {
@@ -162,35 +106,67 @@ public class CartViewController {
             return new SimpleDoubleProperty(price).asObject();
         });
 
-        priceColumn.setCellFactory(tc -> {
-            TableCell<Map.Entry<MenuItem, Integer>, Double> cell = new TableCell<>();
-            cell.textProperty().bind(cell.itemProperty().asString());
-            cell.setAlignment(Pos.CENTER_RIGHT);  // Set the alignment here
-            return cell;
+        priceColumn.setCellFactory(tc -> new TableCell<>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                    setAlignment(Pos.CENTER_RIGHT);
+                }
+            }
         });
 
-        priceColumn.setCellFactory(tc -> {
-            TableCell<Map.Entry<MenuItem, Integer>, Double> cell = new TableCell<>() {
+
+        return priceColumn;
+    }
+
+    private TableColumn<Map.Entry<MenuItem, Integer>, String> getAddOnColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = new TableColumn<>("Add Ons");
+
+        addOnColumn.setCellValueFactory(data -> {
+            MenuItem menuItem = data.getValue().getKey();
+            return new SimpleStringProperty(menuItem.addOnString());
+        });
+
+        addOnColumn.setCellFactory(tc -> new TableCell<>() {
                 @Override
-                protected void updateItem(Double item, boolean empty) {
+                protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
                     if (empty || item == null) {
                         setText(null);
                     } else {
-                        setText(item.toString());
-                        setAlignment(Pos.CENTER_RIGHT);
+                        setText(item);
+                        setAlignment(Pos.CENTER_LEFT);
                     }
                 }
-            };
-            return cell;
+            });
+        return addOnColumn;
+    }
+
+    private TableColumn<Map.Entry<MenuItem, Integer>, String> getItemColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = new TableColumn<>("Item");
+
+        itemColumn.setCellValueFactory(data -> {
+            MenuItem menuItem = data.getValue().getKey();
+            return new SimpleStringProperty(menuItem.name());
         });
 
-
-        menuItemTable.getColumns().add(priceColumn);
-
-
-        menuItemTable.setItems(FXCollections.observableArrayList(observableMap.entrySet()));
-        updateTotal();
+        itemColumn.setCellFactory(tc -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setAlignment(Pos.CENTER_LEFT);
+                }
+            }
+        });
+        return itemColumn;
     }
 
 
