@@ -155,7 +155,13 @@ public class DonutViewController {
 
         switch (operation){
             case "add":
-                double subtotal = donut.price()  * quantity;
+
+                String subtotalText = donutSubtotalTextField.getText();
+
+                // Parse the subtotal if it's not empty, otherwise initialize it to 0
+                double subtotal = subtotalText.isEmpty() ? 0 : Double.parseDouble(subtotalText.substring(1));
+
+                subtotal += donut.price() * quantity;
                 String formattedSubtotal = String.format("%.2f", subtotal);
                 donutSubtotalTextField.setText("$" + formattedSubtotal);
                 break;
