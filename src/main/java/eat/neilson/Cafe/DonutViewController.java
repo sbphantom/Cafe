@@ -88,7 +88,7 @@ public class DonutViewController {
             if(newValue !=null ){
                 donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
                 populateFlavors(donut);
-                updateSubtotal();
+               // updateSubtotal();
             }
         });
     }
@@ -127,7 +127,7 @@ public class DonutViewController {
         this.primaryScene = primaryScene;
     }
 
-
+    @SuppressWarnings("unchecked")
     public void onAddButtonClick(){
 
         Object[] tuple = new Object[2];
@@ -144,15 +144,27 @@ public class DonutViewController {
         String finalPreOrder= String.format(d.toString() + "(%s)",donutQuantity.getValue().toString());
         preOrdersList.add(finalPreOrder);
         preOrders.setItems(preOrdersList);
+
+        updateSubtotal("add", (Integer) donutQuantity.getValue());
     }
 
 
     //Iterate through preOrder arrays and send to main cart
     public void onAddOrderButtonClick(ActionEvent actionEvent){}
-    private void updateSubtotal(){
-        double subtotal = donut.price() ;
-        String formattedSubtotal = String.format("%.2f", subtotal);
-        donutSubtotalTextField.setText("$" + formattedSubtotal);
+    private void updateSubtotal(String operation, int quantity){
+
+        switch (operation){
+            case "add":
+                double subtotal = donut.price()  * quantity;
+                String formattedSubtotal = String.format("%.2f", subtotal);
+                donutSubtotalTextField.setText("$" + formattedSubtotal);
+                break;
+            case "sub":
+                break;
+            default:
+        }
+
+
     }
 
 }
