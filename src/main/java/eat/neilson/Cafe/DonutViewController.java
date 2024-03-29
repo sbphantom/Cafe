@@ -3,6 +3,7 @@ package eat.neilson.Cafe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,6 +13,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class DonutViewController {
 
     private Donut donut;
@@ -20,7 +23,7 @@ public class DonutViewController {
     public Button add;
     public Button delete;
 
-
+    @FXML
     public TextField donutSubtotalTextField; 
 
     @FXML
@@ -38,14 +41,21 @@ public class DonutViewController {
 
     private Stage primaryStage;
     @FXML
-    private ComboBox quantity;
+    private ComboBox donutQuantity;
 
     private ObservableList<String> flavors = FXCollections.observableArrayList();
 
+    private ObservableList<String> preOrdersList = FXCollections.observableArrayList();
+
     private ListView flavorListView;
-   public  ToggleGroup typeToggleGroup = new ToggleGroup();
+
+
+    private ListView preOrders;
+   public  ToggleGroup donutTypeToggleGroup = new ToggleGroup();
     @FXML
     public void initialize() {
+        addRadioToDonutTypeColumn();
+        populateQuantityComboBox();
 
     }
 
@@ -54,7 +64,7 @@ public class DonutViewController {
         int row = 1;
         for (DonutType donut : DonutType.values()) {
             RadioButton radioButton = new RadioButton(donut.toString());
-            radioButton.setToggleGroup(typeToggleGroup);
+            radioButton.setToggleGroup(donutTypeToggleGroup);
             radioButton.setUserData(donut);
 
             donutGridPane.add(radioButton, 0, row);
@@ -72,9 +82,11 @@ public class DonutViewController {
             row++;
         }
         donutGridPane.add(flavorListView, 1, 1);
-        typeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
+        flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue !=null ){
-                donut.setType((DonutType) typeToggleGroup.getSelectedToggle().getUserData());
+                donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
                 populateFlavors(donut);
                 updateSubtotal();
             }
@@ -86,6 +98,14 @@ public class DonutViewController {
         flavors.addAll(donut.getType().getFlavors());
         flavorListView.setItems(flavors);
 
+    }
+
+    @SuppressWarnings("unchecked")
+    private void populateQuantityComboBox(){
+        for (int i = 1; i <= 12; i++) {
+            donutQuantity.getItems().add(i);
+        }
+        donutQuantity.setValue(1);
     }
 
 
@@ -101,16 +121,34 @@ public class DonutViewController {
      */
     public void setMainController(CafeViewController controller, Stage stage,
                                   Stage primaryStage, Scene primaryScene){
-
         app = controller;
         this.stage = stage;
         this.primaryStage = primaryStage;
         this.primaryScene = primaryScene;
-
     }
 
 
+    public void onAddButtonClick(){
 
+        Object[] tuple = new Object[2];
+        Donut  d = new Donut();
+        d.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
+
+        String donutFlavor = (String) flavorListView.getSelectionModel().getSelectedItem();
+        d.setFlavor(DonutFlavor.getDonutFlavor(donutFlavor));
+
+        tuple[0] = d;
+        tuple[1] = 42; //Amount that they want turn it into a string to make it easy abeg
+
+
+        String finalPreOrder= String.format(d.toString() + "(%s)",donutQuantity.getValue().toString());
+        preOrdersList.add(finalPreOrder);
+        preOrders.setItems(preOrdersList);
+    }
+
+
+    //Iterate through preOrder arrays and send to main cart
+    public void onAddOrderButtonClick(ActionEvent actionEvent){}
     private void updateSubtotal(){
         double subtotal = donut.price() ;
         String formattedSubtotal = String.format("%.2f", subtotal);

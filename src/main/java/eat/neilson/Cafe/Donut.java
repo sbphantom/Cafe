@@ -35,6 +35,9 @@ public class Donut extends MenuItem {
     public void setType(DonutType type) {
         this.type = type;
     }
+    public void setFlavor(DonutFlavor flavor){
+        this.flavor = flavor;
+    }
     public DonutType getType(){
         return this.type;
     }
@@ -47,7 +50,7 @@ public class Donut extends MenuItem {
 
     @Override
     public String toString(){
-        return flavor + " " + type + " Donut";
+        return flavor + " " + type;
     }
 
     @Override

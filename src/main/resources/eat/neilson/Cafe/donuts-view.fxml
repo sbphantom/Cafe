@@ -50,11 +50,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ListView  fx:id="flavorListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ListView fx:id="flavorListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Select Flavor: " GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Select Type: " textAlignment="CENTER" GridPane.halignment="LEFT" />
-                  <Label text="Select Add-Ons:" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Quantity:" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+                  <ComboBox fx:id="donutQuantity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets top="10.0" />
@@ -65,7 +65,7 @@
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ListView fx:id="preOrders" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="5.0" />
