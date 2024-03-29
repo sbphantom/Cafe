@@ -28,7 +28,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label  text="Order Subtotal:" />
+            <Label text="Order Subtotal:" />
             <Label text="State Tax:" GridPane.rowIndex="1" />
             <Label text="Total: " GridPane.rowIndex="2" />
             <Label fx:id="subtotalText" prefWidth="50.0" textAlignment="RIGHT" GridPane.columnIndex="1" />
