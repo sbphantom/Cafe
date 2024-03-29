@@ -95,7 +95,7 @@ public class SandwichViewController {
 
         }
 
-        breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
+         breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
             if(newValue !=null ){
                 sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();

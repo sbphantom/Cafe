@@ -1,5 +1,8 @@
 package eat.neilson.Cafe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum DonutType {
 
     YEAST(1.79),
@@ -16,5 +19,13 @@ public enum DonutType {
     public String toString() {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase();
     }
-
+    public List<String> getFlavors() {
+        List<String> flavors = new ArrayList<>();
+        for (DonutFlavor flavor : DonutFlavor.values()) {
+            if (flavor.getType() == this) {
+                flavors.add(flavor.toString());
+            }
+        }
+        return flavors;
+    }
 }

@@ -2,8 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -24,7 +25,7 @@
                <children>
                   <ImageView fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Donut-A.png" />
+                        <Image url="@cake.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -37,7 +38,7 @@
                   <Insets bottom="5.0" top="10.0" />
                </padding>
             </Label>
-            <GridPane fx:id="sandwichGridPane" alignment="CENTER">
+            <GridPane fx:id="sandwichGridPane" alignment="CENTER" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,12 +47,25 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
+                  <ListView  fx:id="flavorListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Select Flavor: " GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Select Type: " textAlignment="CENTER" GridPane.halignment="LEFT" />
                   <Label text="Select Add-Ons:" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
-                  <Spinner editable="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Add " GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="10.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="5.0" />
@@ -66,7 +80,6 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <padding>
                   <Insets bottom="25.0" top="10.0" />
@@ -74,7 +87,6 @@
                <children>
                   <Label text="Subtotal:" GridPane.halignment="RIGHT" />
                   <Button mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" text="Cancel" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <TextField fx:id="sandwichSubtotalTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>

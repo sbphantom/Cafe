@@ -14,7 +14,12 @@ import javafx.stage.Stage;
 
 public class DonutViewController {
 
-    public Button addOrder; 
+    private Donut donut;
+
+    public Button addOrder;
+    public Button add;
+    public Button delete;
+
 
     public TextField donutSubtotalTextField; 
 
@@ -33,44 +38,59 @@ public class DonutViewController {
 
     private Stage primaryStage;
     @FXML
-    private ComboBox donutTypeComboBox;
+    private ComboBox quantity;
 
-    private ObservableList<String> donutTypeList = FXCollections.observableArrayList();
+    private ObservableList<String> flavors = FXCollections.observableArrayList();
+
+    private ListView flavorListView;
    public  ToggleGroup typeToggleGroup = new ToggleGroup();
     @FXML
     public void initialize() {
 
     }
 
-    private void addRadioToDonutTypeColumn(){
+    private void addRadioToDonutTypeColumn() {
 
         int row = 1;
-        for (DonutType bread: DonutType.values()){
-            RadioButton radioButton = new RadioButton(bread.toString());
+        for (DonutType donut : DonutType.values()) {
+            RadioButton radioButton = new RadioButton(donut.toString());
             radioButton.setToggleGroup(typeToggleGroup);
-            radioButton.setUserData(bread);
+            radioButton.setUserData(donut);
 
             donutGridPane.add(radioButton, 0, row);
 
-            if(donutGridPane.getRowConstraints().size() < row){
+            if (donutGridPane.getRowConstraints().size() < row) {
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setMinHeight(35);
                 rowConstraints.setPrefHeight(35);
                 rowConstraints.setVgrow(Priority.SOMETIMES);
                 donutGridPane.getRowConstraints().add(rowConstraints);
             }
-            if(row ==1){
+            if (row == 1) {
                 radioButton.setSelected(true);
             }
-
             row++;
+        }
+        donutGridPane.add(flavorListView, 1, 1);
+        typeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
+            if(newValue !=null ){
+                donut.setType((DonutType) typeToggleGroup.getSelectedToggle().getUserData());
+                populateFlavors(donut);
+                updateSubtotal();
+            }
+        });
+    }
+
+    private void populateFlavors(Donut donut) {
+        flavors.clear();
+        flavors.addAll(donut.getType().getFlavors());
+        flavorListView.setItems(flavors);
+
     }
 
 
 
-
-
-    //if this donuc ttype selected display this     
+        //if this donut type selected display this
     
     /**
      *Sets DonutViewController as the main screen
@@ -87,6 +107,14 @@ public class DonutViewController {
         this.primaryStage = primaryStage;
         this.primaryScene = primaryScene;
 
+    }
+
+
+
+    private void updateSubtotal(){
+        double subtotal = donut.price() ;
+        String formattedSubtotal = String.format("%.2f", subtotal);
+        donutSubtotalTextField.setText("$" + formattedSubtotal);
     }
 
 }

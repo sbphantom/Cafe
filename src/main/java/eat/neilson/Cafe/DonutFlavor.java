@@ -24,6 +24,10 @@ public enum DonutFlavor {
         this.type = type;
     }
 
+    public DonutType getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         String[] words = this.name().split("_");

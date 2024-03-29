@@ -32,6 +32,13 @@ public class Donut extends MenuItem {
         return type == donut.type && flavor == donut.flavor;
     }
 
+    public void setType(DonutType type) {
+        this.type = type;
+    }
+    public DonutType getType(){
+        return this.type;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(type, flavor);
