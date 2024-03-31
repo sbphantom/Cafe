@@ -31,6 +31,16 @@ public class Sandwich extends MenuItem {
      * @return price of a sandwich object
      */
     @Override
+    public String name(){
+        return protein + " " + bread +" Sandwich";
+    }
+
+    @Override
+    public String addOnString(){
+        return addOns.toString().strip();
+    }
+
+    @Override
     public double price() {
 
         double price = protein.price;

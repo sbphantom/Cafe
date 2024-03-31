@@ -14,7 +14,7 @@ import java.util.Random;
 public class CafeMain extends Application {
 
     HashMap<Integer, Order> orderHistory = new HashMap<>();
-    //    ArrayList<Order> orderHistory = new ArrayList<>();
+//    ArrayList<Order> orderHistory = new ArrayList<>();
     Order currentOrder = createOrder();
 
 

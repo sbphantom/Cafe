@@ -20,6 +20,16 @@ public class Donut extends MenuItem {
 
 
     @Override
+    public String name(){
+        return flavor + " " + type + " Donut";
+    }
+
+    @Override
+    public String addOnString(){
+        return "";
+    }
+
+    @Override
     public double price() {
         return type.price;
     }
