@@ -17,6 +17,16 @@ public class Order {
 
 
 
+    public Order(int num){
+        this.orderNumber = num;
+    }
+
+
+
+    public Integer getOrderNumber(){
+        return orderNumber;
+    }
+
     public HashMap<MenuItem, Integer> getCart(){
         return cart;
     }
@@ -72,27 +82,27 @@ public class Order {
 
     public static void main(String[] args) {
 
-        Order order = new Order();
-        Coffee a = new Coffee();
-        a.setCoffeeSize(CoffeeSize.GRANDE);
-        a.addAddOn(CoffeeAddOn.CARAMEL);
-        a.addAddOn(CoffeeAddOn.FRENCH_VANILLA);
-
-        Coffee b = new Coffee();
-        b.setCoffeeSize(CoffeeSize.GRANDE);
-        b.addAddOn(CoffeeAddOn.FRENCH_VANILLA);
-        b.addAddOn(CoffeeAddOn.CARAMEL);
-
-        //order.cart.put(a, 1);
-
-        System.out.println(order.cart.containsKey(a));
-        System.out.println(order.cart.containsKey(b));
-
-        order.addItem(a, 3);
-        order.addItem(b, 5);
-        order.removeItem(b, 2);
-        System.out.println(order.itemCount(b));
-
+//        Order order = new Order(0100);
+//        Coffee a = new Coffee();
+//        a.setCoffeeSize(CoffeeSize.GRANDE);
+//        a.addAddOn(CoffeeAddOn.CARAMEL);
+//        a.addAddOn(CoffeeAddOn.FRENCH_VANILLA);
+//
+//        Coffee b = new Coffee();
+//        b.setCoffeeSize(CoffeeSize.GRANDE);
+//        b.addAddOn(CoffeeAddOn.FRENCH_VANILLA);
+//        b.addAddOn(CoffeeAddOn.CARAMEL);
+//
+//        //order.cart.put(a, 1);
+//
+//        System.out.println(order.cart.containsKey(a));
+//        System.out.println(order.cart.containsKey(b));
+//
+//        order.addItem(a, 3);
+//        order.addItem(b, 5);
+//        order.removeItem(b, 2);
+//        System.out.println(order.itemCount(b));
+//
 
     }
 
