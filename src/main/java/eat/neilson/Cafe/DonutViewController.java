@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -15,39 +16,41 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DonutViewController {
 
+    public ImageView donutImage;
     private Donut donut = new Donut();
     public Button addOrder;
+   @FXML
     public Button addButtonPreOrder;
-    public Button deleteButtonPreOrder;
+   @FXML
+   public Button deleteButtonPreOrder;
     @FXML
     public TextField donutSubtotalTextField;
     @FXML
-    private GridPane donutGridPane;
+    public GridPane donutGridPane;
+    public GridPane DonutTypesGridPane;
     public ColumnConstraints donutTypeColumn;
     public ColumnConstraints donutFlavorColumn;
     private CafeViewController app;
     private Stage stage;
-    private Scene primaryScene;
-    private Stage primaryStage;
     @FXML
-    private ComboBox donutQuantity;
+    public ComboBox donutQuantity;
     private ObservableList<DonutFlavor> flavors = FXCollections.observableArrayList();
     private ObservableList<Donut> preOrdersList = FXCollections.observableArrayList();
     @FXML
-    private ListView flavorListView;
+    public ListView flavorListView;
     @FXML
-    private ListView preOrders;
+    public ListView preOrders;
     public ToggleGroup donutTypeToggleGroup = new ToggleGroup();
-
-    private ImageView donutImageView;
-
 
     @FXML
     public void initialize() {
+
         addRadioToDonutTypeColumn();
+        setListViews();
         populateQuantityComboBox();
 
     }
@@ -56,47 +59,52 @@ public class DonutViewController {
      * Adds available donut types to the screen
      */
     private void addRadioToDonutTypeColumn() {
+        flavorListView.getSelectionModel().selectFirst();
 
-        int row = 1;
+        int row = 0;
         for (DonutType donutRadioType : DonutType.values()) {
-            RadioButton radioButton = new RadioButton(donut.toString());
+            RadioButton radioButton = new RadioButton(donutRadioType.toString());
             radioButton.setToggleGroup(donutTypeToggleGroup);
             radioButton.setUserData(donutRadioType);
 
-            donutGridPane.add(radioButton, 0, row);
+            DonutTypesGridPane.add(radioButton, 0, row);
 
-            if (donutGridPane.getRowConstraints().size() < row) {
+            if (DonutTypesGridPane.getRowConstraints().size() < row) {
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setMinHeight(35);
-                rowConstraints.setPrefHeight(35);
+                rowConstraints.setPrefHeight(20);
                 rowConstraints.setVgrow(Priority.SOMETIMES);
-                donutGridPane.getRowConstraints().add(rowConstraints);
+                DonutTypesGridPane.getRowConstraints().add(rowConstraints);
             }
-            if (row == 1) {
+            if (row == 0) {
                 radioButton.setSelected(true);
             }
             row++;
         }
-        donutGridPane.add(flavorListView, 1, 1);
+        //donutGridPane.add(flavorListView, 1, 1);
         flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                populateFlavors(donut);
-                DonutType selectedType = (DonutType) newValue.getUserData();
 
+                DonutType selectedType = (DonutType) newValue.getUserData();
+                populateFlavors(selectedType);
                 String imagePath = "";
                 switch (selectedType) {
                     case DonutType.YEAST:
-                        imagePath = "src/main/resources/eat/neilson/Cafe/yeast.jpg";
-
+                        imagePath = "yeast.jpg";
+                        break;
                     case DonutType.HOLE:
-                        imagePath = "src/main/resources/eat/neilson/Cafe/holes.jpg";
-
+                        imagePath = "holes.jpg";
+                        break;
                     case DonutType.CAKE:
-                        imagePath = "src/main/resources/eat/neilson/Cafe/cake.jpg";
-
+                        imagePath = "cake.jpg";
+                        break;
+                    default:
+                        break;
                 }
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+                donutImage.setImage(image);
             }
         });
     }
@@ -106,10 +114,10 @@ public class DonutViewController {
      *
      * @param donut
      */
-    private void populateFlavors(Donut donut) {
+    private void populateFlavors(DonutType donut) {
         flavorListView.setItems(flavors);
         flavors.clear();
-        flavors.addAll(donut.getType().getFlavors());
+        flavors.addAll(donut.getFlavors());
         flavorListView.getSelectionModel().selectFirst();
 
     }
@@ -130,17 +138,15 @@ public class DonutViewController {
     /**
      * Adds Donut to the preOrder Listview & ObservableList.
      */
-    @SuppressWarnings("unchecked")
-    public void onAddButtonClick() {
+    public void OnAddButtonClick(ActionEvent actionEvent) {
         addButtonPreOrder.setOnAction(event -> {
             // Add a new donut to the preorder list
-            Donut donut = new Donut();
 
+            Donut donut = new Donut();
             donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
             donut.setFlavor((DonutFlavor) flavorListView.getSelectionModel().getSelectedItem());
             donut.setQuantity((int) donutQuantity.getValue());
             preOrdersList.add(donut);
-            preOrders.setItems(preOrdersList);
             updateSubtotal("add", donut);
 
         });
@@ -157,7 +163,7 @@ public class DonutViewController {
     /**
      * Removes selected Donut from the preOrder Listview & ObservableList.
      */
-    public void onDeleteButtonClick() {
+    public void onDeleteButtonClick(ActionEvent actionEvent) {
         deleteButtonPreOrder.setOnAction(event -> {
             Donut selectedItem = (Donut) preOrders.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
@@ -188,10 +194,10 @@ public class DonutViewController {
 
         switch (operation) {
             case "add":
-                subtotal += donut.price() * donut.getQuantity();
+                subtotal += donut.price(); //* donut.getQuantity();
                 break;
             case "sub":
-                subtotal -= donut.price() * donut.getQuantity();
+                subtotal -= donut.price(); //* donut.getQuantity();
                 break;
             default:
                 break;
@@ -208,16 +214,12 @@ public class DonutViewController {
      * Sets DonutViewController as the main screen
      *
      * @param controller
-     * @param stage
-     * @param primaryStage
-     * @param primaryScene
+     *
      */
-    public void setMainController(CafeViewController controller, Stage stage,
-                                  Stage primaryStage, Scene primaryScene) {
+    public void setMainController(CafeViewController controller) {
         app = controller;
-        this.stage = stage;
-        this.primaryStage = primaryStage;
-        this.primaryScene = primaryScene;
     }
+
+
 
 }

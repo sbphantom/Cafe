@@ -86,7 +86,29 @@ public class CafeViewController {
 
     @FXML
     protected void onDonutButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        try {
+            Stage donutStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("donuts-view.fxml"));
+
+            donutStage.setScene(new Scene(loader.load()));
+            donutStage.setResizable(false);
+            donutStage.setTitle("Donut Menu");
+            donutStage.initModality(Modality.APPLICATION_MODAL);
+            donutStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+            DonutViewController donutController = loader.getController();
+            donutController.setMainController(this);
+
+            donutStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading donuts-view.fxml.");
+            alert.setContentText("Couldn't load donuts-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

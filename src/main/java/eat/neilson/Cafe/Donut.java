@@ -31,7 +31,7 @@ public class Donut extends MenuItem {
 
     @Override
     public double price() {
-        return type.price;
+        return type.price * this.quantity;
     }
 
     @Override

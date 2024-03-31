@@ -115,13 +115,13 @@ public class SandwichViewController {
 
             sandwichGridPane.add(radioButton, 1, row);
 
-            if(sandwichGridPane.getRowConstraints().size() < row){
+           /* if(sandwichGridPane.getRowConstraints().size() < row){
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setMinHeight(35);
                 rowConstraints.setPrefHeight(35);
                 rowConstraints.setVgrow(Priority.SOMETIMES);
                 sandwichGridPane.getRowConstraints().add(rowConstraints);
-            }
+            }*/
 
             if(row == 1){
 

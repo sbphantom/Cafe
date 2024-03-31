@@ -17,13 +17,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="504.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eat.neilson.Cafe.SandwichViewController">
+<AnchorPane prefHeight="565.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eat.neilson.Cafe.DonutViewController">
    <children>
-      <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="565.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox fx:id="donutImageView" alignment="CENTER" prefHeight="181.0" prefWidth="600.0">
+            <HBox alignment="CENTER" prefHeight="181.0" prefWidth="600.0">
                <children>
-                  <ImageView fx:id="donutImageView" fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="donutImage" fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@cake.jpg" />
                      </image>
@@ -38,41 +38,49 @@
                   <Insets bottom="5.0" top="10.0" />
                </padding>
             </Label>
-            <GridPane fx:id="sandwichGridPane" alignment="CENTER" vgap="5.0">
+            <GridPane fx:id="donutGridPane" alignment="CENTER" hgap="2.0" prefHeight="294.0" prefWidth="600.0" vgap="8.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ListView fx:id="flavorListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ListView fx:id="flavorListView" prefHeight="99.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                   <Label text="Select Flavor: " GridPane.columnIndex="1" GridPane.halignment="LEFT" />
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Select Type: " textAlignment="CENTER" GridPane.halignment="LEFT" />
                   <Label text="Quantity:" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
-                  <ComboBox fx:id="donutQuantity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" text="Delete" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <ComboBox fx:id="donutQuantity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <Button fx:id="deleteButtonPreOrder" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="110.0" prefWidth="51.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Add " GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                  <Button fx:id="addButtonPreOrder" onAction="#OnAddButtonClick" prefHeight="152.0" prefWidth="42.0" text="Add " GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets top="10.0" />
                      </GridPane.margin>
                   </Button>
-                  <ListView fx:id="preOrders" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ListView fx:id="preOrders" prefHeight="61.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <GridPane fx:id="DonutTypesGridPane" maxHeight="-Infinity" prefHeight="61.0" prefWidth="107.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
                </children>
                <padding>
                   <Insets bottom="10.0" left="30.0" right="30.0" top="5.0" />
                </padding>
             </GridPane>
             <Line endX="127.5" startX="-100.0" />
-            <GridPane hgap="10.0" vgap="5.0">
+            <GridPane hgap="10.0" prefHeight="97.0" prefWidth="600.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,7 +95,7 @@
                <children>
                   <Label text="Subtotal:" GridPane.halignment="RIGHT" />
                   <Button mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <TextField fx:id="sandwichSubtotalTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="donutSubtotalTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>
