@@ -14,10 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CafeViewController {
 
-    public CafeMain main = new CafeMain();
+    public CafeMain main;
     private Stage primaryStage;
     private Scene primaryScene;
 
@@ -32,8 +33,9 @@ public class CafeViewController {
     }
 
 
-    public void setPrimaryStage(Stage stage) {
+    public void setPrimaryStage(Stage stage, CafeMain main) {
         primaryStage = stage;
+        this.main = main;
     }
 //    public void setPrimaryStage(Stage stage, Scene scene) {
 //        primaryStage = stage;
@@ -84,6 +86,10 @@ public class CafeViewController {
         return main.currentOrder;
     }
 
+    public LinkedHashMap<Integer, Order> getOrderHistory(){
+        return main.orderHistory;
+    }
+
     @FXML
     protected void onDonutButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
@@ -125,8 +131,29 @@ public class CafeViewController {
 
     @FXML
     protected void onOrderHistoryClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+        try {
+            Stage historyStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("history-view.fxml"));
+
+            historyStage.setScene(new Scene(loader.load()));
+            historyStage.setResizable(false);
+            historyStage.setTitle("Order History");
+            historyStage.initModality(Modality.APPLICATION_MODAL);
+            historyStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+            HistoryViewController historyController = loader.getController();
+            historyController.setMainController(this, historyStage);
+            historyController.initializeElements();
+            historyStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading history-view.fxml.");
+            alert.setContentText("Couldn't load history-view.fxml.");
+            alert.showAndWait();
+        }    }
 
     public HashMap<MenuItem, Integer> getCart() {
         return getOrder().getCart();
@@ -134,5 +161,10 @@ public class CafeViewController {
 
     public void placeOrder() {
         main.addOrder();
+    }
+
+    public void newOrder() {
+        main.currentOrder = main.createOrder();
+
     }
 }
