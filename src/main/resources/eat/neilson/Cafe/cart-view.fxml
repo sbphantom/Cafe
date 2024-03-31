@@ -12,7 +12,7 @@
 <AnchorPane prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eat.neilson.Cafe.CartViewController">
    <children>
       <TableView fx:id="menuItemTable" prefHeight="200.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="60.0" />
-      <Label text="Order Number: #" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <Label fx:id="orderNumberLabel" text="Order Number: #" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -47,7 +47,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="placeOrderButton" onAction="#onOrderButtonClick" mnemonicParsing="false" text="Place Order" GridPane.columnIndex="1" />
-            <Button fx:id="cancelOrderButton" mnemonicParsing="false" text="Cancel Order" />
+            <Button fx:id="cancelOrderButton" onAction="#onCancelButtonClick" mnemonicParsing="false" text="Cancel Order" />
          </children>
       </GridPane>
    </children>
