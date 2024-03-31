@@ -46,8 +46,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Place Order" GridPane.columnIndex="1" />
-            <Button mnemonicParsing="false" text="Cancel Order" />
+            <Button fx:id="placeOrderButton" onAction="#onOrderButtonClick" mnemonicParsing="false" text="Place Order" GridPane.columnIndex="1" />
+            <Button fx:id="cancelOrderButton" mnemonicParsing="false" text="Cancel Order" />
          </children>
       </GridPane>
    </children>
