@@ -93,6 +93,8 @@ public class DonutViewController {
         flavorListView.setItems(flavors);
         flavors.clear();
         flavors.addAll(donut.getType().getFlavors());
+        flavorListView.getSelectionModel().selectFirst();
+
     }
 
     /**
