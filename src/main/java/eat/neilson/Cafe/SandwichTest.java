@@ -9,7 +9,7 @@ public class SandwichTest {
     @Test
     public void testSandwichA(){
         Sandwich sandwich = new Sandwich();
-
+        sandwich.setBread();
 
         assertEquals(0.00, sandwich.price(), 0.0);
 

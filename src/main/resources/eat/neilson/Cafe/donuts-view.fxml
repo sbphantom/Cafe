@@ -25,7 +25,7 @@
                <children>
                   <ImageView fx:id="donutImage" fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@cake.jpg" />
+                        <Image url="@yeast.jpg" />
                      </image>
                   </ImageView>
                </children>
@@ -95,7 +95,7 @@
                <children>
                   <Label text="Subtotal:" GridPane.halignment="RIGHT" />
                   <Button mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <TextField fx:id="donutSubtotalTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="donutSubtotalTextField" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>

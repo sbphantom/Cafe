@@ -48,10 +48,12 @@ public class DonutViewController {
 
     @FXML
     public void initialize() {
-
+        donutSubtotalTextField.setText("$0.00");
+        OnAddButtonClick();
+        onDeleteButtonClick();
+        populateQuantityComboBox();
         addRadioToDonutTypeColumn();
         setListViews();
-        populateQuantityComboBox();
 
     }
 
@@ -83,6 +85,7 @@ public class DonutViewController {
         }
         //donutGridPane.add(flavorListView, 1, 1);
         flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        populateFlavors((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
 
         donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -138,7 +141,7 @@ public class DonutViewController {
     /**
      * Adds Donut to the preOrder Listview & ObservableList.
      */
-    public void OnAddButtonClick(ActionEvent actionEvent) {
+    public void OnAddButtonClick() {
         addButtonPreOrder.setOnAction(event -> {
             // Add a new donut to the preorder list
 
@@ -163,7 +166,7 @@ public class DonutViewController {
     /**
      * Removes selected Donut from the preOrder Listview & ObservableList.
      */
-    public void onDeleteButtonClick(ActionEvent actionEvent) {
+    public void onDeleteButtonClick() {
         deleteButtonPreOrder.setOnAction(event -> {
             Donut selectedItem = (Donut) preOrders.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
