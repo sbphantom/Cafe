@@ -17,41 +17,30 @@ import java.util.List;
 
 public class DonutViewController {
 
-    private Donut donut;
-
+    private Donut donut = new Donut();
     public Button addOrder;
-    public Button add;
-    public Button delete;
-
+    public Button addButtonPreOrder;
+    public Button deleteButtonPreOrder;
     @FXML
-    public TextField donutSubtotalTextField; 
-
+    public TextField donutSubtotalTextField;
     @FXML
-    private GridPane donutGridPane; 
-
-    public ColumnConstraints donutTypeColumn; 
-
-    public ColumnConstraints donutFlavorColumn; 
-    
-    private CafeViewController app; 
-
+    private GridPane donutGridPane;
+    public ColumnConstraints donutTypeColumn;
+    public ColumnConstraints donutFlavorColumn;
+    private CafeViewController app;
     private Stage stage;
-
     private Scene primaryScene;
-
     private Stage primaryStage;
     @FXML
     private ComboBox donutQuantity;
-
-    private ObservableList<String> flavors = FXCollections.observableArrayList();
-
-    private ObservableList<String> preOrdersList = FXCollections.observableArrayList();
-
+    private ObservableList<DonutFlavor> flavors = FXCollections.observableArrayList();
+    private ObservableList<Donut> preOrdersList = FXCollections.observableArrayList();
+    @FXML
     private ListView flavorListView;
-
-
+    @FXML
     private ListView preOrders;
-   public  ToggleGroup donutTypeToggleGroup = new ToggleGroup();
+    public ToggleGroup donutTypeToggleGroup = new ToggleGroup();
+
     @FXML
     public void initialize() {
         addRadioToDonutTypeColumn();
@@ -59,6 +48,9 @@ public class DonutViewController {
 
     }
 
+    /**
+     * Adds available donut types to the screen
+     */
     private void addRadioToDonutTypeColumn() {
 
         int row = 1;
@@ -84,24 +76,31 @@ public class DonutViewController {
         donutGridPane.add(flavorListView, 1, 1);
         flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue !=null ){
+        donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
                 donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
                 populateFlavors(donut);
-               // updateSubtotal();
             }
         });
     }
 
+    /**
+     * Populates the flavors Listview based on the type of donut selected.
+     *
+     * @param donut
+     */
     private void populateFlavors(Donut donut) {
+        flavorListView.setItems(flavors);
         flavors.clear();
         flavors.addAll(donut.getType().getFlavors());
-        flavorListView.setItems(flavors);
-
     }
 
+    /**
+     * initializes the Quantity comboBox from numbers 1 thru 12.
+     * Defaults to 1.
+     */
     @SuppressWarnings("unchecked")
-    private void populateQuantityComboBox(){
+    private void populateQuantityComboBox() {
         for (int i = 1; i <= 12; i++) {
             donutQuantity.getItems().add(i);
         }
@@ -109,68 +108,94 @@ public class DonutViewController {
     }
 
 
-
-        //if this donut type selected display this
-    
     /**
-     *Sets DonutViewController as the main screen
+     * Adds Donut to the preOrder Listview & ObservableList.
+     */
+    @SuppressWarnings("unchecked")
+    public void onAddButtonClick() {
+        addButtonPreOrder.setOnAction(event -> {
+            // Add a new donut to the preorder list
+            donut.setFlavor((DonutFlavor) flavorListView.getSelectionModel().getSelectedItem());
+            donut.setQuantity((int) donutQuantity.getValue());
+            preOrdersList.add(donut);
+            preOrders.setItems(preOrdersList);
+            updateSubtotal("add", donut);
+
+        });
+    }
+
+    /**
+     * Initializes  all the listview to their cooresponding ObservableList
+     */
+    private void setListViews() {
+        preOrders.setItems(preOrdersList);
+        flavorListView.setItems(flavors);
+    }
+
+    /**
+     * Removes selected Donut from the preOrder Listview & ObservableList.
+     */
+    public void onDeleteButtonClick() {
+        deleteButtonPreOrder.setOnAction(event -> {
+            Donut selectedItem = (Donut) preOrders.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                preOrdersList.remove(selectedItem);
+                updateSubtotal("sub", selectedItem);
+            }
+        });
+    }
+
+
+    //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
+    public void onAddOrderButtonClick(ActionEvent actionEvent) {
+    }
+
+
+    /**
+     * Updates the running subtotal.
+     * Adds to subtotal if we are adding to preOrder Listview .
+     * Subtracts if we are removing a donut from the preOrder Listview.
+     *
+     * @param operation
+     * @param donut
+     */
+    private void updateSubtotal(String operation, Donut donut) {
+
+        String subtotalText = donutSubtotalTextField.getText();
+        double subtotal = subtotalText.isEmpty() ? 0 : Double.parseDouble(subtotalText.substring(1));
+
+        switch (operation) {
+            case "add":
+                subtotal += donut.price() * donut.getQuantity();
+                break;
+            case "sub":
+                subtotal -= donut.price() * donut.getQuantity();
+                break;
+            default:
+                break;
+        }
+
+        String formattedSubtotal = String.format("%.2f", subtotal);
+        donutSubtotalTextField.setText("$" + formattedSubtotal);
+
+
+    }
+
+
+    /**
+     * Sets DonutViewController as the main screen
+     *
      * @param controller
      * @param stage
      * @param primaryStage
      * @param primaryScene
      */
     public void setMainController(CafeViewController controller, Stage stage,
-                                  Stage primaryStage, Scene primaryScene){
+                                  Stage primaryStage, Scene primaryScene) {
         app = controller;
         this.stage = stage;
         this.primaryStage = primaryStage;
         this.primaryScene = primaryScene;
-    }
-
-    @SuppressWarnings("unchecked")
-    public void onAddButtonClick(){
-
-        Object[] tuple = new Object[2];
-        Donut  d = new Donut();
-        d.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
-
-        String donutFlavor = (String) flavorListView.getSelectionModel().getSelectedItem();
-        d.setFlavor(DonutFlavor.getDonutFlavor(donutFlavor));
-
-        tuple[0] = d;
-        tuple[1] = 42; //Amount that they want turn it into a string to make it easy abeg
-
-
-        String finalPreOrder= String.format(d.toString() + "(%s)",donutQuantity.getValue().toString());
-        preOrdersList.add(finalPreOrder);
-        preOrders.setItems(preOrdersList);
-
-        updateSubtotal("add", (Integer) donutQuantity.getValue());
-    }
-
-
-    //Iterate through preOrder arrays and send to main cart
-    public void onAddOrderButtonClick(ActionEvent actionEvent){}
-    private void updateSubtotal(String operation, int quantity){
-
-        switch (operation){
-            case "add":
-
-                String subtotalText = donutSubtotalTextField.getText();
-
-                // Parse the subtotal if it's not empty, otherwise initialize it to 0
-                double subtotal = subtotalText.isEmpty() ? 0 : Double.parseDouble(subtotalText.substring(1));
-
-                subtotal += donut.price() * quantity;
-                String formattedSubtotal = String.format("%.2f", subtotal);
-                donutSubtotalTextField.setText("$" + formattedSubtotal);
-                break;
-            case "sub":
-                break;
-            default:
-        }
-
-
     }
 
 }

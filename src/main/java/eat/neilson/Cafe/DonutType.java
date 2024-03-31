@@ -19,11 +19,11 @@ public enum DonutType {
     public String toString() {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase();
     }
-    public List<String> getFlavors() {
-        List<String> flavors = new ArrayList<>();
+    public List<DonutFlavor> getFlavors() {
+        List<DonutFlavor> flavors = new ArrayList<>();
         for (DonutFlavor flavor : DonutFlavor.values()) {
             if (flavor.getType() == this) {
-                flavors.add(flavor.toString());
+                flavors.add(flavor);
             }
         }
         return flavors;

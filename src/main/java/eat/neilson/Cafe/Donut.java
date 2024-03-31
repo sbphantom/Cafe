@@ -9,7 +9,7 @@ public class Donut extends MenuItem {
     private DonutType type;
     private DonutFlavor flavor;
 
-
+    private int quantity;
     public Donut() {
     }
 
@@ -38,6 +38,14 @@ public class Donut extends MenuItem {
     public void setFlavor(DonutFlavor flavor){
         this.flavor = flavor;
     }
+
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+
+    public int getQuantity(){
+        return this.quantity;
+    }
     public DonutType getType(){
         return this.type;
     }
@@ -50,7 +58,7 @@ public class Donut extends MenuItem {
 
     @Override
     public String toString(){
-        return flavor + " " + type;
+        return flavor + " " + type + " (" + quantity +")";
     }
 
     @Override
