@@ -92,12 +92,56 @@ public class CafeViewController {
 
     @FXML
     protected void onDonutButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        try {
+            Stage donutStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("donuts-view.fxml"));
+
+            donutStage.setScene(new Scene(loader.load()));
+            donutStage.setResizable(false);
+            donutStage.setTitle("Donut Menu");
+            donutStage.initModality(Modality.APPLICATION_MODAL);
+            donutStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+            DonutViewController donutController = loader.getController();
+            donutController.setMainController(this);
+
+            donutStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading donuts-view.fxml.");
+            alert.setContentText("Couldn't load donuts-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     protected void onSandwichButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        try {
+            Stage sandwichStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
+
+            sandwichStage.setScene(new Scene(loader.load()));
+            sandwichStage.setResizable(false);
+            sandwichStage.setTitle("Sandwich Menu");
+            sandwichStage.initModality(Modality.APPLICATION_MODAL);
+            sandwichStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+           SandwichViewController sandwichController = loader.getController();
+            sandwichController.setMainController(this);
+
+            sandwichStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading coffee-view.fxml.");
+            alert.setContentText("Couldn't load coffee-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

@@ -1,5 +1,9 @@
 package eat.neilson.Cafe;
 
+import eat.neilson.Cafe.CoffeeAddOn;
+import eat.neilson.Cafe.CoffeeSize;
+import eat.neilson.Cafe.MenuItem;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -26,7 +30,7 @@ public class Coffee extends MenuItem {
 
     public void addAddOn(CoffeeAddOn addOn){
 //        if (addOns.size() <= 5){
-            addOns.add(addOn);
+        addOns.add(addOn);
 //        }
     }
     public void removeAddOn(CoffeeAddOn addOn){

@@ -25,7 +25,11 @@ public class Sandwich extends MenuItem {
         this.addOns = addOns;
     }
 
-
+    /**
+     * Calculates total price of a sandwich object
+     * by adding its protein & add-ons.
+     * @return price of a sandwich object
+     */
     @Override
     public String name(){
         return protein + " " + bread +" Sandwich";
@@ -38,7 +42,13 @@ public class Sandwich extends MenuItem {
 
     @Override
     public double price() {
-        return 0;
+
+        double price = protein.price;
+
+        for(SandwichAddOn addOn: addOns){
+           price+=addOn.price;
+        }
+        return price;
     }
 
     @Override
@@ -68,6 +78,33 @@ public class Sandwich extends MenuItem {
                 Objects.equals(addOns, sandwich.addOns);
     }
 
+    public void addAddOn(SandwichAddOn addOn){
+        addOns.add(addOn);
+    }
+
+
+    public void setProtein(SandwichProtein protein){
+        this.protein = protein;
+    }
+    public SandwichProtein getProtein(){
+        return this.protein;
+    }
+
+    public void setBread(SandwichBread bread){
+        this.bread = bread;
+    }
+
+    public void removeAddOn(SandwichAddOn addOn){
+        addOns.remove(addOn);
+    }
+
+    public void setSandwichAddOn(ArrayList<SandwichAddOn> addOns){
+        this.addOns = addOns;
+    }
+
+    public int addOnCount(){
+        return addOns.size();
+    }
     @Override
     public int hashCode() {
         Collections.sort(addOns);

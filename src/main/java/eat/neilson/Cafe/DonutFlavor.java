@@ -1,12 +1,15 @@
 package eat.neilson.Cafe;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum DonutFlavor {
-    YEAST_FLAVOR_A(DonutType.YEAST),
-    YEAST_FLAVOR_B(DonutType.YEAST),
-    YEAST_FLAVOR_C(DonutType.YEAST),
-    YEAST_FLAVOR_D(DonutType.YEAST),
-    YEAST_FLAVOR_E(DonutType.YEAST),
-    YEAST_FLAVOR_F(DonutType.YEAST),
+    MAPLE(DonutType.YEAST),
+    SUGAR(DonutType.YEAST),
+    BLUEBERRY(DonutType.YEAST),
+    JELLY(DonutType.YEAST),
+    CRULLER(DonutType.YEAST),
+    COFFEE(DonutType.YEAST),
 
 
     VANILLA(DonutType.CAKE),
@@ -16,14 +19,30 @@ public enum DonutFlavor {
     PLAIN(DonutType.HOLE),
     POWDER(DonutType.HOLE),
     GLAZED(DonutType.HOLE);
-
-
-
-
+    private static final Map<String, DonutFlavor> flavorMap = new HashMap<>();
+    static {
+        // Populate the map with flavor strings and corresponding DonutFlavor objects
+        flavorMap.put("MAPLE", DonutFlavor.MAPLE);
+        flavorMap.put("SUGAR", DonutFlavor.SUGAR);
+        flavorMap.put("BLUEBERRY", DonutFlavor.BLUEBERRY);
+        flavorMap.put("JELLY", DonutFlavor.JELLY);
+        flavorMap.put("CRULLER", DonutFlavor.CRULLER);
+        flavorMap.put("COFFEE", DonutFlavor.COFFEE);
+        flavorMap.put("VANILLA", DonutFlavor.VANILLA);
+        flavorMap.put("CHOCOLATE", DonutFlavor.CHOCOLATE);
+        flavorMap.put("STRAWBERRY", DonutFlavor.STRAWBERRY);
+        flavorMap.put("PLAIN", DonutFlavor.PLAIN);
+        flavorMap.put("POWDER", DonutFlavor.POWDER);
+        flavorMap.put("GLAZED", DonutFlavor.GLAZED);
+    }
     private DonutType type;
 
     DonutFlavor(DonutType type){
         this.type = type;
+    }
+
+    public DonutType getType() {
+        return type;
     }
 
     @Override
@@ -38,4 +57,12 @@ public enum DonutFlavor {
 
         return sb.toString();
     }
+
+    public static DonutFlavor getDonutFlavor(String flavorString) {
+        String flavor = flavorString.toUpperCase();
+
+        return flavorMap.getOrDefault(flavor, null);
+    }
+
+
 }

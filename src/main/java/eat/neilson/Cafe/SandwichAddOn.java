@@ -7,7 +7,7 @@ public enum SandwichAddOn {
     ONIONS(0.30),
     CHEESE(1.00);
 
-    private double price;
+    public double price;
     SandwichAddOn(double price){
         this.price = price;
     }
