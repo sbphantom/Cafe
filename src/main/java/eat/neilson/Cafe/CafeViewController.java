@@ -1,5 +1,6 @@
 package eat.neilson.Cafe;
 
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class CafeViewController {
 
@@ -69,6 +71,15 @@ public class CafeViewController {
         return main.addItem(item, quantity);
     }
 
+    public boolean removeItemFromOrder(MenuItem item, int quantity) {
+        return main.removeItem(item, quantity);
+    }
+
+
+    public int getItemCount(MenuItem item){
+        return main.currentOrder.itemCount(item);
+    }
+
     public Order getOrder() {
         return main.currentOrder;
     }
@@ -98,8 +109,9 @@ public class CafeViewController {
             });
 
             CartViewController cartController = loader.getController();
-            cartController.setMainController(this, main.currentOrder);
+            cartController.setMainController(this, cartStage);
             cartController.initializeTable();
+            cartController.initializeElements();
 
             cartStage.show();
         } catch (IOException e) {
@@ -114,5 +126,13 @@ public class CafeViewController {
     @FXML
     protected void onOrderHistoryClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
+    }
+
+    public HashMap<MenuItem, Integer> getCart() {
+        return getOrder().getCart();
+    }
+
+    public void placeOrder() {
+        main.addOrder();
     }
 }
