@@ -7,22 +7,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class CafeMain extends Application {
 
-    HashMap<Integer, Order> orderHistory = new HashMap<>();
-//    ArrayList<Order> orderHistory = new ArrayList<>();
+    LinkedHashMap<Integer, Order> orderHistory = new LinkedHashMap<>();
+    //    ArrayList<Order> orderHistory = new ArrayList<>();
     Order currentOrder = createOrder();
-
 
 
     public Order createOrder() {
         Random rand = new Random();
-        int id = rand.nextInt(9000) + 1000;
-        System.out.println("Generated 4-digit number: " + id);
+        int id;
+        do id = rand.nextInt(9000) + 1000;
+        while (orderHistory.containsKey(id));
         return new Order(id);
     }
 
@@ -39,7 +39,7 @@ public class CafeMain extends Application {
     public boolean addItem(MenuItem item, int quantity) {
         currentOrder.addItem(item, quantity);
 
-        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()){
+        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
         System.out.println("-----");
@@ -50,7 +50,7 @@ public class CafeMain extends Application {
     public boolean removeItem(MenuItem item, int quantity) {
         currentOrder.removeItem(item, quantity);
 
-        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()){
+        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
         System.out.println("-----");
@@ -64,10 +64,21 @@ public class CafeMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(CafeMain.class.getResource("cafe-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         CafeViewController cafeController = fxmlLoader.getController();
-        cafeController.setPrimaryStage(stage);
+        cafeController.setPrimaryStage(stage, this);
         stage.setTitle("Neilson Cafe");
         stage.setScene(scene);
         stage.show();
+
+        for (int i = 0 ;i < 50; i++){
+            createOrder();
+            Coffee a = new Coffee();
+
+            Random rand = new Random();
+            a.setCoffeeSize(CoffeeSize.values()[rand.nextInt(CoffeeSize.values().length)]);
+            a.addAddOn(CoffeeAddOn.values()[rand.nextInt(CoffeeAddOn.values().length)]);
+            addItem(a, rand.nextInt(10));
+            addOrder();
+        }
     }
 
     public static void main(String[] args) {
