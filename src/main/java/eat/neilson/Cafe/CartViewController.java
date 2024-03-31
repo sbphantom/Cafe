@@ -27,6 +27,7 @@ public class CartViewController {
     public Label totalText;
     public Button placeOrderButton;
     public Button cancelOrderButton;
+    public Label orderNumberLabel;
     @FXML
     private TableView<Map.Entry<MenuItem, Integer>> menuItemTable;
 
@@ -51,8 +52,7 @@ public class CartViewController {
         TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = getAddOnColumn();
         TableColumn<Map.Entry<MenuItem, Integer>, Void> removeColumn = getRemoveColumn();
         TableColumn<Map.Entry<MenuItem, Integer>, Void> quantityColumn = getQuantityColumn();
-        TableColumn<Map.Entry<MenuItem, Integer>, Double> priceColumn = getPriceColumn();
-
+        TableColumn<Map.Entry<MenuItem, Integer>, String> priceColumn = getPriceColumn();
 
         menuItemTable.getColumns().addAll(itemColumn, addOnColumn, removeColumn, quantityColumn, priceColumn);
         menuItemTable.setItems(FXCollections.observableArrayList(cart.entrySet()));
@@ -109,6 +109,7 @@ public class CartViewController {
                         cart.isEmpty(),
                 cart);
         placeOrderButton.disableProperty().bind(confirmCondition);
+        orderNumberLabel.setText("Order Number #"+ order.getOrderNumber());
     }
 
 
@@ -165,22 +166,22 @@ public class CartViewController {
     }
 
 
-    private TableColumn<Map.Entry<MenuItem, Integer>, Double> getPriceColumn() {
-        TableColumn<Map.Entry<MenuItem, Integer>, Double> priceColumn = new TableColumn<>("Price");
+    private TableColumn<Map.Entry<MenuItem, Integer>, String> getPriceColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, String> priceColumn = new TableColumn<>("Price");
 
         priceColumn.setCellValueFactory(data -> {
-            double price = data.getValue().getKey().price() * data.getValue().getValue();
-            return new SimpleDoubleProperty(price).asObject();
+            String price = String.format("%.2f", data.getValue().getKey().price() * data.getValue().getValue());
+            return new SimpleStringProperty(price);
         });
 
         priceColumn.setCellFactory(tc -> new TableCell<>() {
             @Override
-            protected void updateItem(Double item, boolean empty) {
+            protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.toString());
+                    setText(item);
                     setAlignment(Pos.CENTER_RIGHT);
                 }
             }
@@ -237,16 +238,16 @@ public class CartViewController {
 
 
     public void updateTotal() {
-        subtotalText.setText("$" + order.getSubtotal());
-        taxText.setText("$" + order.tax());
-        totalText.setText("$" + order.getTotal());
+        subtotalText.setText("$" + String.format("%.2f", order.getSubtotal()));
+        taxText.setText("$" + String.format("%.2f", order.tax()));
+        totalText.setText("$" + String.format("%.2f", order.getTotal()));
     }
 
     public void setMainController(CafeViewController controller, Stage stage) {
         app = controller;
         this.order = controller.getOrder();
-        Map<MenuItem, Integer> hashMap = controller.getCart();
-        this.cart = FXCollections.observableMap(hashMap);
+//        Map<MenuItem, Integer> hashMap = controller.getCart();
+        this.cart = FXCollections.observableMap(controller.getCart());
         this.stage = stage;
     }
 
@@ -266,6 +267,25 @@ public class CartViewController {
             alert.setTitle("Success");
             alert.setHeaderText("Order Placed");
             alert.setContentText("Your order has been placed.");
+            alert.showAndWait();
+        }
+    }
+
+    public void onCancelButtonClick(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Cancel Order");
+        alert.setContentText("Are you sure you want to cancel your order?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            app.newOrder();
+            stage.close();
+
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Order Cancelled");
+            alert.setContentText("Your order has been cancelled.");
             alert.showAndWait();
         }
     }
