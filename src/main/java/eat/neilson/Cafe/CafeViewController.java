@@ -1,14 +1,19 @@
 package eat.neilson.Cafe;
 
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+//import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class CafeViewController {
 
@@ -24,36 +29,35 @@ public class CafeViewController {
     @FXML
     public void initialize() {
 
-
-
     }
 
-    public void setPrimaryStage(Stage stage, Scene scene) {
+
+    public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
-        primaryScene = scene;
     }
-
-    public boolean addItemToOrder(MenuItem item, int quantity){
-        return main.addItem(item, quantity);
-    }
+//    public void setPrimaryStage(Stage stage, Scene scene) {
+//        primaryStage = stage;
+//        primaryScene = scene;
+//    }
 
     @FXML
     protected void onCoffeeButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-        Stage coffee = new Stage();
-        AnchorPane root;
-        
         try {
+            Stage coffeeStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("coffee-view.fxml"));
-            root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root);
 
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
+            coffeeStage.setScene(new Scene(loader.load()));
+            coffeeStage.setResizable(false);
+            coffeeStage.setTitle("Coffee Menu");
+            coffeeStage.initModality(Modality.APPLICATION_MODAL);
+            coffeeStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
             CoffeeViewController coffeeController = loader.getController();
+            coffeeController.setMainController(this);
 
-            coffeeController.setMainController(this, coffee, primaryStage, primaryScene);
-
+            coffeeStage.show();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
@@ -61,70 +65,74 @@ public class CafeViewController {
             alert.setContentText("Couldn't load coffee-view.fxml.");
             alert.showAndWait();
         }
-
     }
+
+    public boolean addItemToOrder(MenuItem item, int quantity) {
+        return main.addItem(item, quantity);
+    }
+
+    public boolean removeItemFromOrder(MenuItem item, int quantity) {
+        return main.removeItem(item, quantity);
+    }
+
+
+    public int getItemCount(MenuItem item){
+        return main.currentOrder.itemCount(item);
+    }
+
+    public Order getOrder() {
+        return main.currentOrder;
+    }
+
     @FXML
     protected void onDonutButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
-
-        Stage donut = new Stage();
-        AnchorPane root;
-
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
-            root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-
-            DonutViewController donutViewController = loader.getController();
-            donutViewController.setMainController(this, donut, primaryStage, primaryScene);
-        }
-        catch (IOException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setHeaderText("Loading sandwiches-view.fxml.");
-            alert.setContentText("Couldn't load sandwiches-view.fxml.");
-            alert.showAndWait();
-        }
     }
+
     @FXML
     protected void onSandwichButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
+    }
 
-        Stage sandwich = new Stage();
-        AnchorPane root;
+    @FXML
+    protected void onCurrentOrderButtonClick() {
+        try {
+            Stage cartStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("cart-view.fxml"));
 
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
-            root = (AnchorPane) loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
+            cartStage.setScene(new Scene(loader.load()));
+            cartStage.setResizable(false);
+            cartStage.setTitle("Current Order");
+            cartStage.initModality(Modality.APPLICATION_MODAL);
+            cartStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
 
-            SandwichViewController sandwichController = loader.getController();
-            sandwichController.setMainController(this, sandwich, primaryStage, primaryScene);
-        }
-        catch (IOException e){
+            CartViewController cartController = loader.getController();
+            cartController.setMainController(this, cartStage);
+            cartController.initializeTable();
+            cartController.initializeElements();
+
+            cartStage.show();
+        } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
-            alert.setHeaderText("Loading sandwiches-view.fxml.");
-            alert.setContentText("Couldn't load sandwiches-view.fxml.");
+            alert.setHeaderText("Loading cart-view.fxml.");
+            alert.setContentText("Couldn't load cart-view.fxml.");
             alert.showAndWait();
         }
     }
-    @FXML
-    protected void onCurrentOrderButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+
     @FXML
     protected void onOrderHistoryClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
 
+    public HashMap<MenuItem, Integer> getCart() {
+        return getOrder().getCart();
+    }
 
-
-
-
-
+    public void placeOrder() {
+        main.addOrder();
+    }
 }
