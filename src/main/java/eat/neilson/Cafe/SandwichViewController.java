@@ -66,6 +66,8 @@ public class SandwichViewController {
        sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
        updateSubtotal();
 
+
+
     }
 
     /**
@@ -191,13 +193,13 @@ public class SandwichViewController {
 
     /**
      * Adds sandwich order to main cart.
-     * @param actionEvent
+     *
      */
-    public void onAddOrderButtonClick(ActionEvent actionEvent) {
+    public void onAddOrderButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Add to Order");
-        alert.setContentText("Add sandwich to order?");
+        alert.setContentText("Add " + sandwich.toString() + " sandwich to order?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -206,12 +208,14 @@ public class SandwichViewController {
             sandwich = null;
 
             proteinToggleGroup.selectToggle(proteinToggleGroup.getToggles().getFirst());
+            breadToggleGroup.selectToggle(breadToggleGroup.getToggles().getFirst());
             for (CheckBox box : sandwichAddOnOptions){
                 box.setSelected(false);
             }
 
-            sandwich = new Sandwich((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData() , (SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
+            sandwich = new Sandwich((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData(), (SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
             updateSubtotal();
+        }
     }
 
-}}
+}

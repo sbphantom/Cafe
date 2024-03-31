@@ -86,6 +86,10 @@ public class Sandwich extends MenuItem {
     public void setProtein(SandwichProtein protein){
         this.protein = protein;
     }
+    public SandwichProtein getProtein(){
+        return this.protein;
+    }
+
     public void setBread(SandwichBread bread){
         this.bread = bread;
     }

@@ -4,7 +4,7 @@ public enum SandwichProtein {
 
     BEEF(10.99),
     CHICKEN(8.99),
-    FISH(10.99);
+    FISH(9.99);
 
     public double price;
 
