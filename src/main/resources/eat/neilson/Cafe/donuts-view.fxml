@@ -21,9 +21,9 @@
    <children>
       <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="181.0" prefWidth="600.0">
+            <HBox fx:id="donutImageView" alignment="CENTER" prefHeight="181.0" prefWidth="600.0">
                <children>
-                  <ImageView fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="donutImageView" fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@cake.jpg" />
                      </image>

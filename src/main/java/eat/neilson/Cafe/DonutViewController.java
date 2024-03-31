@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -41,6 +42,9 @@ public class DonutViewController {
     private ListView preOrders;
     public ToggleGroup donutTypeToggleGroup = new ToggleGroup();
 
+    private ImageView donutImageView;
+
+
     @FXML
     public void initialize() {
         addRadioToDonutTypeColumn();
@@ -54,10 +58,10 @@ public class DonutViewController {
     private void addRadioToDonutTypeColumn() {
 
         int row = 1;
-        for (DonutType donut : DonutType.values()) {
+        for (DonutType donutRadioType : DonutType.values()) {
             RadioButton radioButton = new RadioButton(donut.toString());
             radioButton.setToggleGroup(donutTypeToggleGroup);
-            radioButton.setUserData(donut);
+            radioButton.setUserData(donutRadioType);
 
             donutGridPane.add(radioButton, 0, row);
 
@@ -78,8 +82,21 @@ public class DonutViewController {
 
         donutTypeToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
                 populateFlavors(donut);
+                DonutType selectedType = (DonutType) newValue.getUserData();
+
+                String imagePath = "";
+                switch (selectedType) {
+                    case DonutType.YEAST:
+                        imagePath = "src/main/resources/eat/neilson/Cafe/yeast.jpg";
+
+                    case DonutType.HOLE:
+                        imagePath = "src/main/resources/eat/neilson/Cafe/holes.jpg";
+
+                    case DonutType.CAKE:
+                        imagePath = "src/main/resources/eat/neilson/Cafe/cake.jpg";
+
+                }
             }
         });
     }
@@ -117,6 +134,9 @@ public class DonutViewController {
     public void onAddButtonClick() {
         addButtonPreOrder.setOnAction(event -> {
             // Add a new donut to the preorder list
+            Donut donut = new Donut();
+
+            donut.setType((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
             donut.setFlavor((DonutFlavor) flavorListView.getSelectionModel().getSelectedItem());
             donut.setQuantity((int) donutQuantity.getValue());
             preOrdersList.add(donut);
