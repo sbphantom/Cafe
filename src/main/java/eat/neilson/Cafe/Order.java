@@ -73,7 +73,7 @@ public class Order {
     }
 
     public double tax(){
-        return subtotal * STATE_TAX;
+        return (double) Math.round(subtotal * STATE_TAX * 100.0) / 100;
     }
 
     public double getTotal(){
