@@ -91,7 +91,29 @@ public class CafeViewController {
 
     @FXML
     protected void onSandwichButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        try {
+            Stage sandwichStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
+
+            sandwichStage.setScene(new Scene(loader.load()));
+            sandwichStage.setResizable(false);
+            sandwichStage.setTitle("Sandwich Menu");
+            sandwichStage.initModality(Modality.APPLICATION_MODAL);
+            sandwichStage.setOnHidden(e -> {
+                primaryStage.requestFocus();
+            });
+
+           SandwichViewController sandwichController = loader.getController();
+            sandwichController.setMainController(this);
+
+            sandwichStage.show();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading coffee-view.fxml.");
+            alert.setContentText("Couldn't load coffee-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

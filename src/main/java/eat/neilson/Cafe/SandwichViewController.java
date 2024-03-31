@@ -173,18 +173,10 @@ public class SandwichViewController {
     /**
      *Sets SandwichViewController as the main controller
      * @param controller
-     * @param stage
-     * @param primaryStage
-     * @param primaryScene
+
      */
-    public void setMainController(CafeViewController controller, Stage stage,
-                                  Stage primaryStage, Scene primaryScene){
-
+    public void setMainController(CafeViewController controller){
         app = controller;
-        this.stage = stage;
-        this.primaryStage = primaryStage;
-        this.primaryScene = primaryScene;
-
     }
 
     /**

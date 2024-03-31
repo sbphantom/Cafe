@@ -1,3 +1,5 @@
+package eat.neilson.Cafe;
+
 import eat.neilson.Cafe.CoffeeAddOn;
 import eat.neilson.Cafe.CoffeeSize;
 import eat.neilson.Cafe.MenuItem;
