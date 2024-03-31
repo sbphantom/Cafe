@@ -87,11 +87,53 @@ public class CafeViewController {
     @FXML
     protected void onDonutButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
+
+        Stage donut = new Stage();
+        AnchorPane root;
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
+            root = (AnchorPane) loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+
+            DonutViewController donutViewController = loader.getController();
+            donutViewController.setMainController(this, donut, primaryStage, primaryScene);
+        }
+        catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading sandwiches-view.fxml.");
+            alert.setContentText("Couldn't load sandwiches-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     protected void onSandwichButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
+
+        Stage sandwich = new Stage();
+        AnchorPane root;
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("sandwiches-view.fxml"));
+            root = (AnchorPane) loader.load();
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+
+            SandwichViewController sandwichController = loader.getController();
+            sandwichController.setMainController(this, sandwich, primaryStage, primaryScene);
+        }
+        catch (IOException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Loading sandwiches-view.fxml.");
+            alert.setContentText("Couldn't load sandwiches-view.fxml.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
