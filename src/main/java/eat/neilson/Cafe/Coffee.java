@@ -59,7 +59,7 @@ public class Coffee extends MenuItem {
         for (CoffeeAddOn addOn : addOns){
             price += addOn.price;
         }
-        return price;
+        return Math.round(price * 100.0) / 100.0;
     }
 
     @Override
