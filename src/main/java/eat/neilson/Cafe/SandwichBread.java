@@ -1,10 +1,17 @@
 package eat.neilson.Cafe;
-
+/**
+ * Enum class for the available sandwich bread options.
+ * @author Danny Onurah
+ */
 public enum SandwichBread {
     BAGEL,
     WHEAT,
     SOUR_DOUGH;
 
+    /**
+     *
+     * @return formatted String the sandwich bread Enum object.
+     */
     @Override
     public String toString() {
         String[] words = this.name().split("_");

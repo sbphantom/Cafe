@@ -54,7 +54,9 @@ public class SandwichViewController {
     public ArrayList<CheckBox> sandwichAddOnOptions = new ArrayList<>();
 
 
-
+    /**
+     * Initializes the sandwichView window
+     */
     @FXML
     public void initialize() {
 
@@ -67,11 +69,10 @@ public class SandwichViewController {
        updateSubtotal();
 
 
-
     }
 
     /**
-     * Adds radio buttons of bread options to gridpane column.
+     * Adds radio buttons of bread options to gridPane column.
      */
     private void addRadioButtonsToBreadColumn(){
         int row = 1;
@@ -143,7 +144,7 @@ public class SandwichViewController {
     }
 
     /**
-     * Adds checkboxes of sandwich add-ons to gridpane column.
+     * Adds checkboxes of sandwich add-ons to gridPane column.
      */
     private void  addCheckboxesToAddOnColumn(){
         int row = 1;
@@ -174,7 +175,7 @@ public class SandwichViewController {
 
     /**
      *Sets SandwichViewController as the main controller
-     * @param controller
+     * @param controller main screen controller.
 
      */
     public void setMainController(CafeViewController controller){
@@ -199,7 +200,12 @@ public class SandwichViewController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Add to Order");
-        alert.setContentText("Add " + sandwich.toString() + " sandwich to order?");
+        if (sandwich.addOnCount() > 0){
+            alert.setContentText("Add " + sandwich.toString() + " sandwich to order?");
+        }
+        else{
+            alert.setContentText("Add " + sandwich.getProtein() + " " + sandwich.getBread() +" sandwich.");
+        }
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -213,7 +219,8 @@ public class SandwichViewController {
                 box.setSelected(false);
             }
 
-            sandwich = new Sandwich((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData(), (SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
+            sandwich = new Sandwich((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData(),
+                    (SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
             updateSubtotal();
         }
     }

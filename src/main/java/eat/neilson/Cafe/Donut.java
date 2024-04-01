@@ -1,4 +1,8 @@
 package eat.neilson.Cafe;
+/**
+ * Subclass of MenuItem for Donuts
+ * @author Danny Onurah
+ */
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,12 +32,20 @@ public class Donut extends MenuItem {
     public String addOnString(){
         return "";
     }
-
+    /**
+     * Calculates price of donut object.
+     * @return price of donut.
+     */
     @Override
     public double price() {
         return type.price * this.quantity;
     }
-
+    /**
+     * Equals method to compare to if two donuts are the same.
+     *
+     * @param o comparison donut.
+     * @return boolean. True if equal. False if not.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,35 +54,59 @@ public class Donut extends MenuItem {
         return type == donut.type && flavor == donut.flavor;
     }
 
-    public void setType(DonutType type) {
-        this.type = type;
-    }
-    public void setFlavor(DonutFlavor flavor){
-        this.flavor = flavor;
-    }
-
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
-    }
-
-    public int getQuantity(){
-        return this.quantity;
-    }
-    public DonutType getType(){
-        return this.type;
-    }
-
+    /**
+     *
+     * @return hashcode for donut object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(type, flavor);
     }
 
-
+    /**
+     * toString method for donut .
+     * @return a formatted String for the donut object.
+     */
     @Override
     public String toString(){
         return flavor + " " + type + " (" + quantity +")";
     }
+    /**
+     * Setter method for donut Type.
+     * @param type new DonutType to set.
+     */
+    public void setType(DonutType type) {
+        this.type = type;
+    }
+    /**
+     * Setter method for donut Flavor.
+     * @param flavor new flavor to set.
+     */
+    public void setFlavor(DonutFlavor flavor){
+        this.flavor = flavor;
+    }
+    /**
+     * Setter method for donut Quantity.
+     * @param  quantity new quantity to set.
+     */
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+    /**
+     * Getter method for donut Quantity.
+     * @return donut quantity
+     */
+    public int getQuantity(){
+        return this.quantity;
+    }
 
+    /**
+     * Getter method for DonutType.
+     * @return DonutType
+     */
+    public DonutType getType(){
+        return this.type;
+    }
     @Override
     public int compareTo(MenuItem item){
             if(item instanceof Donut donut){

@@ -1,4 +1,8 @@
 package eat.neilson.Cafe;
+/**
+ * Enum class of Donut Types.
+ * @author Danny Onurah
+ */
 
 import java.util.ArrayList;
 import java.util.List;
