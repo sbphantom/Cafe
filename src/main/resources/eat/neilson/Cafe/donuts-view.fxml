@@ -94,7 +94,7 @@
                </padding>
                <children>
                   <Label text="Subtotal:" GridPane.halignment="RIGHT" />
-                  <Button fx:id="addOrder" onAction="#OnAddOrderButtonClick" mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="addOrder" mnemonicParsing="false" onAction="#OnAddOrderButtonClick" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <TextField fx:id="donutSubtotalTextField" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
