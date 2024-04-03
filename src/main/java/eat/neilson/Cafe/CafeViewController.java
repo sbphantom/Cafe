@@ -1,14 +1,10 @@
 package eat.neilson.Cafe;
 
-import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-//import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -16,32 +12,98 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+/**
+ * Main Controller of the ordering software main menu
+ *
+ * @author Danny Onuorah
+ */
 public class CafeViewController {
 
     public CafeMain main;
     private Stage primaryStage;
-    private Scene primaryScene;
 
-
-    @FXML
-    private Label welcomeText;
-
-
-    @FXML
-    public void initialize() {
-
-    }
-
-
+    /**
+     * Links the parent application and stage to class
+     */
     public void setPrimaryStage(Stage stage, CafeMain main) {
         primaryStage = stage;
         this.main = main;
     }
-//    public void setPrimaryStage(Stage stage, Scene scene) {
-//        primaryStage = stage;
-//        primaryScene = scene;
-//    }
 
+    /**
+     * Returns the order history
+     *
+     * @return hashmap of orders
+     */
+    public LinkedHashMap<Integer, Order> getOrderHistory(){
+    return main.orderHistory;
+}
+
+    /**
+     * Returns the current order
+     *
+     * @return current order
+     */
+    public Order getOrder() {
+        return main.currentOrder;
+    }
+
+    /**
+     * Returns the cart of the current order
+     *
+     * @return cart of the current order
+     */
+    public HashMap<MenuItem, Integer> getCart() {
+        return getOrder().getCart();
+    }
+
+    /**
+     * Returns the quantity of an item in the current order
+     *
+     * @return quantity in cart
+     */
+    public int getItemCount(MenuItem item){
+        return main.currentOrder.itemCount(item);
+    }
+
+    /**
+     * Adds the item and quantity to the current order
+     *
+     * @return true if added successfully
+     */
+    public boolean addItemToOrder(MenuItem item, int quantity) {
+        return main.addItem(item, quantity);
+    }
+
+    /**
+     * Removes the item and quantity from the current order
+     *
+     * @return true if removed successfully
+     */
+    public boolean removeItemFromOrder(MenuItem item, int quantity) {
+        return main.removeItem(item, quantity);
+    }
+
+    /**
+     * Places the current order and prepares for the next order
+     */
+    public void placeOrder() {
+        main.addOrder();
+    }
+
+    /**
+     * Creates a new order
+     */
+    public void newOrder() {
+        main.currentOrder = main.createOrder();
+
+    }
+
+
+
+    /**
+     * Launches coffee ordering menu
+     */
     @FXML
     protected void onCoffeeButtonClick() {
         try {
@@ -69,27 +131,9 @@ public class CafeViewController {
         }
     }
 
-    public boolean addItemToOrder(MenuItem item, int quantity) {
-        return main.addItem(item, quantity);
-    }
-
-    public boolean removeItemFromOrder(MenuItem item, int quantity) {
-        return main.removeItem(item, quantity);
-    }
-
-
-    public int getItemCount(MenuItem item){
-        return main.currentOrder.itemCount(item);
-    }
-
-    public Order getOrder() {
-        return main.currentOrder;
-    }
-
-    public LinkedHashMap<Integer, Order> getOrderHistory(){
-        return main.orderHistory;
-    }
-
+    /**
+     * Launches donut ordering menu
+     */
     @FXML
     protected void onDonutButtonClick() {
         try {
@@ -117,6 +161,9 @@ public class CafeViewController {
         }
     }
 
+    /**
+     * Launches sandwich ordering menu
+     */
     @FXML
     protected void onSandwichButtonClick() {
         try {
@@ -144,6 +191,9 @@ public class CafeViewController {
         }
     }
 
+    /**
+     * Launches checkout menu
+     */
     @FXML
     protected void onCurrentOrderButtonClick() {
         try {
@@ -173,6 +223,9 @@ public class CafeViewController {
         }
     }
 
+    /**
+     * Launches order history menu
+     */
     @FXML
     protected void onOrderHistoryClick() {
         try {
@@ -199,16 +252,4 @@ public class CafeViewController {
             alert.showAndWait();
         }    }
 
-    public HashMap<MenuItem, Integer> getCart() {
-        return getOrder().getCart();
-    }
-
-    public void placeOrder() {
-        main.addOrder();
-    }
-
-    public void newOrder() {
-        main.currentOrder = main.createOrder();
-
-    }
 }

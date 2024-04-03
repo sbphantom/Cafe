@@ -6,18 +6,26 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Random;
 
+
+/**
+ * Main Model of Neilson Cafe ordering software
+ *
+ * @author Danny Onuorah
+ */
 public class CafeMain extends Application {
 
     LinkedHashMap<Integer, Order> orderHistory = new LinkedHashMap<>();
-    //    ArrayList<Order> orderHistory = new ArrayList<>();
     Order currentOrder = createOrder();
 
 
+    /**
+     * Creates an order with a random order number
+     *
+     * @return newly created order
+     */
     public Order createOrder() {
         Random rand = new Random();
         int id;
@@ -26,7 +34,11 @@ public class CafeMain extends Application {
         return new Order(id);
     }
 
-
+    /**
+     * Places the current order amd setups the next order
+     *
+     * @return true if successfully added order
+     */
     public boolean addOrder() {
         if (currentOrder.cartSize() > 0) {
             orderHistory.put(currentOrder.getOrderNumber(), currentOrder);
@@ -36,29 +48,29 @@ public class CafeMain extends Application {
         return false;
     }
 
+    /**
+     * Add item and quantity to the current order cart
+     *
+     * @return true is successfully added
+     */
     public boolean addItem(MenuItem item, int quantity) {
-        currentOrder.addItem(item, quantity);
-
-        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
-        System.out.println("-----");
-
-        return true;
+        return currentOrder.addItem(item, quantity);
     }
 
+    /**
+     * Remove item and quantity to the current order cart
+     *
+     * @return true is successfully removed
+     */
     public boolean removeItem(MenuItem item, int quantity) {
-        currentOrder.removeItem(item, quantity);
 
-        for (Map.Entry<MenuItem, Integer> entry : currentOrder.getCart().entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        }
-        System.out.println("-----");
-
-        return true;
+        return currentOrder.removeItem(item, quantity);
     }
 
 
+    /**
+     * Starts the controller class
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CafeMain.class.getResource("cafe-view.fxml"));
@@ -81,6 +93,9 @@ public class CafeMain extends Application {
         }
     }
 
+    /**
+     * Software entry point
+     */
     public static void main(String[] args) {
         launch();
     }

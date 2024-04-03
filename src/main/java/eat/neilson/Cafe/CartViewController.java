@@ -1,52 +1,50 @@
 package eat.neilson.Cafe;
 
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.MapValueFactory;
+
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
+/**
+ * Cart Controller class for viewing the current order
+ *
+ * @author Danny Onuorah
+ */
 public class CartViewController {
+    private CafeViewController app;
+    private Stage stage;
+    public Order order;
+    public ObservableMap<MenuItem, Integer> cart;
 
+    @FXML
     public Label subtotalText;
+    @FXML
     public Label taxText;
+    @FXML
     public Label totalText;
+    @FXML
     public Button placeOrderButton;
+    @FXML
     public Button cancelOrderButton;
+    @FXML
     public Label orderNumberLabel;
+
     @FXML
     private TableView<Map.Entry<MenuItem, Integer>> menuItemTable;
 
-    private CafeViewController app;
-
-    private Stage stage;
-
-    ObservableMap<MenuItem, Integer> items;
-
-    public Order order;
-
-    public ObservableMap<MenuItem, Integer> cart;
-
-
-    public void initialize() {
-
-
-    }
-
+    /**
+     * Creates the cart view table
+     */
     public void initializeTable() {
         TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = getItemColumn();
         TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = getAddOnColumn();
@@ -59,6 +57,61 @@ public class CartViewController {
         updateTotal();
     }
 
+    /**
+     * Creates the name column in the view table
+     */
+    private TableColumn<Map.Entry<MenuItem, Integer>, String> getItemColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = new TableColumn<>("Item");
+
+        itemColumn.setCellValueFactory(data -> {
+            MenuItem menuItem = data.getValue().getKey();
+            return new SimpleStringProperty(menuItem.name());
+        });
+
+        itemColumn.setCellFactory(tc -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setAlignment(Pos.CENTER_LEFT);
+                }
+            }
+        });
+        return itemColumn;
+    }
+
+    /**
+     * Creates the addOn column in the view table
+     */
+    private TableColumn<Map.Entry<MenuItem, Integer>, String> getAddOnColumn() {
+        TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = new TableColumn<>("Add Ons");
+
+        addOnColumn.setCellValueFactory(data -> {
+            MenuItem menuItem = data.getValue().getKey();
+            return new SimpleStringProperty(menuItem.addOnString());
+        });
+
+        addOnColumn.setCellFactory(tc -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    setAlignment(Pos.CENTER_LEFT);
+                }
+            }
+        });
+        return addOnColumn;
+    }
+
+    /**
+     * Creates the remove button column in the view table
+     */
     private TableColumn<Map.Entry<MenuItem, Integer>, Void> getRemoveColumn() {
         TableColumn<Map.Entry<MenuItem, Integer>, Void> removeColumn = new TableColumn<>("Remove");
         removeColumn.setCellFactory(param -> new TableCell<>() {
@@ -104,15 +157,9 @@ public class CartViewController {
         return removeColumn;
     }
 
-    public void initializeElements() {
-        BooleanBinding confirmCondition = Bindings.createBooleanBinding(() ->
-                        cart.isEmpty(),
-                cart);
-        placeOrderButton.disableProperty().bind(confirmCondition);
-        orderNumberLabel.setText("Order Number #"+ order.getOrderNumber());
-    }
-
-
+    /**
+     * Creates the quantity column in the view table
+     */
     private TableColumn<Map.Entry<MenuItem, Integer>, Void> getQuantityColumn() {
         TableColumn<Map.Entry<MenuItem, Integer>, Void> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setCellFactory(param -> new TableCell<>() {
@@ -165,7 +212,9 @@ public class CartViewController {
         return quantityColumn;
     }
 
-
+    /**
+     * Creates the price column in the view table
+     */
     private TableColumn<Map.Entry<MenuItem, Integer>, String> getPriceColumn() {
         TableColumn<Map.Entry<MenuItem, Integer>, String> priceColumn = new TableColumn<>("Price");
 
@@ -190,69 +239,40 @@ public class CartViewController {
         return priceColumn;
     }
 
-    private TableColumn<Map.Entry<MenuItem, Integer>, String> getAddOnColumn() {
-        TableColumn<Map.Entry<MenuItem, Integer>, String> addOnColumn = new TableColumn<>("Add Ons");
-
-        addOnColumn.setCellValueFactory(data -> {
-            MenuItem menuItem = data.getValue().getKey();
-            return new SimpleStringProperty(menuItem.addOnString());
-        });
-
-        addOnColumn.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setAlignment(Pos.CENTER_LEFT);
-                }
-            }
-        });
-        return addOnColumn;
+    /**
+     * Set order number and button binding boolean property
+     */
+    public void initializeElements() {
+        BooleanBinding confirmCondition = Bindings.createBooleanBinding(() ->
+                        cart.isEmpty(),
+                cart);
+        placeOrderButton.disableProperty().bind(confirmCondition);
+        orderNumberLabel.setText("Order Number #" + order.getOrderNumber());
     }
 
-    private TableColumn<Map.Entry<MenuItem, Integer>, String> getItemColumn() {
-        TableColumn<Map.Entry<MenuItem, Integer>, String> itemColumn = new TableColumn<>("Item");
-
-        itemColumn.setCellValueFactory(data -> {
-            MenuItem menuItem = data.getValue().getKey();
-            return new SimpleStringProperty(menuItem.name());
-        });
-
-        itemColumn.setCellFactory(tc -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setAlignment(Pos.CENTER_LEFT);
-                }
-            }
-        });
-        return itemColumn;
-    }
-
-
+    /**
+     * Updates the text regarding total
+     */
     public void updateTotal() {
         subtotalText.setText("$" + String.format("%.2f", order.getSubtotal()));
         taxText.setText("$" + String.format("%.2f", order.tax()));
         totalText.setText("$" + String.format("%.2f", order.getTotal()));
     }
 
+    /**
+     * Links the parent controller to child
+     */
     public void setMainController(CafeViewController controller, Stage stage) {
         app = controller;
         this.order = controller.getOrder();
-//        Map<MenuItem, Integer> hashMap = controller.getCart();
         this.cart = FXCollections.observableMap(controller.getCart());
         this.stage = stage;
     }
 
-
-    public void onOrderButtonClick(){
+    /**
+     * Places the current order
+     */
+    public void onOrderButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Confirm Order");
@@ -271,7 +291,10 @@ public class CartViewController {
         }
     }
 
-    public void onCancelButtonClick(){
+    /**
+     * Cancels the current order
+     */
+    public void onCancelButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Cancel Order");
@@ -289,6 +312,4 @@ public class CartViewController {
             alert.showAndWait();
         }
     }
-
-
 }
