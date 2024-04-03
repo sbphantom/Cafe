@@ -1,5 +1,9 @@
 package eat.neilson.Cafe;
-
+/**
+ *This class serves as the main controller for the donut ordering window.
+ * Orders from this window are sent back to the main cart.
+ * @author Adeola Asimolowo
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -176,20 +180,29 @@ public class DonutViewController {
         });
     }
 
-
+    /**
+     * Sends the order of donuts to the main cart.
+     *
+     */
     //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
-    public void onAddOrderButtonClick(ActionEvent actionEvent) {
+    public void OnAddOrderButtonClick() {
+        for(Donut donut: preOrdersList){
+            app.addItemToOrder(donut, donut.getQuantity());
+            updateSubtotal("sub",donut);
+        }
 
+        preOrdersList.clear();
+        donutQuantity.getSelectionModel().selectFirst();
+        donutTypeToggleGroup.selectToggle(donutTypeToggleGroup.getToggles().getFirst());
     }
-
 
     /**
      * Updates the running subtotal.
      * Adds to subtotal if we are adding to preOrder Listview .
      * Subtracts if we are removing a donut from the preOrder Listview.
      *
-     * @param operation
-     * @param donut
+     * @param operation add or subtract from current subtotal
+     * @param donut pass the donut currently being selected.
      */
     private void updateSubtotal(String operation, Donut donut) {
 
@@ -210,20 +223,14 @@ public class DonutViewController {
         String formattedSubtotal = String.format("%.2f", subtotal);
         donutSubtotalTextField.setText("$" + formattedSubtotal);
 
-
     }
-
 
     /**
      * Sets DonutViewController as the main screen
-     *
-     * @param controller
      *
      */
     public void setMainController(CafeViewController controller) {
         app = controller;
     }
-
-
 
 }

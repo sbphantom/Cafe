@@ -1,4 +1,8 @@
 package eat.neilson.Cafe;
+/**
+ * Junit Testing file for sandwich.
+ * @author Adeola Asimolowo
+ */
 
 import org.junit.Test;
 
@@ -31,7 +35,45 @@ public class SandwichTest {
     }
 
     @Test
-    public void testSandwichCToString() {
+    public void testSandwichC() {
+        Sandwich sandwich = new Sandwich();
+        sandwich.setBread(SandwichBread.WHEAT);
+        sandwich.setProtein(SandwichProtein.CHICKEN);
+        ArrayList<SandwichAddOn> addOns = new ArrayList<>();
+        addOns.add(SandwichAddOn.ONIONS);
+        addOns.add(SandwichAddOn.TOMATOES);
+        addOns.add(SandwichAddOn.LETTUCE);
+
+        sandwich.setSandwichAddOn(addOns);
+        assertEquals(9.89, sandwich.price(), 0.01);
+    }
+
+    @Test
+    public void testSandwichD() {
+        Sandwich sandwich = new Sandwich();
+        sandwich.setBread(SandwichBread.WHEAT);
+        sandwich.setProtein(SandwichProtein.BEEF);
+        ArrayList<SandwichAddOn> addOns = new ArrayList<>();
+        addOns.add(SandwichAddOn.CHEESE);
+        addOns.add(SandwichAddOn.ONIONS);
+
+        sandwich.setSandwichAddOn(addOns);
+        assertEquals(12.29, sandwich.price(), 0.01);
+    }
+    @Test
+    public void testSandwichE() {
+        Sandwich sandwich = new Sandwich();
+        sandwich.setBread(SandwichBread.SOUR_DOUGH);
+        sandwich.setProtein(SandwichProtein.FISH);
+        ArrayList<SandwichAddOn> addOns = new ArrayList<>();
+        addOns.add(SandwichAddOn.TOMATOES);
+
+        sandwich.setSandwichAddOn(addOns);
+        assertEquals(10.29, sandwich.price(), 0.01);
+    }
+
+    @Test
+    public void testSandwichToString() {
         Sandwich sandwich = new Sandwich();
         sandwich.setBread(SandwichBread.BAGEL);
         sandwich.setProtein(SandwichProtein.CHICKEN);
@@ -43,7 +85,7 @@ public class SandwichTest {
     }
 
     @Test
-    public void testSandwichDAddOnCount() {
+    public void testSandwichAddOnCount() {
         Sandwich sandwich = new Sandwich();
         sandwich.setBread(SandwichBread.BAGEL);
         sandwich.setProtein(SandwichProtein.CHICKEN);
@@ -58,7 +100,7 @@ public class SandwichTest {
     }
 
     @Test
-    public void testSandwichEEquals() {
+    public void testSandwichEquals() {
         Sandwich sandwich1 = new Sandwich();
         sandwich1.setBread(SandwichBread.BAGEL);
         sandwich1.setProtein(SandwichProtein.BEEF);
@@ -81,7 +123,7 @@ public class SandwichTest {
 
     }
     @Test
-    public void testSandwichFHashCode() {
+    public void testSandwichHashCode() {
         Sandwich sandwich1 = new Sandwich();
         sandwich1.setBread(SandwichBread.BAGEL);
         sandwich1.setProtein(SandwichProtein.BEEF);

@@ -1,4 +1,8 @@
 package eat.neilson.Cafe;
+/**
+ * Subclass of MenuItem for Coffee
+ * @author Danny Onurah
+ */
 
 import eat.neilson.Cafe.CoffeeAddOn;
 import eat.neilson.Cafe.CoffeeSize;

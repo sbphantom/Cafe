@@ -1,4 +1,9 @@
 package eat.neilson.Cafe;
+/**
+ * Subclass of MenuItem for Sandwiches
+ * @author Danny Onurah
+ */
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,61 +19,73 @@ public class Sandwich extends MenuItem {
     private ArrayList<SandwichAddOn> addOns = new ArrayList<>();
 
 
-
-
-    public Sandwich(){
+    public Sandwich() {
     }
 
-    public Sandwich(SandwichBread bread, SandwichProtein protein, ArrayList<SandwichAddOn> addOns){
+    public Sandwich(SandwichBread bread, SandwichProtein protein, ArrayList<SandwichAddOn> addOns) {
         this.bread = bread;
         this.protein = protein;
         this.addOns = addOns;
     }
 
     /**
-     * Calculates total price of a sandwich object
-     * by adding its protein & add-ons.
-     * @return price of a sandwich object
+     * Creates a sandwich name
+     *
+     * @return formatted String for a sandwich name.
      */
     @Override
-    public String name(){
-        return protein + " " + bread +" Sandwich";
+    public String name() {
+        return protein + " " + bread + " Sandwich";
     }
 
+    /**
+     * Creates a string for sandwich addOns.
+     *
+     * @return formatted String for a sandwich addOns.
+     */
     @Override
-    public String addOnString(){
+    public String addOnString() {
         return addOns.toString().strip();
     }
 
+    /**
+     * Calculates total price of a sandwich object
+     * by adding its protein & add-ons.
+     *
+     * @return price of a sandwich object
+     */
     @Override
     public double price() {
 
         double price = protein.price;
 
-        for(SandwichAddOn addOn: addOns){
-           price+=addOn.price;
+        for (SandwichAddOn addOn : addOns) {
+            price += addOn.price;
         }
         return price;
     }
 
+
     @Override
-    public int compareTo(MenuItem item){
-        if(item instanceof Sandwich sandwich){
-            if (this.bread.compareTo(sandwich.bread) !=0) {
+    public int compareTo(MenuItem item) {
+        if (item instanceof Sandwich sandwich) {
+            if (this.bread.compareTo(sandwich.bread) != 0) {
                 return this.bread.compareTo(sandwich.bread);
-            }
-            else if(this.protein.compareTo(sandwich.protein) != 0){
+            } else if (this.protein.compareTo(sandwich.protein) != 0) {
                 return this.protein.compareTo(sandwich.protein);
-            }
-            else{
+            } else {
                 // return(this.addOns.compareTo(sandwich.addOns));
                 return 0;
             }
-        }
-        else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
+        } else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
     }
 
-
+    /**
+     * Equals method to compare to if to sandwich are the same.
+     *
+     * @param o comparison sandwich.
+     * @return boolean. True if equal. False if not.
+     */
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -78,45 +95,86 @@ public class Sandwich extends MenuItem {
                 Objects.equals(addOns, sandwich.addOns);
     }
 
-    public void addAddOn(SandwichAddOn addOn){
+    /**
+     * add method to add an extra addon to the sandwich
+     *
+     * @param addOn specific addOn to add to the sandwich.
+     */
+    public void addAddOn(SandwichAddOn addOn) {
         addOns.add(addOn);
     }
 
-
-    public void setProtein(SandwichProtein protein){
+    /**
+     * Setter method sandwich protein
+     *
+     * @param protein a new protein to set for the sandwich.
+     */
+    public void setProtein(SandwichProtein protein) {
         this.protein = protein;
     }
-    public SandwichProtein getProtein(){
+
+    /**
+     * Getter method sandwich protein
+     *
+     * @return the sandwichProtein
+     */
+    public SandwichProtein getProtein() {
         return this.protein;
     }
 
-    public void setBread(SandwichBread bread){
+    /**
+     * Setter method sandwich bread
+     *
+     * @param bread a sandwichBread object.
+     */
+    public void setBread(SandwichBread bread) {
         this.bread = bread;
     }
 
-    public void removeAddOn(SandwichAddOn addOn){
+    /**
+     * Removes a addOn from the sandwich object.
+     *
+     * @param addOn a sandwich addOn.
+     */
+    public void removeAddOn(SandwichAddOn addOn) {
         addOns.remove(addOn);
     }
 
-    public void setSandwichAddOn(ArrayList<SandwichAddOn> addOns){
+    /**
+     * Setter method sandwich addOns
+     *
+     * @param addOns an array list of sandwich addOns.
+     */
+    public void setSandwichAddOn(ArrayList<SandwichAddOn> addOns) {
         this.addOns = addOns;
     }
 
-    public int addOnCount(){
+    /**
+     * Getter method for addOn count
+     *
+     * @return number of addOns for sandwich
+     */
+    public int addOnCount() {
         return addOns.size();
     }
+
     @Override
     public int hashCode() {
         Collections.sort(addOns);
         return Objects.hash(getClass(), bread, protein, addOns);
     }
 
+    /**
+     * toString method for Sandwich
+     *
+     * @return formatted string for a sandwich object
+     */
     @Override
-    public String toString(){
-        return protein + " " + bread +" sandwich with ("+addOns +")";
+    public String toString() {
+        return protein + " " + bread + " sandwich with (" + addOns + ")";
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Sandwich a = new Sandwich();
         a.bread = SandwichBread.BAGEL;
         a.protein = SandwichProtein.BEEF;
@@ -137,4 +195,7 @@ public class Sandwich extends MenuItem {
         System.out.println(a.equals(b));
     }
 
+    public SandwichBread getBread() {
+        return this.bread;
+    }
 }

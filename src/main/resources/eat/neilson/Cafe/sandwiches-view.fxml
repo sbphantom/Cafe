@@ -71,7 +71,7 @@
                </padding>
                <children>
                   <Label text="Subtotal:" GridPane.halignment="RIGHT" />
-                  <Button mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="addOrderButton" onAction= "#onAddOrderButtonClick" mnemonicParsing="false" text="Add to Order" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" text="Cancel" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <TextField fx:id="sandwichSubtotalTextField" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" GridPane.columnIndex="1" />
                </children>
