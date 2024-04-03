@@ -1,17 +1,15 @@
 package eat.neilson.Cafe;
 
+/**
+ * Enum class of Coffee AddOns.
+ * @author Danny Onurah
+ */
 public enum CoffeeAddOn {
 
     SWEET_CREAM,
     FRENCH_VANILLA,
     IRISH_CREAM,
     CARAMEL,
-
-//    SUGAR_CANE,
-//    BLUEBERRY,
-//    HAZELNUT,
-//    PEPPERMINT,
-
     MOCHA;
 
     public double price;
@@ -20,6 +18,11 @@ public enum CoffeeAddOn {
         this.price = 0.30;
     }
 
+    /**
+     * Return addOn string
+     *
+     * @return string of addOn
+     */
     @Override
     public String toString() {
         String[] words = this.name().split("_");
