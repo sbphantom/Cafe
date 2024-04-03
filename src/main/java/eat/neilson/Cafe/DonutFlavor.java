@@ -1,12 +1,9 @@
 package eat.neilson.Cafe;
+
 /**
  * Enum class of Donut Flavors.
  * @author Danny Onurah
  */
-
-import java.util.HashMap;
-import java.util.Map;
-
 public enum DonutFlavor {
     MAPLE(DonutType.YEAST),
     SUGAR(DonutType.YEAST),

@@ -2,6 +2,7 @@ package eat.neilson.Cafe;
 
 /**
  * Enum class for the available sandwich protein options.
+ *
  * @author Danny Onurah
  */
 public enum SandwichProtein {
@@ -12,12 +13,14 @@ public enum SandwichProtein {
 
     public double price;
 
-    SandwichProtein(double price){
+    SandwichProtein(double price) {
         this.price = price;
     }
+
     /**
-     * toString method for the sandwich addon
-     * @return formatted string of a sandwich protein object
+     * Return protein string
+     *
+     * @return protein string
      */
     @Override
     public String toString() {

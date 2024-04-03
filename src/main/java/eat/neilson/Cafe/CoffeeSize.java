@@ -1,9 +1,9 @@
 package eat.neilson.Cafe;
+
 /**
  * Enum class of Coffee Sizes.
  * @author Danny Onurah
  */
-
 public enum CoffeeSize {
 
     SHORT(1.99),

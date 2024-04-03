@@ -1,6 +1,8 @@
 package eat.neilson.Cafe;
+
 /**
  * Enum class for the available sandwich addOn options.
+ *
  * @author Danny Onurah
  */
 public enum SandwichAddOn {
@@ -11,13 +13,15 @@ public enum SandwichAddOn {
     CHEESE(1.00);
 
     public double price;
-    SandwichAddOn(double price){
+
+    SandwichAddOn(double price) {
         this.price = price;
     }
 
     /**
-     * toString method for the sandwich addon
-     * @return formatted string of an addOn object
+     * Return sandwich addOn string
+     *
+     * @return AddOn string
      */
     @Override
     public String toString() {
