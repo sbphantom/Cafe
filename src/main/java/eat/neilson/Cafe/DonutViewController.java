@@ -1,7 +1,8 @@
 package eat.neilson.Cafe;
 /**
- *This class serves as the main controller for the donut ordering window.
+ * This class serves as the main controller for the donut ordering window.
  * Orders from this window are sent back to the main cart.
+ *
  * @author Adeola Asimolowo
  */
 
@@ -27,10 +28,10 @@ public class DonutViewController {
     public ImageView donutImage;
     private Donut donut = new Donut();
     public Button addOrder;
-   @FXML
+    @FXML
     public Button addButtonPreOrder;
-   @FXML
-   public Button deleteButtonPreOrder;
+    @FXML
+    public Button deleteButtonPreOrder;
     @FXML
     public TextField donutSubtotalTextField;
     @FXML
@@ -87,7 +88,6 @@ public class DonutViewController {
             }
             row++;
         }
-        //donutGridPane.add(flavorListView, 1, 1);
         flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         populateFlavors((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
 
@@ -96,24 +96,34 @@ public class DonutViewController {
 
                 DonutType selectedType = (DonutType) newValue.getUserData();
                 populateFlavors(selectedType);
-                String imagePath = "";
-                switch (selectedType) {
-                    case DonutType.YEAST:
-                        imagePath = "yeast.jpg";
-                        break;
-                    case DonutType.HOLE:
-                        imagePath = "holes.jpg";
-                        break;
-                    case DonutType.CAKE:
-                        imagePath = "cake.jpg";
-                        break;
-                    default:
-                        break;
-                }
+                String imagePath = changeImage(selectedType);
                 Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
                 donutImage.setImage(image);
             }
         });
+    }
+
+    /**
+     * Sets new imagePath for the currentlky selcted donutType by user
+     * @param selectedType Donut Type
+     * @return new image path
+     */
+    public String changeImage(DonutType selectedType) {
+        String imagePath = "";
+        switch (selectedType) {
+            case DonutType.YEAST:
+                imagePath = "yeast.jpg";
+                break;
+            case DonutType.HOLE:
+                imagePath = "holes.jpg";
+                break;
+            case DonutType.CAKE:
+                imagePath = "cake.jpg";
+                break;
+            default:
+                break;
+        }
+        return imagePath;
     }
 
     /**
@@ -186,9 +196,9 @@ public class DonutViewController {
      */
     //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
     public void OnAddOrderButtonClick() {
-        for(Donut donut: preOrdersList){
+        for (Donut donut : preOrdersList) {
             app.addItemToOrder(donut, donut.getQuantity());
-            updateSubtotal("sub",donut);
+            updateSubtotal("sub", donut);
         }
 
         preOrdersList.clear();
