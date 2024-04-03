@@ -114,7 +114,7 @@ public class Coffee extends MenuItem {
     }
 
     /**
-     * Calculates based on coffee fields
+     * Calculates hashcode based on coffee fields
      *
      * @return int hashcode
      */
