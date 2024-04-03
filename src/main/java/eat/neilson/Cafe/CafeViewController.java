@@ -24,6 +24,9 @@ public class CafeViewController {
 
     /**
      * Links the parent application and stage to class
+     *
+     * @param stage Cafe view stage
+     * @param main  cafe application
      */
     public void setPrimaryStage(Stage stage, CafeMain main) {
         primaryStage = stage;
@@ -35,9 +38,9 @@ public class CafeViewController {
      *
      * @return hashmap of orders
      */
-    public LinkedHashMap<Integer, Order> getOrderHistory(){
-    return main.orderHistory;
-}
+    public LinkedHashMap<Integer, Order> getOrderHistory() {
+        return main.orderHistory;
+    }
 
     /**
      * Returns the current order
@@ -60,15 +63,18 @@ public class CafeViewController {
     /**
      * Returns the quantity of an item in the current order
      *
+     * @param item to check
      * @return quantity in cart
      */
-    public int getItemCount(MenuItem item){
+    public int getItemCount(MenuItem item) {
         return main.currentOrder.itemCount(item);
     }
 
     /**
      * Adds the item and quantity to the current order
      *
+     * @param item to add
+     * @param quantity to add
      * @return true if added successfully
      */
     public boolean addItemToOrder(MenuItem item, int quantity) {
@@ -78,6 +84,8 @@ public class CafeViewController {
     /**
      * Removes the item and quantity from the current order
      *
+     * @param item to remove
+     * @param quantity to remove
      * @return true if removed successfully
      */
     public boolean removeItemFromOrder(MenuItem item, int quantity) {
@@ -98,7 +106,6 @@ public class CafeViewController {
         main.currentOrder = main.createOrder();
 
     }
-
 
 
     /**
@@ -178,7 +185,7 @@ public class CafeViewController {
                 primaryStage.requestFocus();
             });
 
-           SandwichViewController sandwichController = loader.getController();
+            SandwichViewController sandwichController = loader.getController();
             sandwichController.setMainController(this);
 
             sandwichStage.show();
@@ -250,6 +257,7 @@ public class CafeViewController {
             alert.setHeaderText("Loading history-view.fxml.");
             alert.setContentText("Couldn't load history-view.fxml.");
             alert.showAndWait();
-        }    }
+        }
+    }
 
 }

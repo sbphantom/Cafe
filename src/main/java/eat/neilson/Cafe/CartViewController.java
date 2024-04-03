@@ -261,6 +261,9 @@ public class CartViewController {
 
     /**
      * Links the parent controller to child
+     *
+     * @param controller Parent CafeViewController
+     * @param stage Cafe view stage
      */
     public void setMainController(CafeViewController controller, Stage stage) {
         app = controller;

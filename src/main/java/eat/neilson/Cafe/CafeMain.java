@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
@@ -83,13 +84,15 @@ public class CafeMain extends Application {
 
         for (int i = 0 ;i < 50; i++){
             createOrder();
-            Coffee a = new Coffee();
 
             Random rand = new Random();
-            a.setCoffeeSize(CoffeeSize.values()[rand.nextInt(CoffeeSize.values().length)]);
-            a.addAddOn(CoffeeAddOn.values()[rand.nextInt(CoffeeAddOn.values().length)]);
+            CoffeeSize size = CoffeeSize.values()[rand.nextInt(CoffeeSize.values().length)];
+            ArrayList<CoffeeAddOn> addOns = new ArrayList<>();
+            addOns.add(CoffeeAddOn.values()[rand.nextInt(CoffeeAddOn.values().length)]);
+            Coffee a = new Coffee(size, addOns);
             addItem(a, rand.nextInt(10));
             addOrder();
+
         }
     }
 
