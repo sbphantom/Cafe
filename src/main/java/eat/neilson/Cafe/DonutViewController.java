@@ -1,14 +1,7 @@
 package eat.neilson.Cafe;
-/**
- * This class serves as the main controller for the donut ordering window.
- * Orders from this window are sent back to the main cart.
- *
- * @author Adeola Asimolowo
- */
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,12 +9,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * This class serves as the main controller for the donut ordering window.
+ * Orders from this window are sent back to the main cart.
+ *
+ * @author Adeola Asimolowo
+ */
 public class DonutViewController {
 
     public ImageView donutImage;
