@@ -285,6 +285,10 @@ public class HistoryViewController {
                 writer.newLine();
             }
             writer.close();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Exporting Order");
+            alert.setContentText("Your Orders have been exported to 'orders.txt'");
 
         } catch (IOException e) {
             System.err.println("Error exporting orders: " + e.getMessage());
