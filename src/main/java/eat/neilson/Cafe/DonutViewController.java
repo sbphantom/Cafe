@@ -18,7 +18,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 public class DonutViewController {
 
@@ -50,7 +52,7 @@ public class DonutViewController {
 
     @FXML
     public void initialize() {
-        Image img  = new Image(Objects.requireNonNull(getClass().getResourceAsStream("addToCart2.png")));
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("addToCart2.png")));
         ImageView imgView = new ImageView(img);
         imgView.setFitWidth(90);
         imgView.setFitHeight(50);
@@ -107,6 +109,7 @@ public class DonutViewController {
 
     /**
      * Sets new imagePath for the currentlky selcted donutType by user
+     *
      * @param selectedType Donut Type
      * @return new image path
      */
@@ -194,18 +197,32 @@ public class DonutViewController {
 
     /**
      * Sends the order of donuts to the main cart.
-     *
      */
     //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
     public void OnAddOrderButtonClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Add to Order");
+        StringBuilder sb = new StringBuilder();
         for (Donut donut : preOrdersList) {
-            app.addItemToOrder(donut, donut.getQuantity());
-            updateSubtotal("sub", donut);
+            sb.append(donut.toString()).append(" ");
         }
 
-        preOrdersList.clear();
-        donutQuantity.getSelectionModel().selectFirst();
-        donutTypeToggleGroup.selectToggle(donutTypeToggleGroup.getToggles().getFirst());
+        alert.setContentText("Add " + sb + " to order?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            for (Donut donut : preOrdersList) {
+                app.addItemToOrder(donut, donut.getQuantity());
+                updateSubtotal("sub", donut);
+            }
+
+            preOrdersList.clear();
+            donutQuantity.getSelectionModel().selectFirst();
+            donutTypeToggleGroup.selectToggle(donutTypeToggleGroup.getToggles().getFirst());
+
+        }
     }
 
     /**
@@ -214,7 +231,7 @@ public class DonutViewController {
      * Subtracts if we are removing a donut from the preOrder Listview.
      *
      * @param operation add or subtract from current subtotal
-     * @param donut pass the donut currently being selected.
+     * @param donut     pass the donut currently being selected.
      */
     private void updateSubtotal(String operation, Donut donut) {
 
@@ -239,7 +256,6 @@ public class DonutViewController {
 
     /**
      * Sets DonutViewController as the main screen
-     *
      */
     public void setMainController(CafeViewController controller) {
         app = controller;
