@@ -1,11 +1,8 @@
 package eat.neilson.Cafe;
 
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -14,43 +11,22 @@ import java.util.Optional;
  * This class serves as the main controller for the sandwich ordering window.
  * Orders from this window are sent back to the main cart.
  *
- * @author Adeola Asimolowo, Danny Onurah
+ * @author Adeola Asimolowo, Danny Onuorah
  */
 public class SandwichViewController {
-
-    private Sandwich sandwich = new Sandwich();
-    public ImageView sandwichImage;
-
+    @FXML
     public TextField sandwichSubtotalTextField;
-
+    @FXML
     public Button addOrderButton;
-
-    public Button CancelOrderButton;
-
     @FXML
     private GridPane sandwichGridPane;
 
-    public ColumnConstraints sandwichBreadColumn;
-
-    public ColumnConstraints sandwichProteinColumn;
-
-    public ColumnConstraints sandwichAddOnColumn;
+    private ArrayList<CheckBox> sandwichAddOnOptions = new ArrayList<>();
+    private ToggleGroup breadToggleGroup = new ToggleGroup();
+    private ToggleGroup proteinToggleGroup = new ToggleGroup();
 
     private CafeViewController app;
-
-    private Stage stage;
-
-    private Scene primaryScene;
-
-    private Stage primaryStage;
-
-    public
-    ToggleGroup breadToggleGroup = new ToggleGroup();
-
-    ToggleGroup proteinToggleGroup = new ToggleGroup();
-
-    public ArrayList<CheckBox> sandwichAddOnOptions = new ArrayList<>();
-
+    private Sandwich sandwich = new Sandwich();
 
     /**
      * Initializes the sandwichView window
@@ -97,7 +73,7 @@ public class SandwichViewController {
         }
 
         breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (newValue != null && sandwich != null) {
                 sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();
             }
@@ -134,7 +110,7 @@ public class SandwichViewController {
         }
 
         proteinToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+            if (newValue != null && sandwich != null) {
                 sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();
             }
