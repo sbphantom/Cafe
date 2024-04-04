@@ -48,7 +48,6 @@ public class HistoryViewController {
 
     List<Integer> keys;
 
-
     /**
      * Updates the view to newly selected order
      */
@@ -64,7 +63,7 @@ public class HistoryViewController {
         cart = FXCollections.observableMap(order.getCart());
 
         System.out.println(order.getCart());
-        orderNumberSelector.setText(keys.indexOf(id) + 1 +")  #" + id.toString());
+        orderNumberSelector.setText(keys.indexOf(id) + 1 + ")  #" + id.toString());
         initializeTable();
 
         viewPreviousButton.setDisable(index == 0);
@@ -250,7 +249,7 @@ public class HistoryViewController {
      */
     public void onNextButtonClick() {
         viewPreviousButton.setDisable(false);
-        handleOrderNumberSelection(keys.get(keys.indexOf(orderNumberSelector.getUserData())  + 1));
+        handleOrderNumberSelection(keys.get(keys.indexOf(orderNumberSelector.getUserData()) + 1));
 
     }
 
@@ -275,7 +274,7 @@ public class HistoryViewController {
     /**
      * Export orders to a textFile
      */
-    public void onExportButton(){
+    public void onExportButton() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("orders.txt"));
             for (Integer orderId : history.keySet()) {
@@ -302,7 +301,12 @@ public class HistoryViewController {
 
     }
 
-    public String generateOrderText(int orderID, Order order){
+    /**
+     * Generates export text for order
+     *
+     * @return formatted order string
+     */
+    public String generateOrderText(int orderID, Order order) {
         StringBuilder sb = new StringBuilder();
         sb.append("Order ID: ").append(orderID).append("\n");
         sb.append("Items:\n");
@@ -318,4 +322,5 @@ public class HistoryViewController {
         sb.append("\n");
         return sb.toString();
 
-}}
+    }
+}
