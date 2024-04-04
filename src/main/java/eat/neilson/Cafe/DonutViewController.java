@@ -8,9 +8,7 @@ package eat.neilson.Cafe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,7 +18,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.Objects;
 
 public class DonutViewController {
@@ -53,6 +50,11 @@ public class DonutViewController {
 
     @FXML
     public void initialize() {
+        Image img  = new Image(Objects.requireNonNull(getClass().getResourceAsStream("addToCart2.png")));
+        ImageView imgView = new ImageView(img);
+        imgView.setFitWidth(90);
+        imgView.setFitHeight(50);
+        addOrder.setGraphic(imgView);
         donutSubtotalTextField.setText("$0.00");
         OnAddButtonClick();
         onDeleteButtonClick();
@@ -221,10 +223,10 @@ public class DonutViewController {
 
         switch (operation) {
             case "add":
-                subtotal += donut.price(); //* donut.getQuantity();
+                subtotal += donut.price() * donut.getQuantity();
                 break;
             case "sub":
-                subtotal -= donut.price(); //* donut.getQuantity();
+                subtotal -= donut.price() * donut.getQuantity();
                 break;
             default:
                 break;
@@ -235,6 +237,9 @@ public class DonutViewController {
 
     }
 
+    public int getCurrentQuantity(){
+        return  (int) donutQuantity.getValue();
+    }
     /**
      * Sets DonutViewController as the main screen
      *

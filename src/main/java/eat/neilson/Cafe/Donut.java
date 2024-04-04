@@ -38,7 +38,7 @@ public class Donut extends MenuItem {
      */
     @Override
     public double price() {
-        return type.price * this.quantity;
+        return type.price;
     }
     /**
      * Equals method to compare to if two donuts are the same.
@@ -69,6 +69,7 @@ public class Donut extends MenuItem {
      */
     @Override
     public String toString(){
+
         return flavor + " " + type + " (" + quantity +")";
     }
     /**

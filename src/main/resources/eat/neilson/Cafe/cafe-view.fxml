@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" minHeight="600.0" minWidth="600.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="eat.neilson.Cafe.CafeViewController">
+<VBox alignment="CENTER" minHeight="600.0" minWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eat.neilson.Cafe.CafeViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -22,12 +22,12 @@
        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
      </rowConstraints>
       <children>
-         <Button onAction="#onCoffeeButtonClick" mnemonicParsing="false" text="Coffee" />
-         <Button onAction="#onDonutButtonClick" mnemonicParsing="false" text="Donut" GridPane.columnIndex="1" />
-         <Button onAction="#onSandwichButtonClick" mnemonicParsing="false" text="Sandwich" GridPane.columnIndex="2" />
+         <Button mnemonicParsing="false" onAction="#onCoffeeButtonClick" text="Coffee" />
+         <Button mnemonicParsing="false" onAction="#onDonutButtonClick" text="Donut" GridPane.columnIndex="1" />
+         <Button mnemonicParsing="false" onAction="#onSandwichButtonClick" text="Sandwich" GridPane.columnIndex="2" />
       </children>
    </GridPane>
 
     <Label fx:id="welcomeText" />
-    <Button onAction="#onCurrentOrderButtonClick" text="View Cart" />
+    <Button fx:id="viewCartButton" onAction="#onCurrentOrderButtonClick" text="View Cart" />
 </VBox>

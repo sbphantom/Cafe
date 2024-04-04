@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 //import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -14,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CafeViewController {
 
@@ -21,6 +26,8 @@ public class CafeViewController {
     private Stage primaryStage;
     private Scene primaryScene;
 
+    @FXML
+    private Button viewCartButton;
 
     @FXML
     private Label welcomeText;
