@@ -1,23 +1,21 @@
 package eat.neilson.Cafe;
-/**
- *This class serves as the main controller for the sandwich ordering window.
- * Orders from this window are sent back to the main cart.
- * @author Adeola Asimolowo, Danny Onurah
- */
 
 import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * This class serves as the main controller for the sandwich ordering window.
+ * Orders from this window are sent back to the main cart.
+ *
+ * @author Adeola Asimolowo, Danny Onurah
+ */
 public class SandwichViewController {
 
     private Sandwich sandwich = new Sandwich();
@@ -60,13 +58,13 @@ public class SandwichViewController {
     @FXML
     public void initialize() {
 
-       addRadioButtonsToBreadColumn();
-       addRadioButtonsToProteinColumn();
-       addCheckboxesToAddOnColumn();
+        addRadioButtonsToBreadColumn();
+        addRadioButtonsToProteinColumn();
+        addCheckboxesToAddOnColumn();
 
-       sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
-       sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
-       updateSubtotal();
+        sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
+        sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
+        updateSubtotal();
 
 
     }
@@ -74,23 +72,23 @@ public class SandwichViewController {
     /**
      * Adds radio buttons of bread options to gridPane column.
      */
-    private void addRadioButtonsToBreadColumn(){
+    private void addRadioButtonsToBreadColumn() {
         int row = 1;
-        for (SandwichBread bread: SandwichBread.values()){
+        for (SandwichBread bread : SandwichBread.values()) {
             RadioButton radioButton = new RadioButton(bread.toString());
             radioButton.setToggleGroup(breadToggleGroup);
             radioButton.setUserData(bread);
 
             sandwichGridPane.add(radioButton, 0, row);
 
-            if(sandwichGridPane.getRowConstraints().size() < row){
+            if (sandwichGridPane.getRowConstraints().size() < row) {
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setMinHeight(35);
                 rowConstraints.setPrefHeight(35);
                 rowConstraints.setVgrow(Priority.SOMETIMES);
                 sandwichGridPane.getRowConstraints().add(rowConstraints);
             }
-            if(row ==1){
+            if (row == 1) {
                 radioButton.setSelected(true);
             }
 
@@ -98,8 +96,8 @@ public class SandwichViewController {
 
         }
 
-         breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue !=null ){
+        breadToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
                 sandwich.setBread((SandwichBread) breadToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();
             }
@@ -109,9 +107,9 @@ public class SandwichViewController {
     /**
      * Adds radio buttons of protein options to gridpane column.
      */
-    private void addRadioButtonsToProteinColumn(){
+    private void addRadioButtonsToProteinColumn() {
         int row = 1;
-        for (SandwichProtein protein: SandwichProtein.values()){
+        for (SandwichProtein protein : SandwichProtein.values()) {
             RadioButton radioButton = new RadioButton(protein.toString());
             radioButton.setToggleGroup(proteinToggleGroup);
             radioButton.setUserData(protein);
@@ -126,7 +124,7 @@ public class SandwichViewController {
                 sandwichGridPane.getRowConstraints().add(rowConstraints);
             }*/
 
-            if(row == 1){
+            if (row == 1) {
 
                 radioButton.setSelected(true);
             }
@@ -135,8 +133,8 @@ public class SandwichViewController {
 
         }
 
-        proteinToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) ->{
-            if(newValue !=null){
+        proteinToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
                 sandwich.setProtein((SandwichProtein) proteinToggleGroup.getSelectedToggle().getUserData());
                 updateSubtotal();
             }
@@ -146,23 +144,22 @@ public class SandwichViewController {
     /**
      * Adds checkboxes of sandwich add-ons to gridPane column.
      */
-    private void  addCheckboxesToAddOnColumn(){
+    private void addCheckboxesToAddOnColumn() {
         int row = 1;
-        for (SandwichAddOn addOn: SandwichAddOn.values()){
+        for (SandwichAddOn addOn : SandwichAddOn.values()) {
             CheckBox checkBox = new CheckBox((addOn.toString()));
             checkBox.setUserData(addOn);
-            checkBox.setOnAction(event ->{
-                if (checkBox.isSelected()){
+            checkBox.setOnAction(event -> {
+                if (checkBox.isSelected()) {
                     sandwich.addAddOn((SandwichAddOn) checkBox.getUserData());
-                }
-                else {
+                } else {
                     sandwich.removeAddOn((SandwichAddOn) checkBox.getUserData());
                 }
                 updateSubtotal();
-            } );
+            });
             sandwichAddOnOptions.add(checkBox);
             sandwichGridPane.add(checkBox, 2, row);
-            if (sandwichGridPane.getRowConstraints().size() <= row){
+            if (sandwichGridPane.getRowConstraints().size() <= row) {
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setMinHeight(35);
                 rowConstraints.setPrefHeight(35);
@@ -174,18 +171,18 @@ public class SandwichViewController {
     }
 
     /**
-     *Sets SandwichViewController as the main controller
+     * Sets SandwichViewController as the main controller
+     *
      * @param controller main screen controller.
-
      */
-    public void setMainController(CafeViewController controller){
+    public void setMainController(CafeViewController controller) {
         app = controller;
     }
 
     /**
      * updates the subtotal of the sandwich order.
      */
-    private void updateSubtotal(){
+    private void updateSubtotal() {
         double subtotal = sandwich.price();
         String formattedSubtotal = String.format("%.2f", subtotal);
         sandwichSubtotalTextField.setText("$" + formattedSubtotal);
@@ -194,17 +191,15 @@ public class SandwichViewController {
 
     /**
      * Adds sandwich order to main cart.
-     *
      */
     public void onAddOrderButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Add to Order");
-        if (sandwich.addOnCount() > 0){
+        if (sandwich.addOnCount() > 0) {
             alert.setContentText("Add " + sandwich.toString() + " sandwich to order?");
-        }
-        else{
-            alert.setContentText("Add " + sandwich.getProtein() + " " + sandwich.getBread() +" sandwich.");
+        } else {
+            alert.setContentText("Add " + sandwich.getProtein() + " " + sandwich.getBread() + " sandwich.");
         }
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -215,7 +210,7 @@ public class SandwichViewController {
 
             proteinToggleGroup.selectToggle(proteinToggleGroup.getToggles().getFirst());
             breadToggleGroup.selectToggle(breadToggleGroup.getToggles().getFirst());
-            for (CheckBox box : sandwichAddOnOptions){
+            for (CheckBox box : sandwichAddOnOptions) {
                 box.setSelected(false);
             }
 

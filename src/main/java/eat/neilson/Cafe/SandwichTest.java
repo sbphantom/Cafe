@@ -1,17 +1,17 @@
 package eat.neilson.Cafe;
-/**
- * Junit Testing file for sandwich.
- * @author Adeola Asimolowo
- */
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ * Junit Testing file for sandwich.
+ *
+ * @author Adeola Asimolowo
+ */
 public class SandwichTest {
 
     @Test
@@ -60,6 +60,7 @@ public class SandwichTest {
         sandwich.setSandwichAddOn(addOns);
         assertEquals(12.29, sandwich.price(), 0.01);
     }
+
     @Test
     public void testSandwichE() {
         Sandwich sandwich = new Sandwich();
@@ -122,6 +123,7 @@ public class SandwichTest {
         assertFalse(sandwich1.equals(sandwich3));
 
     }
+
     @Test
     public void testSandwichHashCode() {
         Sandwich sandwich1 = new Sandwich();
