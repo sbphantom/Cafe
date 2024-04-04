@@ -157,7 +157,7 @@ public class DonutViewController {
 
 
     /**
-     * Adds Donut to the preOrder Listview & ObservableList.
+     * Adds Donut to the preOrder Listview and ObservableList.
      */
     public void OnAddButtonClick() {
         addButtonPreOrder.setOnAction(event -> {
@@ -182,7 +182,7 @@ public class DonutViewController {
     }
 
     /**
-     * Removes selected Donut from the preOrder Listview & ObservableList.
+     * Removes selected Donut from the preOrder Listview and ObservableList.
      */
     public void onDeleteButtonClick() {
         deleteButtonPreOrder.setOnAction(event -> {
