@@ -8,36 +8,46 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Controller class used in coffee view to place orders for coffee
+ *
+ * @author Danny Onuorah
+ */
 
 public class CoffeeViewController {
-
     @FXML
     public ImageView coffeeImage;
     @FXML
     public Spinner<Integer> coffeeQuantitySpinner;
+    @FXML
     public TextField coffeeSubtotalTextField;
+    @FXML
     public Button addOrderButton;
-    public Button cancelOrderButton;
     @FXML
     private GridPane coffeeGridPane;
     @FXML
-
     public ColumnConstraints coffeeSizeColumn;
     @FXML
-
     public ColumnConstraints coffeeAddOnColumn;
 
-    public ArrayList<CheckBox> coffeeAddOnOptions = new ArrayList<>();
-
-    ToggleGroup coffeeSizeToggleGroup = new ToggleGroup();
+    private ArrayList<CheckBox> coffeeAddOnOptions = new ArrayList<>();
+    private ToggleGroup coffeeSizeToggleGroup = new ToggleGroup();
 
     private CafeViewController app;
-//    private Stage stage;
-//    private Scene primaryScene;
-//    private Stage primaryStage;
-
     private Coffee coffee;
 
+    /**
+     * Links parent controller to child
+     *
+     * @param controller CafeViewController
+     */
+    public void setMainController(CafeViewController controller) {
+        app = controller;
+    }
+
+    /**
+     * Initializes coffee, coffee size, and addon buttons
+     */
     public void initialize() {
         addCoffeeSizeButtons();
         addCoffeeAddOnBoxes();
@@ -47,18 +57,13 @@ public class CoffeeViewController {
             if (coffee != null) updateSubtotal();
         });
 
-//        coffee.setCoffeeSize((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData());
         coffee = new Coffee((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
         updateSubtotal();
     }
 
-
-    private void updateSubtotal() {
-        double subtotal = coffee.price() * coffeeQuantitySpinner.getValue();
-        String formattedSubtotal = String.format("%.2f", subtotal);
-        coffeeSubtotalTextField.setText("$" + formattedSubtotal);
-    }
-
+    /**
+     * Creates buttons for coffee sizes
+     */
     private void addCoffeeSizeButtons() {
         int row = 1;
         for (CoffeeSize size : CoffeeSize.values()) {
@@ -91,6 +96,9 @@ public class CoffeeViewController {
         });
     }
 
+    /**
+     * Creates checkboxes for coffee addons
+     */
     private void addCoffeeAddOnBoxes() {
         int row = 1;
         for (CoffeeAddOn addOn : CoffeeAddOn.values()) {
@@ -118,20 +126,18 @@ public class CoffeeViewController {
         }
     }
 
-    public void setMainController(CafeViewController controller) {
-        app = controller;
+    /**
+     * Updates the subtotal text
+     */
+    private void updateSubtotal() {
+        double subtotal = coffee.price() * coffeeQuantitySpinner.getValue();
+        String formattedSubtotal = String.format("%.2f", subtotal);
+        coffeeSubtotalTextField.setText("$" + formattedSubtotal);
     }
 
-//    public void setMainController(CafeViewController controller,
-//                                  Stage stage,
-//                                  Stage primaryStage,
-//                                  Scene primaryScene) {
-//        app = controller;
-//        this.stage = stage;
-//        this.primaryStage = primaryStage;
-//        this.primaryScene = primaryScene;
-//    }
-
+    /**
+     * Adds coffee and quantity to order
+     */
     public void onAddOrderButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
@@ -153,8 +159,5 @@ public class CoffeeViewController {
             coffee = new Coffee((CoffeeSize) coffeeSizeToggleGroup.getSelectedToggle().getUserData(), new ArrayList<>());
             updateSubtotal();
         }
-    }
-
-    public void onCancelOrderButtonClick() {
     }
 }
