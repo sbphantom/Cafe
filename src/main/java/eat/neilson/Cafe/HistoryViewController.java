@@ -19,42 +19,43 @@ import java.util.*;
  * @author Danny Onuorah
  */
 public class HistoryViewController {
-
+    @FXML
     public Label subtotalText;
+    @FXML
     public Label taxText;
+    @FXML
     public Label totalText;
+    @FXML
     public Label orderNumberLabel;
+    @FXML
     public TextField currentPageTextField;
+    @FXML
     public TextField pageCountTextField;
+    @FXML
     public MenuButton orderNumberSelector;
+    @FXML
     public Button viewPreviousButton;
+    @FXML
     public Button viewFirstButton;
+    @FXML
     public Button viewLastButton;
+    @FXML
     public Button viewNextButton;
-    public Button exportButton;
     @FXML
     private TableView<Map.Entry<MenuItem, Integer>> menuItemTable;
 
-    private CafeViewController app;
-
     private Stage stage;
+    private CafeViewController app;
+    private ObservableMap<Integer, Order> history;
+    private Order order;
+    private ObservableMap<MenuItem, Integer> cart;
 
-    ObservableMap<MenuItem, Integer> items;
-
-    public Order order;
-
-    public ObservableMap<MenuItem, Integer> cart;
-    public ObservableMap<Integer, Order> history;
-
-    List<Integer> keys;
+    private List<Integer> keys;
 
     /**
      * Updates the view to newly selected order
      */
     private void handleOrderNumberSelection(Integer id) {
-        System.out.println(id);
-        System.out.println(keys.indexOf(id));
-
         orderNumberSelector.setUserData(id);
         int index = keys.indexOf(id);
         currentPageTextField.setText(String.valueOf(index + 1));

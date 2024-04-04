@@ -22,9 +22,9 @@ import java.util.Optional;
  * @author Adeola Asimolowo
  */
 public class DonutViewController {
-
+    @FXML
     public ImageView donutImage;
-    private Donut donut = new Donut();
+    @FXML
     public Button addOrder;
     @FXML
     public Button addButtonPreOrder;
@@ -34,20 +34,20 @@ public class DonutViewController {
     public TextField donutSubtotalTextField;
     @FXML
     public GridPane donutGridPane;
+    @FXML
     public GridPane DonutTypesGridPane;
-    public ColumnConstraints donutTypeColumn;
-    public ColumnConstraints donutFlavorColumn;
-    private CafeViewController app;
-    private Stage stage;
     @FXML
     public ComboBox donutQuantity;
-    private ObservableList<DonutFlavor> flavors = FXCollections.observableArrayList();
-    private ObservableList<Donut> preOrdersList = FXCollections.observableArrayList();
     @FXML
     public ListView flavorListView;
     @FXML
     public ListView preOrders;
-    public ToggleGroup donutTypeToggleGroup = new ToggleGroup();
+    private ToggleGroup donutTypeToggleGroup = new ToggleGroup();
+
+    private CafeViewController app;
+    private ObservableList<DonutFlavor> flavors = FXCollections.observableArrayList();
+    private ObservableList<Donut> preOrdersList = FXCollections.observableArrayList();
+    private Donut donut = new Donut();
 
     @FXML
     public void initialize() {
