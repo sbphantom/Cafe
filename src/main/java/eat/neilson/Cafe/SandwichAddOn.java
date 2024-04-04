@@ -6,7 +6,6 @@ package eat.neilson.Cafe;
  * @author Danny Onurah
  */
 public enum SandwichAddOn {
-
     LETTUCE(0.30),
     TOMATOES(0.30),
     ONIONS(0.30),
@@ -27,6 +26,4 @@ public enum SandwichAddOn {
     public String toString() {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase();
     }
-
-
 }
