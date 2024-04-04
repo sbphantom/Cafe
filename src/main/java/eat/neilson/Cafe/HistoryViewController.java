@@ -8,6 +8,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -28,6 +31,7 @@ public class HistoryViewController {
     public Button viewFirstButton;
     public Button viewLastButton;
     public Button viewNextButton;
+    public Button exportButton;
     @FXML
     private TableView<Map.Entry<MenuItem, Integer>> menuItemTable;
 
@@ -267,4 +271,46 @@ public class HistoryViewController {
         handleOrderNumberSelection(keys.getLast());
 
     }
-}
+
+    /**
+     * Export orders to a textFile
+     */
+    public void onExportButton(){
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("orders.txt"));
+            for (Integer orderId : history.keySet()) {
+                Order order = history.get(orderId);
+                String orderText = generateOrderText(orderId, order);
+                writer.write(orderText);
+                writer.newLine();
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            System.err.println("Error exporting orders: " + e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Error exporting orders");
+            alert.setContentText("Couldn't Export File \n" + e.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+
+    public String generateOrderText(int orderID, Order order){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order ID: ").append(orderID).append("\n");
+        sb.append("Items:\n");
+        for (MenuItem item : order.getCart().keySet()) {
+            int quantity = order.getCart().get(item);
+            sb.append(" - ").append(item.name()).append(": ").append(quantity).append("x\n");
+            sb.append("   Add-ons: ").append(item.addOnString()).append("\n");
+            sb.append("   Price: $").append(String.format("%.2f", item.price() * quantity)).append("\n");
+        }
+        sb.append("Subtotal: $").append(String.format("%.2f", order.getSubtotal())).append("\n");
+        sb.append("Tax: $").append(String.format("%.2f", order.tax())).append("\n");
+        sb.append("Total: $").append(String.format("%.2f", order.getTotal())).append("\n");
+        sb.append("\n");
+        return sb.toString();
+
+}}

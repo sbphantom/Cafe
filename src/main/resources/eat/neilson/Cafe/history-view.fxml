@@ -77,6 +77,6 @@
             <items>
             </items>
         </MenuButton>
-      <Button mnemonicParsing="false" text="Export Orders" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
+      <Button onAction="#onExportButton" mnemonicParsing="false" text="Export Orders" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
     </children>
 </AnchorPane>
