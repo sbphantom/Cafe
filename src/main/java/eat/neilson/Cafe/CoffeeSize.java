@@ -5,9 +5,7 @@ package eat.neilson.Cafe;
  *
  * @author Danny Onurah
  */
-
 public enum CoffeeSize {
-
     SHORT(1.99),
     TALL(2.49),
     GRANDE(2.99),

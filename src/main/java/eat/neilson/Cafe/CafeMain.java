@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Random;
 
-
 /**
  * Main Model of Neilson Cafe ordering software
  *

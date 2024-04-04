@@ -13,7 +13,6 @@ public enum DonutFlavor {
     CRULLER(DonutType.YEAST),
     COFFEE(DonutType.YEAST),
 
-
     VANILLA(DonutType.CAKE),
     CHOCOLATE(DonutType.CAKE),
     STRAWBERRY(DonutType.CAKE),
