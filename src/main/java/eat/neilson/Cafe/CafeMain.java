@@ -17,21 +17,36 @@ import java.util.Random;
  */
 public class CafeMain extends Application {
 
-    LinkedHashMap<Integer, Order> orderHistory = new LinkedHashMap<>();
-    Order currentOrder = createOrder();
+    private LinkedHashMap<Integer, Order> orderHistory = new LinkedHashMap<>();
+    private Order currentOrder;
 
+    /**
+     * Get order history
+     *
+     * @return transaction history
+     */
+    public LinkedHashMap<Integer, Order> getOrderHistory() {
+        return orderHistory;
+    }
+
+    /**
+     * Get current Order
+     *
+     * @return current order
+     */
+    public Order getCurrentOrder() {
+        return currentOrder;
+    }
 
     /**
      * Creates an order with a random order number
-     *
-     * @return newly created order
-     */
-    public Order createOrder() {
+     **/
+    public void createOrder() {
         Random rand = new Random();
         int id;
         do id = rand.nextInt(9000) + 1000;
         while (orderHistory.containsKey(id));
-        return new Order(id);
+        currentOrder = new Order(id);
     }
 
     /**
@@ -42,7 +57,7 @@ public class CafeMain extends Application {
     public boolean addOrder() {
         if (currentOrder.cartSize() > 0) {
             orderHistory.put(currentOrder.getOrderNumber(), currentOrder);
-            currentOrder = createOrder();
+            createOrder();
             return true;
         }
         return false;
@@ -80,6 +95,8 @@ public class CafeMain extends Application {
         stage.setTitle("Neilson Cafe");
         stage.setScene(scene);
         stage.show();
+
+        createOrder();
 
         for (int i = 0 ;i < 50; i++){
             createOrder();

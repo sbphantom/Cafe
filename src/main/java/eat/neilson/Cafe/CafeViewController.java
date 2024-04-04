@@ -18,7 +18,7 @@ import java.util.LinkedHashMap;
  */
 public class CafeViewController {
 
-    public CafeMain main;
+    private CafeMain main;
     private Stage primaryStage;
 
     /**
@@ -38,7 +38,7 @@ public class CafeViewController {
      * @return hashmap of orders
      */
     public LinkedHashMap<Integer, Order> getOrderHistory() {
-        return main.orderHistory;
+        return main.getOrderHistory();
     }
 
     /**
@@ -47,7 +47,7 @@ public class CafeViewController {
      * @return current order
      */
     public Order getOrder() {
-        return main.currentOrder;
+        return main.getCurrentOrder();
     }
 
     /**
@@ -66,7 +66,7 @@ public class CafeViewController {
      * @return quantity in cart
      */
     public int getItemCount(MenuItem item) {
-        return main.currentOrder.itemCount(item);
+        return main.getCurrentOrder().itemCount(item);
     }
 
     /**
@@ -102,7 +102,7 @@ public class CafeViewController {
      * Creates a new order
      */
     public void newOrder() {
-        main.currentOrder = main.createOrder();
+        main.createOrder();
 
     }
 

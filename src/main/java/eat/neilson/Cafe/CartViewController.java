@@ -22,8 +22,8 @@ import java.util.Optional;
 public class CartViewController {
     private CafeViewController app;
     private Stage stage;
-    public Order order;
-    public ObservableMap<MenuItem, Integer> cart;
+    private Order order;
+    private ObservableMap<MenuItem, Integer> cart;
 
     @FXML
     public Label subtotalText;
