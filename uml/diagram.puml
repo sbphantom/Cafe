@@ -1,0 +1,392 @@
+@startuml
+
+
+enum CoffeeAddOn {
++  SWEET_CREAM
++  FRENCH_VANILLA
++  IRISH_CREAM
++  CARAMEL
++  MOCHA
++ double price
+~ <<Create>> CoffeeAddOn()
++ String toString()
+}
+
+
+enum DonutType {
++  YEAST
++  CAKE
++  HOLE
++ double price
+~ <<Create>> DonutType(double)
++ String toString()
++ ArrayList<DonutFlavor> getFlavors()
+}
+
+
+class CartViewController {
+- CafeViewController app
+- Stage stage
++ Order order
++ ObservableMap<MenuItem,Integer> cart
++ Label subtotalText
++ Label taxText
++ Label totalText
++ Button placeOrderButton
++ Button cancelOrderButton
++ Label orderNumberLabel
+- TableView<> menuItemTable
++ void initializeTable()
+- TableColumn<> getItemColumn()
+- TableColumn<> getAddOnColumn()
+- TableColumn<> getRemoveColumn()
+- TableColumn<> getQuantityColumn()
+- TableColumn<> getPriceColumn()
++ void initializeElements()
++ void updateTotal()
++ void setMainController(CafeViewController,Stage)
++ void onOrderButtonClick()
++ void onCancelButtonClick()
+}
+
+abstract class MenuItem {
++ {abstract}String name()
++ {abstract}String addOnString()
++ {abstract}double price()
++ {abstract}int compareTo(MenuItem)
++ {abstract}boolean equals(Object)
++ {abstract}int hashCode()
++ {abstract}String toString()
+}
+
+enum DonutFlavor {
++  MAPLE
++  SUGAR
++  BLUEBERRY
++  JELLY
++  CRULLER
++  COFFEE
++  VANILLA
++  CHOCOLATE
++  STRAWBERRY
++  PLAIN
++  POWDER
++  GLAZED
+- DonutType type
+~ <<Create>> DonutFlavor(DonutType)
++ DonutType getType()
++ String toString()
+}
+
+
+enum CoffeeSize {
++  SHORT
++  TALL
++  GRANDE
++  VENTI
++ double price
+~ <<Create>> CoffeeSize(double)
++ String toString()
+}
+
+
+class Coffee {
+- CoffeeSize size
+- ArrayList<CoffeeAddOn> addOns
++ <<Create>> Coffee(CoffeeSize,ArrayList<CoffeeAddOn>)
++ void setCoffeeSize(CoffeeSize)
++ void addAddOn(CoffeeAddOn)
++ void removeAddOn(CoffeeAddOn)
++ String name()
++ String addOnString()
++ double price()
++ int compareTo(MenuItem)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+
+
+class Sandwich {
+- double price
+- SandwichBread bread
+- SandwichProtein protein
+- ArrayList<SandwichAddOn> addOns
++ <<Create>> Sandwich()
++ <<Create>> Sandwich(SandwichBread,SandwichProtein,ArrayList<SandwichAddOn>)
++ SandwichBread getBread()
++ SandwichProtein getProtein()
++ int addOnCount()
++ String name()
++ String addOnString()
++ double price()
++ void setBread(SandwichBread)
++ void setProtein(SandwichProtein)
++ void addAddOn(SandwichAddOn)
++ void removeAddOn(SandwichAddOn)
++ void setSandwichAddOn(ArrayList<SandwichAddOn>)
++ int compareTo(MenuItem)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class HistoryViewController {
++ Label subtotalText
++ Label taxText
++ Label totalText
++ Label orderNumberLabel
++ TextField currentPageTextField
++ TextField pageCountTextField
++ MenuButton orderNumberSelector
++ Button viewPreviousButton
++ Button viewFirstButton
++ Button viewLastButton
++ Button viewNextButton
+- TableView<> menuItemTable
+- CafeViewController app
+- Stage stage
+~ ObservableMap<MenuItem,Integer> items
++ Order order
++ ObservableMap<MenuItem,Integer> cart
++ ObservableMap<Integer,Order> history
+~ List<Integer> keys
++ void initializeElements()
+- void handleOrderNumberSelection(Integer)
++ void initializeTable()
+- TableColumn<> getQuantityColumn()
+- TableColumn<> getPriceColumn()
+- TableColumn<> getAddOnColumn()
+- TableColumn<> getItemColumn()
++ void updateTotal()
++ void setMainController(CafeViewController,Stage)
++ void onPreviousButtonClick()
++ void onNextButtonClick()
++ void onFirstButtonClick()
++ void onLastButtonClick()
+}
+
+
+class Order {
+- int orderNumber
+- double subtotal
+- double total
+- HashMap<MenuItem,Integer> cart
++ {static} double STATE_TAX
++ <<Create>> Order(int)
++ Integer getOrderNumber()
++ HashMap<MenuItem,Integer> getCart()
++ int cartSize()
++ int itemCount(MenuItem)
++ boolean addItem(MenuItem,Integer)
++ boolean removeItem(MenuItem,Integer)
++ double getSubtotal()
++ double tax()
++ double getTotal()
+}
+
+
+class SandwichViewController {
+- Sandwich sandwich
++ ImageView sandwichImage
++ TextField sandwichSubtotalTextField
++ Button addOrderButton
++ Button CancelOrderButton
+- GridPane sandwichGridPane
++ ColumnConstraints sandwichBreadColumn
++ ColumnConstraints sandwichProteinColumn
++ ColumnConstraints sandwichAddOnColumn
+- CafeViewController app
+- Stage stage
+- Scene primaryScene
+- Stage primaryStage
++ ToggleGroup breadToggleGroup
+~ ToggleGroup proteinToggleGroup
++ ArrayList<CheckBox> sandwichAddOnOptions
++ void initialize()
+- void addRadioButtonsToBreadColumn()
+- void addRadioButtonsToProteinColumn()
+- void addCheckboxesToAddOnColumn()
++ void setMainController(CafeViewController)
+- void updateSubtotal()
++ void onAddOrderButtonClick()
+}
+
+
+class CafeMain {
+~ LinkedHashMap<Integer,Order> orderHistory
+~ Order currentOrder
++ Order createOrder()
++ boolean addOrder()
++ boolean addItem(MenuItem,int)
++ boolean removeItem(MenuItem,int)
++ void start(Stage)
++ {static} void main(String[])
+}
+
+
+class CoffeeViewController {
++ ImageView coffeeImage
++ Spinner<Integer> coffeeQuantitySpinner
++ TextField coffeeSubtotalTextField
++ Button addOrderButton
++ Button cancelOrderButton
+- GridPane coffeeGridPane
++ ColumnConstraints coffeeSizeColumn
++ ColumnConstraints coffeeAddOnColumn
++ ArrayList<CheckBox> coffeeAddOnOptions
+~ ToggleGroup coffeeSizeToggleGroup
+- CafeViewController app
+- Coffee coffee
++ void initialize()
+- void updateSubtotal()
+- void addCoffeeSizeButtons()
+- void addCoffeeAddOnBoxes()
++ void setMainController(CafeViewController)
++ void onAddOrderButtonClick()
++ void onCancelOrderButtonClick()
+}
+
+
+enum SandwichBread {
++  BAGEL
++  WHEAT
++  SOUR_DOUGH
++ String toString()
+}
+
+
+enum SandwichProtein {
++  BEEF
++  CHICKEN
++  FISH
++ double price
+~ <<Create>> SandwichProtein(double)
++ String toString()
+}
+
+
+enum SandwichAddOn {
++  LETTUCE
++  TOMATOES
++  ONIONS
++  CHEESE
++ double price
+~ <<Create>> SandwichAddOn(double)
++ String toString()
+}
+
+
+class DonutViewController {
++ ImageView donutImage
+- Donut donut
++ Button addOrder
++ Button addButtonPreOrder
++ Button deleteButtonPreOrder
++ TextField donutSubtotalTextField
++ GridPane donutGridPane
++ GridPane DonutTypesGridPane
++ ColumnConstraints donutTypeColumn
++ ColumnConstraints donutFlavorColumn
+- CafeViewController app
+- Stage stage
++ ComboBox donutQuantity
+- ObservableList<DonutFlavor> flavors
+- ObservableList<Donut> preOrdersList
++ ListView flavorListView
++ ListView preOrders
++ ToggleGroup donutTypeToggleGroup
++ void initialize()
+- void addRadioToDonutTypeColumn()
+- void populateFlavors(DonutType)
+- void populateQuantityComboBox()
++ void OnAddButtonClick()
+- void setListViews()
++ void onDeleteButtonClick()
++ void OnAddOrderButtonClick()
+- void updateSubtotal(String,Donut)
++ void setMainController(CafeViewController)
+}
+
+
+class Donut {
+- DonutType type
+- DonutFlavor flavor
+- int quantity
++ <<Create>> Donut()
++ <<Create>> Donut(DonutType,DonutFlavor)
++ DonutType getType()
++ int getQuantity()
++ String name()
++ String addOnString()
++ double price()
++ void setType(DonutType)
++ void setFlavor(DonutFlavor)
++ void setQuantity(int)
++ int compareTo(MenuItem)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+class CafeViewController {
++ CafeMain main
+- Stage primaryStage
++ void setPrimaryStage(Stage,CafeMain)
++ LinkedHashMap<Integer,Order> getOrderHistory()
++ Order getOrder()
++ HashMap<MenuItem,Integer> getCart()
++ int getItemCount(MenuItem)
++ boolean addItemToOrder(MenuItem,int)
++ boolean removeItemFromOrder(MenuItem,int)
++ void placeOrder()
++ void newOrder()
+# void onCoffeeButtonClick()
+# void onDonutButtonClick()
+# void onSandwichButtonClick()
+# void onCurrentOrderButtonClick()
+# void onOrderHistoryClick()
+}
+
+javafx.application.Application <|-- CafeMain
+
+CafeMain - Order
+
+Order -- MenuItem
+MenuItem <|-- Coffee
+MenuItem <|-- Sandwich
+MenuItem <|-- Donut
+
+CafeMain -- CafeViewController
+
+CafeViewController --- CoffeeViewController
+CafeViewController --- DonutViewController
+CafeViewController --- SandwichViewController
+CafeViewController -- CartViewController
+CafeViewController -- HistoryViewController
+
+Coffee -- CoffeeSize
+Coffee -- CoffeeAddOn
+
+Donut -- DonutType
+Donut -- DonutFlavor
+
+Sandwich -- SandwichBread
+Sandwich -- SandwichProtein
+Sandwich -- SandwichAddOn
+
+Order ---- HistoryViewController
+Order ---- CartViewController
+
+
+CoffeeViewController -- Coffee
+DonutViewController -- Donut
+SandwichViewController -- Sandwich
+
+
+@enduml
+
