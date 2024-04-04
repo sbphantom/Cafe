@@ -278,7 +278,7 @@ public class CartViewController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Confirm Order");
-        alert.setContentText("Confirm your order of : $" + order.getTotal() + "?");
+        alert.setContentText("Confirm your order with a total of: " + totalText.getText() + "?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
