@@ -1,9 +1,14 @@
 package eat.neilson.Cafe;
+/**
+ * This class serves as the main controller for the donut ordering window.
+ * Orders from this window are sent back to the main cart.
+ *
+ * @author Adeola Asimolowo
+ */
 
-
-import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,12 +20,6 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-/**
- * This class serves as the main controller for the donut ordering window.
- * Orders from this window are sent back to the main cart.
- *
- * @author Adeola Asimolowo
- */
 public class DonutViewController {
 
     public ImageView donutImage;
@@ -51,6 +50,11 @@ public class DonutViewController {
 
     @FXML
     public void initialize() {
+        Image img  = new Image(Objects.requireNonNull(getClass().getResourceAsStream("addToCart2.png")));
+        ImageView imgView = new ImageView(img);
+        imgView.setFitWidth(90);
+        imgView.setFitHeight(50);
+        addOrder.setGraphic(imgView);
         donutSubtotalTextField.setText("$0.00");
         OnAddButtonClick();
         onDeleteButtonClick();
@@ -86,7 +90,6 @@ public class DonutViewController {
             }
             row++;
         }
-        //donutGridPane.add(flavorListView, 1, 1);
         flavorListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         populateFlavors((DonutType) donutTypeToggleGroup.getSelectedToggle().getUserData());
 
@@ -95,24 +98,34 @@ public class DonutViewController {
 
                 DonutType selectedType = (DonutType) newValue.getUserData();
                 populateFlavors(selectedType);
-                String imagePath = "";
-                switch (selectedType) {
-                    case DonutType.YEAST:
-                        imagePath = "yeast.jpg";
-                        break;
-                    case DonutType.HOLE:
-                        imagePath = "holes.jpg";
-                        break;
-                    case DonutType.CAKE:
-                        imagePath = "cake.jpg";
-                        break;
-                    default:
-                        break;
-                }
+                String imagePath = changeImage(selectedType);
                 Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
                 donutImage.setImage(image);
             }
         });
+    }
+
+    /**
+     * Sets new imagePath for the currentlky selcted donutType by user
+     * @param selectedType Donut Type
+     * @return new image path
+     */
+    public String changeImage(DonutType selectedType) {
+        String imagePath = "";
+        switch (selectedType) {
+            case DonutType.YEAST:
+                imagePath = "yeast.jpg";
+                break;
+            case DonutType.HOLE:
+                imagePath = "holes.jpg";
+                break;
+            case DonutType.CAKE:
+                imagePath = "cake.jpg";
+                break;
+            default:
+                break;
+        }
+        return imagePath;
     }
 
     /**
@@ -181,6 +194,7 @@ public class DonutViewController {
 
     /**
      * Sends the order of donuts to the main cart.
+     *
      */
     //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
     public void OnAddOrderButtonClick() {
@@ -200,7 +214,7 @@ public class DonutViewController {
      * Subtracts if we are removing a donut from the preOrder Listview.
      *
      * @param operation add or subtract from current subtotal
-     * @param donut     pass the donut currently being selected.
+     * @param donut pass the donut currently being selected.
      */
     private void updateSubtotal(String operation, Donut donut) {
 
@@ -209,10 +223,10 @@ public class DonutViewController {
 
         switch (operation) {
             case "add":
-                subtotal += donut.price(); //* donut.getQuantity();
+                subtotal += donut.price() * donut.getQuantity();
                 break;
             case "sub":
-                subtotal -= donut.price(); //* donut.getQuantity();
+                subtotal -= donut.price() * donut.getQuantity();
                 break;
             default:
                 break;
@@ -225,6 +239,7 @@ public class DonutViewController {
 
     /**
      * Sets DonutViewController as the main screen
+     *
      */
     public void setMainController(CafeViewController controller) {
         app = controller;
