@@ -1,7 +1,6 @@
 package eat.neilson.Cafe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Enum class of Donut Types.
@@ -30,8 +29,13 @@ public enum DonutType {
         return this.name().charAt(0) + this.name().substring(1).toLowerCase();
     }
 
-    public List<DonutFlavor> getFlavors() {
-        List<DonutFlavor> flavors = new ArrayList<>();
+    /**
+     * Return arraylist of flavors associated with the donut type
+     *
+     * @return flavor arraylist
+     */
+    public ArrayList<DonutFlavor> getFlavors() {
+        ArrayList<DonutFlavor> flavors = new ArrayList<>();
         for (DonutFlavor flavor : DonutFlavor.values()) {
             if (flavor.getType() == this) {
                 flavors.add(flavor);
