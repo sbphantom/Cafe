@@ -1,24 +1,20 @@
 package eat.neilson.Cafe;
 
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.*;
-import java.util.concurrent.Callable;
 
+/**
+ * History Controller class for viewing the transaction history
+ *
+ * @author Danny Onuorah
+ */
 public class HistoryViewController {
 
     public Label subtotalText;

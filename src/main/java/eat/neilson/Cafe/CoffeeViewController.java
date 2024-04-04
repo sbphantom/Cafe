@@ -1,14 +1,9 @@
 package eat.neilson.Cafe;
 
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -58,11 +53,12 @@ public class CoffeeViewController {
     }
 
 
-    private void updateSubtotal(){
+    private void updateSubtotal() {
         double subtotal = coffee.price() * coffeeQuantitySpinner.getValue();
         String formattedSubtotal = String.format("%.2f", subtotal);
         coffeeSubtotalTextField.setText("$" + formattedSubtotal);
     }
+
     private void addCoffeeSizeButtons() {
         int row = 1;
         for (CoffeeSize size : CoffeeSize.values()) {
@@ -140,7 +136,7 @@ public class CoffeeViewController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Add to Order");
-        alert.setContentText("Add " + coffeeQuantitySpinner.getValue()+ " coffee to order?");
+        alert.setContentText("Add " + coffeeQuantitySpinner.getValue() + " coffee to order?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -150,7 +146,7 @@ public class CoffeeViewController {
 
             coffeeQuantitySpinner.getValueFactory().setValue(1);
             coffeeSizeToggleGroup.selectToggle(coffeeSizeToggleGroup.getToggles().getFirst());
-            for (CheckBox box : coffeeAddOnOptions){
+            for (CheckBox box : coffeeAddOnOptions) {
                 box.setSelected(false);
             }
 

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -73,7 +72,7 @@ public class CafeViewController {
     /**
      * Adds the item and quantity to the current order
      *
-     * @param item to add
+     * @param item     to add
      * @param quantity to add
      * @return true if added successfully
      */
@@ -84,7 +83,7 @@ public class CafeViewController {
     /**
      * Removes the item and quantity from the current order
      *
-     * @param item to remove
+     * @param item     to remove
      * @param quantity to remove
      * @return true if removed successfully
      */
@@ -106,7 +105,6 @@ public class CafeViewController {
         main.currentOrder = main.createOrder();
 
     }
-
 
     /**
      * Launches coffee ordering menu

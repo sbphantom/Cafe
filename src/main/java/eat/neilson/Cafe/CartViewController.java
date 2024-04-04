@@ -1,16 +1,15 @@
 package eat.neilson.Cafe;
 
+import javafx.fxml.FXML;
+import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import java.util.Map;
 import java.util.Optional;
@@ -263,7 +262,7 @@ public class CartViewController {
      * Links the parent controller to child
      *
      * @param controller Parent CafeViewController
-     * @param stage Cafe view stage
+     * @param stage      Cafe view stage
      */
     public void setMainController(CafeViewController controller, Stage stage) {
         app = controller;
