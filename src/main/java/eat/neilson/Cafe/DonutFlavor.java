@@ -3,7 +3,7 @@ package eat.neilson.Cafe;
 /**
  * Enum class of Donut Flavors.
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public enum DonutFlavor {
     MAPLE(DonutType.YEAST),

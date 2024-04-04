@@ -3,7 +3,7 @@ package eat.neilson.Cafe;
 /**
  * Enum class for the available sandwich addOn options.
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public enum SandwichAddOn {
     LETTUCE(0.30),

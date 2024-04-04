@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Subclass of MenuItem for Sandwiches
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public class Sandwich extends MenuItem {
     private double price = 0;

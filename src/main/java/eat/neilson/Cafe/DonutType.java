@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Enum class of Donut Types.
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public enum DonutType {
 

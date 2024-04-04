@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Subclass of MenuItem for Donuts
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public class Donut extends MenuItem {
     private DonutType type;

@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Subclass of MenuItem for Coffee
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public class Coffee extends MenuItem {
     private CoffeeSize size;

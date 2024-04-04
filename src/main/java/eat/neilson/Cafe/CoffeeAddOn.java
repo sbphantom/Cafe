@@ -3,7 +3,7 @@ package eat.neilson.Cafe;
 /**
  * Enum class of Coffee AddOns.
  *
- * @author Danny Onurah
+ * @author Danny Onuorah
  */
 public enum CoffeeAddOn {
     SWEET_CREAM,
