@@ -1,15 +1,9 @@
 package eat.neilson.Cafe;
-/**
- *This class serves as the main controller for the donut ordering window.
- * Orders from this window are sent back to the main cart.
- * @author Adeola Asimolowo
- */
 
+
+import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,18 +13,23 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class serves as the main controller for the donut ordering window.
+ * Orders from this window are sent back to the main cart.
+ *
+ * @author Adeola Asimolowo
+ */
 public class DonutViewController {
 
     public ImageView donutImage;
     private Donut donut = new Donut();
     public Button addOrder;
-   @FXML
+    @FXML
     public Button addButtonPreOrder;
-   @FXML
-   public Button deleteButtonPreOrder;
+    @FXML
+    public Button deleteButtonPreOrder;
     @FXML
     public TextField donutSubtotalTextField;
     @FXML
@@ -182,13 +181,12 @@ public class DonutViewController {
 
     /**
      * Sends the order of donuts to the main cart.
-     *
      */
     //Iterate through preOrder arrays and send to main cart, after clear the preOrder list
     public void OnAddOrderButtonClick() {
-        for(Donut donut: preOrdersList){
+        for (Donut donut : preOrdersList) {
             app.addItemToOrder(donut, donut.getQuantity());
-            updateSubtotal("sub",donut);
+            updateSubtotal("sub", donut);
         }
 
         preOrdersList.clear();
@@ -202,7 +200,7 @@ public class DonutViewController {
      * Subtracts if we are removing a donut from the preOrder Listview.
      *
      * @param operation add or subtract from current subtotal
-     * @param donut pass the donut currently being selected.
+     * @param donut     pass the donut currently being selected.
      */
     private void updateSubtotal(String operation, Donut donut) {
 
@@ -227,7 +225,6 @@ public class DonutViewController {
 
     /**
      * Sets DonutViewController as the main screen
-     *
      */
     public void setMainController(CafeViewController controller) {
         app = controller;
