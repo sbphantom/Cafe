@@ -8,26 +8,57 @@ import java.util.Objects;
  * @author Danny Onurah
  */
 public class Donut extends MenuItem {
-
     private DonutType type;
     private DonutFlavor flavor;
-
     private int quantity;
 
+    /**
+     * Default donut constructor
+     */
     public Donut() {
     }
 
+    /**
+     * Donut constructor with type and flavor
+     */
     public Donut(DonutType type, DonutFlavor flavor) {
         this.type = type;
         this.flavor = flavor;
     }
 
+    /**
+     * Get donut type
+     *
+     * @return donut type
+     */
+    public DonutType getType() {
+        return this.type;
+    }
 
+    /**
+     * Get donut quantity.
+     *
+     * @return donut quantity
+     */
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    /**
+     * Returns the item name
+     *
+     * @return item name
+     */
     @Override
     public String name() {
         return flavor + " " + type + " Donut";
     }
 
+    /**
+     * Returns empty addOn string
+     *
+     * @return empty string
+     */
     @Override
     public String addOnString() {
         return "";
@@ -41,6 +72,52 @@ public class Donut extends MenuItem {
     @Override
     public double price() {
         return type.price * this.quantity;
+    }
+
+    /**
+     * Setter method for donut Type.
+     *
+     * @param type new DonutType to set.
+     */
+    public void setType(DonutType type) {
+        this.type = type;
+    }
+
+    /**
+     * Setter method for donut Flavor.
+     *
+     * @param flavor new flavor to set.
+     */
+    public void setFlavor(DonutFlavor flavor) {
+        this.flavor = flavor;
+    }
+
+    /**
+     * Setter method for donut Quantity.
+     *
+     * @param quantity new quantity to set.
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * Compares two Donut by type then flavor
+     *
+     * @param item to compare against
+     * @return > 0 if source is less
+     * = 0 if source is equal
+     * < 0 if source is greater
+     */
+    @Override
+    public int compareTo(MenuItem item) {
+        if (item instanceof Donut donut) {
+            if (this.type.compareTo(donut.type) != 0) {
+                return this.type.compareTo(donut.type);
+            } else {
+                return (this.flavor.compareTo(donut.flavor));
+            }
+        } else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
     }
 
     /**
@@ -76,62 +153,4 @@ public class Donut extends MenuItem {
     public String toString() {
         return flavor + " " + type + " (" + quantity + ")";
     }
-
-    /**
-     * Setter method for donut Type.
-     *
-     * @param type new DonutType to set.
-     */
-    public void setType(DonutType type) {
-        this.type = type;
-    }
-
-    /**
-     * Setter method for donut Flavor.
-     *
-     * @param flavor new flavor to set.
-     */
-    public void setFlavor(DonutFlavor flavor) {
-        this.flavor = flavor;
-    }
-
-    /**
-     * Setter method for donut Quantity.
-     *
-     * @param quantity new quantity to set.
-     */
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    /**
-     * Getter method for donut Quantity.
-     *
-     * @return donut quantity
-     */
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    /**
-     * Getter method for DonutType.
-     *
-     * @return DonutType
-     */
-    public DonutType getType() {
-        return this.type;
-    }
-
-    @Override
-    public int compareTo(MenuItem item) {
-        if (item instanceof Donut donut) {
-            if (this.type.compareTo(donut.type) != 0) {
-                return this.type.compareTo(donut.type);
-            } else {
-                return (this.flavor.compareTo(donut.flavor));
-            }
-        } else return this.getClass().getSimpleName().compareTo(item.getClass().getSimpleName());
-    }
-
-
 }
