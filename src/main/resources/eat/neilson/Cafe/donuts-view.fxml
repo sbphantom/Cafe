@@ -25,10 +25,13 @@
                     <children>
                         <ImageView fx:id="donutImage" fitHeight="164.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@yeast.jpg" />
+                                <Image url="@img/yeast.jpg" />
                             </image>
                         </ImageView>
                     </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
                 </HBox>
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Order a Donut! ">
                     <font>
@@ -38,35 +41,35 @@
                         <Insets bottom="5.0" top="10.0" />
                     </padding>
                 </Label>
-                <GridPane fx:id="donutGridPane" alignment="CENTER" hgap="2.0" prefHeight="294.0" prefWidth="600.0" vgap="8.0">
+                <GridPane fx:id="donutGridPane" alignment="CENTER" hgap="10.0" prefHeight="294.0" prefWidth="600.0" vgap="8.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="250.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="75.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="100.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ListView fx:id="flavorListView" prefHeight="99.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                        <Label text="Select Flavor: " GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Select Type: " textAlignment="CENTER" GridPane.halignment="LEFT" />
-                        <Label text="Quantity:" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
-                        <ComboBox fx:id="donutQuantity" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                        <Button fx:id="deleteButtonPreOrder" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="110.0" prefWidth="51.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                        <ListView fx:id="flavorListView" prefHeight="100.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                        <Label text="Select Flavor: " GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Select Type: " textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Label text="Quantity:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ComboBox fx:id="donutQuantity" prefWidth="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                        <Button fx:id="deleteButtonPreOrder" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="30.0" prefWidth="60.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets top="10.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button fx:id="addButtonPreOrder" onAction="#OnAddButtonClick" prefHeight="152.0" prefWidth="42.0" text="Add " GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <Button fx:id="addButtonPreOrder" onAction="#OnAddButtonClick" prefHeight="30.0" prefWidth="60.0" text="Add " GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                             <GridPane.margin>
                                 <Insets top="10.0" />
                             </GridPane.margin>
                         </Button>
-                        <ListView fx:id="preOrders" prefHeight="61.0" prefWidth="177.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <GridPane fx:id="DonutTypesGridPane" maxHeight="-Infinity" prefHeight="61.0" prefWidth="107.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <ListView fx:id="preOrders" prefHeight="75.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <GridPane fx:id="DonutTypesGridPane" maxHeight="-Infinity" prefHeight="61.0" prefWidth="107.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
