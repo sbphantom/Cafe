@@ -23,7 +23,7 @@
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
                  <ImageView fx:id="coffeeImage" fitHeight="160.0" pickOnBounds="true" preserveRatio="true">
-                     <Image url="@coffee-cup.jpg" />
+                     <Image url="@img/coffee-cup.jpg" />
                   <HBox.margin>
                      <Insets top="10.0" />
                   </HBox.margin>
