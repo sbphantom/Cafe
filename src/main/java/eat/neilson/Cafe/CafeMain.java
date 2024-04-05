@@ -64,6 +64,13 @@ public class CafeMain extends Application {
     }
 
     /**
+     * Remove a previously placed order
+     */
+    public void removeOrder(int orderNumber) {
+        orderHistory.remove(orderNumber);
+    }
+
+    /**
      * Add item and quantity to the current order cart
      *
      * @return true is successfully added
@@ -89,27 +96,15 @@ public class CafeMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CafeMain.class.getResource("cafe-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 540, 320);
         CafeViewController cafeController = fxmlLoader.getController();
         cafeController.setPrimaryStage(stage, this);
         stage.setTitle("Neilson Cafe");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
         createOrder();
-
-        for (int i = 0 ;i < 50; i++){
-            createOrder();
-
-            Random rand = new Random();
-            CoffeeSize size = CoffeeSize.values()[rand.nextInt(CoffeeSize.values().length)];
-            ArrayList<CoffeeAddOn> addOns = new ArrayList<>();
-            addOns.add(CoffeeAddOn.values()[rand.nextInt(CoffeeAddOn.values().length)]);
-            Coffee a = new Coffee(size, addOns);
-            addItem(a, rand.nextInt(10));
-            addOrder();
-
-        }
     }
 
     /**
