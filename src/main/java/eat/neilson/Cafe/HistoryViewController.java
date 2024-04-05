@@ -1,5 +1,7 @@
 package eat.neilson.Cafe;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -42,6 +44,10 @@ public class HistoryViewController {
     @FXML
     public Button viewNextButton;
     @FXML
+    public Button cancelOrderButton;
+    @FXML
+    public Button exportButton;
+    @FXML
     private TableView<Map.Entry<MenuItem, Integer>> menuItemTable;
 
     private Stage stage;
@@ -63,7 +69,6 @@ public class HistoryViewController {
         order = history.get(id);
         cart = FXCollections.observableMap(order.getCart());
 
-        System.out.println(order.getCart());
         orderNumberSelector.setText(keys.indexOf(id) + 1 + ")  #" + id.toString());
         initializeTable();
 
@@ -202,6 +207,15 @@ public class HistoryViewController {
         pageCountTextField.setText(String.valueOf(history.size()));
         orderNumberSelector.getItems().clear();
 
+        BooleanBinding disableButtons = Bindings.createBooleanBinding(() ->
+                        history.isEmpty(),
+                history);
+
+        cancelOrderButton.disableProperty().bind(disableButtons);
+        exportButton.disableProperty().bind(disableButtons);
+        viewFirstButton.disableProperty().bind(disableButtons);
+        viewLastButton.disableProperty().bind(disableButtons);
+
         int i = 1;
         for (Integer id : history.keySet()) {
             javafx.scene.control.MenuItem menuItem = new javafx.scene.control.MenuItem(i + ")  #" + id.toString());
@@ -210,7 +224,14 @@ public class HistoryViewController {
             orderNumberSelector.getItems().add(menuItem);
             i++;
         }
-        onFirstButtonClick();
+        if (history.isEmpty()) {
+            viewNextButton.setDisable(true);
+            viewPreviousButton.setDisable(true);
+            orderNumberSelector.setText("Select");
+            currentPageTextField.setText(" ");
+
+        } else
+            onFirstButtonClick();
     }
 
     /**
@@ -262,7 +283,6 @@ public class HistoryViewController {
         handleOrderNumberSelection(keys.getFirst());
     }
 
-
     /**
      * View last order
      */
@@ -270,6 +290,34 @@ public class HistoryViewController {
         orderNumberSelector.setUserData(keys.getLast());
         handleOrderNumberSelection(keys.getLast());
 
+    }
+
+    /**
+     * Cancel selected order
+     */
+    public void onCancelOrderButtonClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Order");
+        alert.setContentText("Are you sure you want to delete Order Number #" + order.getOrderNumber() + "?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            history.remove(order.getOrderNumber());
+            keys.remove(order.getOrderNumber());
+            menuItemTable.setItems(FXCollections.observableArrayList());
+            subtotalText.setText("");
+            taxText.setText("");
+            totalText.setText("");
+
+            initializeElements();
+
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Order Removed");
+            alert.setContentText("Order has been deleted.");
+            alert.showAndWait();
+        }
     }
 
     /**
