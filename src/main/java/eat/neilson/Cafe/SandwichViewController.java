@@ -172,10 +172,10 @@ public class SandwichViewController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Add to Order");
-        if (sandwich.addOnCount() > 0) {
-            alert.setContentText("Add " + sandwich.toString() + " sandwich to order?");
+        if (sandwich.addOnCount() == 0) {
+            alert.setContentText("Add " + sandwich.name() + " to order?");
         } else {
-            alert.setContentText("Add " + sandwich.getProtein() + " " + sandwich.getBread() + " sandwich.");
+            alert.setContentText("Add " + sandwich.name() + " with " + sandwich.addOnString() + " to order?");
         }
 
         Optional<ButtonType> result = alert.showAndWait();
