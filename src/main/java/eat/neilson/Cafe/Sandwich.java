@@ -194,6 +194,6 @@ public class Sandwich extends MenuItem {
      */
     @Override
     public String toString() {
-        return protein + " " + bread + " sandwich with (" + addOns + ")";
+        return protein + " " + bread + " sandwich with (" + addOnString() + ")";
     }
 }

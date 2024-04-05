@@ -131,7 +131,7 @@ public class Coffee extends MenuItem {
      */
     @Override
     public String toString() {
-        return size + " Coffee with (" + addOns + ")";
+        return size + " Coffee with (" + addOnString() + ")";
     }
 
 }
