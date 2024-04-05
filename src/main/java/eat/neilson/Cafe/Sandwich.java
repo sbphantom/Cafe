@@ -74,7 +74,7 @@ public class Sandwich extends MenuItem {
      */
     @Override
     public String addOnString() {
-        return addOns.toString().strip();
+        return addOns.toString().substring(1, addOns.toString().length() - 1);
     }
 
     /**
