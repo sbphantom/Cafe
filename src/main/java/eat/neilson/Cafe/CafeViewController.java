@@ -4,12 +4,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 /**
  * Main Controller of the ordering software main menu
@@ -17,7 +21,16 @@ import java.util.LinkedHashMap;
  * @author Danny Onuorah
  */
 public class CafeViewController {
-
+    @FXML
+    public Button coffeeButton;
+    @FXML
+    public Button donutButton;
+    @FXML
+    public Button sandwichButton;
+    @FXML
+    public Button cartButton;
+    @FXML
+    public Button historyButton;
     private CafeMain main;
     private Stage primaryStage;
 
@@ -103,9 +116,53 @@ public class CafeViewController {
      */
     public void newOrder() {
         main.createOrder();
-
     }
 
+    /**
+     * Remove a previously placed order
+     */
+    public void removeOrder(int orderNumber) {
+        main.removeOrder(orderNumber);
+    }
+
+    /**
+     * Initialize button ImageViews
+     */
+    @FXML
+    protected void initialize(){
+        Image coffeeImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/coffee_icon.jpg")));
+        ImageView coffeeImageView = new ImageView(coffeeImage);
+        coffeeImageView.setFitWidth(50);
+        coffeeImageView.setFitHeight(50);
+        coffeeButton.setGraphic(coffeeImageView);
+
+        Image donutImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/donut_icon.jpg")));
+        ImageView donutImageView = new ImageView(donutImage);
+        donutImageView.setFitWidth(50);
+        donutImageView.setFitHeight(50);
+        donutButton.setGraphic(donutImageView);
+
+        Image sandwichImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/sandwich_icon.jpg")));
+        ImageView sandwichImageView = new ImageView(sandwichImage);
+        sandwichImageView.setFitWidth(50);
+        sandwichImageView.setFitHeight(50);
+        sandwichButton.setGraphic(sandwichImageView);
+
+        Image cartImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/cart_icon.jpg")));
+        ImageView cartImageView = new ImageView(cartImage);
+        cartImageView.setFitWidth(50);
+        cartImageView.setFitHeight(50);
+        cartButton.setGraphic(cartImageView);
+
+        Image historyImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/history_icon.jpg")));
+        ImageView historyImageView = new ImageView(historyImage);
+        historyImageView.setFitWidth(50);
+        historyImageView.setFitHeight(50);
+        historyButton.setGraphic(historyImageView);
+
+
+    }
+    
     /**
      * Launches coffee ordering menu
      */
@@ -232,7 +289,7 @@ public class CafeViewController {
      * Launches order history menu
      */
     @FXML
-    protected void onOrderHistoryClick() {
+    protected void onOrderHistoryButtonClick() {
         try {
             Stage historyStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("history-view.fxml"));
