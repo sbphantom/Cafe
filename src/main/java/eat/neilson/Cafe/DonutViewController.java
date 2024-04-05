@@ -51,7 +51,7 @@ public class DonutViewController {
 
     @FXML
     public void initialize() {
-        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("addToCart2.png")));
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/addToCart2.png")));
         ImageView imgView = new ImageView(img);
         imgView.setFitWidth(90);
         imgView.setFitHeight(50);
@@ -107,7 +107,7 @@ public class DonutViewController {
     }
 
     /**
-     * Sets new imagePath for the currentlky selcted donutType by user
+     * Sets new imagePath for the currently selected donutType by user
      *
      * @param selectedType Donut Type
      * @return new image path
@@ -116,13 +116,13 @@ public class DonutViewController {
         String imagePath = "";
         switch (selectedType) {
             case DonutType.YEAST:
-                imagePath = "yeast.jpg";
+                imagePath = "img/yeast.jpg";
                 break;
             case DonutType.HOLE:
-                imagePath = "holes.jpg";
+                imagePath = "img/holes.jpg";
                 break;
             case DonutType.CAKE:
-                imagePath = "cake.jpg";
+                imagePath = "img/cake.jpg";
                 break;
             default:
                 break;
@@ -174,7 +174,7 @@ public class DonutViewController {
     }
 
     /**
-     * Initializes  all the listview to their cooresponding ObservableList
+     * Initializes all the listview to their corresponding ObservableList
      */
     private void setListViews() {
         preOrders.setItems(preOrdersList);
